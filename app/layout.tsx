@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { MotionObserver } from "@/components/motion-observer";
 import { OrganicGrowth } from "@/components/organic-growth";
+import { ConsentManager } from "@/components/privacy/consent-manager";
 import { business } from "@/lib/data/business";
 
 const editorial = Cormorant_Garamond({
@@ -129,6 +130,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <MotionObserver />
         <OrganicGrowth />
         {children}
+        <ConsentManager />
       </body>
     </html>
   );
