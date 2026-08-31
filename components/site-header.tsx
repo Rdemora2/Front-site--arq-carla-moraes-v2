@@ -1,0 +1,93 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Brand } from "@/components/brand";
+import { CloseIcon, MenuIcon } from "@/components/icons";
+import { contactLinks, navigation } from "@/lib/data/business";
+
+export function SiteHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  return (
+    <header className="absolute inset-x-0 top-0 z-50 text-canvas">
+      <div className="page-frame flex h-24 items-center justify-between sm:h-28">
+        <Brand inverse />
+
+        <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex xl:gap-9">
+          {navigation.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="relative flex min-h-11 items-center text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-canvas/80 transition-colors after:absolute after:bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-gold-soft after:transition-all hover:text-canvas hover:after:w-full"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link
+            href={contactLinks.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-12 items-center rounded-full border border-canvas/45 px-6 text-[0.65rem] font-semibold uppercase tracking-[0.16em] transition-colors hover:border-canvas hover:bg-canvas hover:text-forest-deep"
+          >
+            Iniciar um projeto
+          </Link>
+        </nav>
+
+        <button
+          type="button"
+          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={isOpen}
+          aria-controls="menu-mobile"
+          onClick={() => setIsOpen((current) => !current)}
+          className="relative z-50 inline-flex h-12 w-12 items-center justify-center rounded-full border border-canvas/35 text-canvas lg:hidden"
+        >
+          {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+        </button>
+      </div>
+
+      <div
+        id="menu-mobile"
+        aria-hidden={!isOpen}
+        className={`fixed inset-0 z-40 flex bg-forest-deep px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-32 transition-[opacity,visibility] duration-500 ease-organic lg:hidden ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+      >
+        <nav aria-label="Navegação mobile" className="flex w-full flex-col justify-between">
+          <div className="divide-y divide-canvas/15 border-y border-canvas/15">
+            {navigation.map((item, index) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="flex min-h-16 items-center justify-between py-3 font-editorial text-3xl text-canvas"
+              >
+                {item.label}
+                <span className="font-sans text-[0.6rem] uppercase tracking-[0.2em] text-sage">0{index + 1}</span>
+              </Link>
+            ))}
+          </div>
+          <Link
+            href={contactLinks.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-canvas px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-forest-deep"
+          >
+            Conversar pelo WhatsApp
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
