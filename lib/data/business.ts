@@ -20,9 +20,14 @@
  * arq.carlamoraes@gmail.com, Instagram @arqcamoraes e LinkedIn da Carla.
  * OLD não contém endereço físico completo confiável.
  *
+ * Informação complementar confirmada pelo responsável em 31/08/2026: mais de
+ * 350 projetos realizados, satisfação garantida, reconhecimento como referência
+ * no mercado e atuação com grandes bandeiras hoteleiras nacionais e
+ * internacionais. O selo Safe Browsing de OLD foi mantido a pedido do cliente.
+ *
  * Inconsistências que não viraram alegações públicas: 310+ versus 500+ projetos,
  * 120 mil m², 98% de satisfação, nota 4,9/127 avaliações, CEP/coordenadas
- * genéricos, e-mail divergente no JSON-LD e selo Safe Browsing sem validação.
+ * genéricos e e-mail divergente no JSON-LD.
  * O único depoimento foi preservado abaixo como legado não verificado e não é
  * renderizado como prova social até que sua autenticidade seja confirmada.
  */
@@ -97,6 +102,12 @@ export interface Testimonial {
   readonly migrationNote: string;
 }
 
+export interface TrustSignal {
+  readonly value: string;
+  readonly label: string;
+  readonly detail: string;
+}
+
 export const business = {
   name: "Carla Moraes Arquitetura Floral",
   legacyName: "Carla Moraes Arquitetura Paisagística",
@@ -147,7 +158,27 @@ export const institutionalCopy = {
   portfolioTitle: "Paisagens que permanecem.",
   portfolioDescription:
     "Projetos residenciais e corporativos que combinam visão artística, conhecimento técnico e uma leitura cuidadosa de cada espaço.",
+  marketStatement:
+    "Referência no mercado, com atuação para grandes bandeiras nacionais e internacionais de hotelaria e mais de 350 projetos realizados.",
 } as const;
+
+export const trustSignals = [
+  {
+    value: "1996",
+    label: "Início da trajetória",
+    detail: "Experiência construída projeto a projeto.",
+  },
+  {
+    value: "350+",
+    label: "Projetos realizados",
+    detail: "Entre jardins residenciais e espaços corporativos.",
+  },
+  {
+    value: "Sempre",
+    label: "Satisfação garantida",
+    detail: "Compromisso com cada escolha e cada entrega.",
+  },
+] as const satisfies readonly TrustSignal[];
 
 export const services = [
   {
