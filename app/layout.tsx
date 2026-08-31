@@ -29,6 +29,35 @@ export async function generateMetadata(): Promise<Metadata> {
     description: business.description,
     applicationName: business.name,
     category: "Paisagismo",
+    authors: [{ name: business.legalShortName, url: business.website }],
+    creator: business.legalShortName,
+    publisher: business.name,
+    keywords: [
+      "paisagismo em São Paulo",
+      "projeto paisagístico",
+      "paisagismo residencial",
+      "paisagismo corporativo",
+      "jardins",
+      "consultoria paisagística",
+      "Carla Moraes",
+    ],
+    manifest: "/manifest.webmanifest",
+    formatDetection: { telephone: false, email: false, address: false },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    other: {
+      "geo.region": "BR-SP",
+      "geo.placename": "São Paulo",
+    },
     alternates: { canonical: "/" },
     openGraph: {
       type: "website",
@@ -67,7 +96,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#1C2A20",
+  colorScheme: "light",
+  themeColor: "#F7F4EE",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
