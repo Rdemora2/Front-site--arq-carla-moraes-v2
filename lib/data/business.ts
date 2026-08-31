@@ -116,7 +116,7 @@ export const business = {
   location: "São Paulo, SP",
   website: "https://arqcarlamoraes.com.br",
   description:
-    "Desde 1996, criando projetos paisagísticos exclusivos que harmonizam arquitetura e natureza. Do conceito à execução, beleza e propósito para cada ambiente.",
+    "Desde 1996, criando projetos paisagísticos exclusivos que harmonizam arquitetura e natureza, do conceito ao acompanhamento da implantação.",
   email: "arq.carlamoraes@gmail.com",
   phoneDisplay: "(11) 99985-4345",
   phoneE164: "5511999854345",
@@ -147,7 +147,7 @@ export const institutionalCopy = {
   heroEyebrow: "Paisagismo · São Paulo",
   heroTitle: "Transformamos espaços em experiências naturais.",
   heroDescription:
-    "Há mais de 25 anos criando projetos paisagísticos exclusivos que harmonizam arquitetura e natureza. Do conceito à execução, trazemos beleza e propósito para cada ambiente.",
+    "Desde 1996, criando projetos paisagísticos exclusivos que harmonizam arquitetura e natureza. Do conceito ao acompanhamento da implantação, beleza e propósito para cada ambiente.",
   aboutEyebrow: "Carla Moraes · Desde 1996",
   aboutTitle: "Jardins únicos, desenhados para combinar com você.",
   aboutParagraphs: [
@@ -174,8 +174,8 @@ export const trustSignals = [
     detail: "Entre jardins residenciais e espaços corporativos.",
   },
   {
-    value: "Sempre",
-    label: "Satisfação garantida",
+    value: "Garantia",
+    label: "de satisfação",
     detail: "Compromisso com cada escolha e cada entrega.",
   },
 ] as const satisfies readonly TrustSignal[];
