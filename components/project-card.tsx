@@ -8,6 +8,7 @@ interface ProjectCardProps {
   readonly className?: string;
   readonly imageClassName?: string;
   readonly imageSizes?: string;
+  readonly compact?: boolean;
 }
 
 export function ProjectCard({
@@ -15,6 +16,7 @@ export function ProjectCard({
   className = "",
   imageClassName = "aspect-[4/5]",
   imageSizes = "(min-width: 1024px) 48vw, 100vw",
+  compact = false,
 }: ProjectCardProps) {
   return (
     <article className={`group ${className}`}>
@@ -33,16 +35,16 @@ export function ProjectCard({
             <ArrowUpRightIcon className="h-5 w-5" />
           </span>
         </div>
-        <div className="flex items-start justify-between gap-5 border-b border-line py-5 sm:py-6">
+        <div className={`${compact ? "flex flex-col gap-2 py-4 sm:flex-row sm:gap-4 sm:py-5" : "flex gap-5 py-5 sm:py-6"} items-start justify-between border-b border-line`}>
           <div>
             <p className="text-[0.61rem] font-semibold uppercase tracking-[0.17em] text-moss">
               {getCategoryLabel(project.category)} · {project.location}
             </p>
-            <h3 className="mt-2 font-editorial text-[1.8rem] font-medium leading-none tracking-[-0.025em] text-forest-deep sm:text-4xl">
+            <h3 className={`mt-2 font-editorial font-medium leading-none tracking-[-0.025em] text-forest-deep ${compact ? "text-xl sm:text-3xl lg:text-4xl" : "text-[1.8rem] sm:text-4xl"}`}>
               {project.title}
             </h3>
           </div>
-          <span className="pt-1 text-xs font-medium text-ink-muted">{project.year}</span>
+          <span className={`${compact ? "pt-0 sm:pt-1" : "pt-1"} text-xs font-medium text-ink-muted`}>{project.year}</span>
         </div>
       </Link>
     </article>

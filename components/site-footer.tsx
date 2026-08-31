@@ -56,7 +56,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="page-frame flex flex-col gap-2 py-7 text-[0.62rem] uppercase tracking-[0.14em] text-canvas/45 sm:flex-row sm:items-center sm:justify-between">
+      <div className="page-frame flex flex-col gap-2 py-7 text-[0.62rem] uppercase tracking-[0.14em] text-canvas/60 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} {business.name}</p>
         <p>Paisagismo · Jardins · São Paulo</p>
       </div>

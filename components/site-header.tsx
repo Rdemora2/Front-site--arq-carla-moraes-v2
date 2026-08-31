@@ -7,11 +7,16 @@ import { Brand } from "@/components/brand";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { contactLinks, navigation } from "@/lib/data/business";
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  readonly tone?: "light" | "dark";
+}
+
+export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const useDarkInk = tone === "dark" && !isOpen;
 
   useEffect(() => {
     setIsOpen(false);
@@ -19,6 +24,14 @@ export function SiteHeader() {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+    const backgroundElements = document.querySelectorAll<HTMLElement>(
+      "main, footer, [data-floating-contact]",
+    );
+    backgroundElements.forEach((element) => {
+      element.inert = isOpen;
+      if (isOpen) element.setAttribute("aria-hidden", "true");
+      else element.removeAttribute("aria-hidden");
+    });
 
     if (!isOpen) return;
 
@@ -52,14 +65,18 @@ export function SiteHeader() {
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKeyDown);
+      backgroundElements.forEach((element) => {
+        element.inert = false;
+        element.removeAttribute("aria-hidden");
+      });
     };
   }, [isOpen]);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50 text-canvas">
+    <header className={`absolute inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] ${useDarkInk ? "text-forest-deep" : "text-canvas"}`}>
       <div className="page-frame flex h-24 items-center justify-between sm:h-28">
         <div className="relative z-50">
-          <Brand inverse />
+          <Brand inverse={!useDarkInk} />
         </div>
 
         <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex xl:gap-9">
@@ -67,7 +84,7 @@ export function SiteHeader() {
             <Link
               key={item.label}
               href={item.href}
-              className="relative flex min-h-11 items-center text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-canvas/80 transition-colors after:absolute after:bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-gold-soft after:transition-all hover:text-canvas hover:after:w-full"
+              className={`relative flex min-h-11 items-center text-[0.66rem] font-semibold uppercase tracking-[0.18em] transition-colors after:absolute after:bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all hover:after:w-full ${useDarkInk ? "text-forest/75 hover:text-forest-deep" : "text-canvas/80 hover:text-canvas"}`}
             >
               {item.label}
             </Link>
@@ -75,8 +92,8 @@ export function SiteHeader() {
           <Link
             href={contactLinks.whatsapp}
             target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-12 items-center rounded-full border border-canvas/45 px-6 text-[0.65rem] font-semibold uppercase tracking-[0.16em] transition-colors hover:border-canvas hover:bg-canvas hover:text-forest-deep"
+            rel="noopener noreferrer"
+            className={`inline-flex min-h-12 items-center rounded-full border px-6 text-[0.65rem] font-semibold uppercase tracking-[0.16em] transition-colors ${useDarkInk ? "border-forest/35 hover:border-forest hover:bg-forest hover:text-canvas" : "border-canvas/45 hover:border-canvas hover:bg-canvas hover:text-forest-deep"}`}
           >
             Iniciar um projeto
           </Link>
@@ -89,7 +106,7 @@ export function SiteHeader() {
           aria-expanded={isOpen}
           aria-controls="menu-mobile"
           onClick={() => setIsOpen((current) => !current)}
-          className="relative z-50 inline-flex h-12 w-12 items-center justify-center rounded-full border border-canvas/35 text-canvas lg:hidden"
+          className={`relative z-50 inline-flex h-12 w-12 items-center justify-center rounded-full border lg:hidden ${useDarkInk ? "border-forest/35 text-forest-deep" : "border-canvas/35 text-canvas"}`}
         >
           {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
         </button>
@@ -98,8 +115,11 @@ export function SiteHeader() {
       <div
         ref={menuRef}
         id="menu-mobile"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu principal"
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-40 flex bg-forest-deep px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-32 transition-[opacity,visibility] duration-500 ease-organic lg:hidden ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`fixed inset-0 z-40 flex bg-forest-deep px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[calc(8rem+env(safe-area-inset-top))] transition-[opacity,visibility] duration-500 ease-organic lg:hidden ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <nav aria-label="Navegação mobile" className="flex w-full flex-col justify-between">
           <div className="divide-y divide-canvas/15 border-y border-canvas/15">
@@ -118,7 +138,7 @@ export function SiteHeader() {
           <Link
             href={contactLinks.whatsapp}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-canvas px-6 text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-forest-deep"
           >
             Conversar pelo WhatsApp

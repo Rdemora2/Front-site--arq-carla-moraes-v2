@@ -8,43 +8,74 @@ import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import {
   business,
+  contactIntents,
   contactLinks,
   faqs,
   institutionalCopy,
   processSteps,
   projects,
   services,
-  trustSignals,
 } from "@/lib/data/business";
+
+export const dynamic = "force-static";
+
+const intentOffsets = ["", "lg:ml-[6vw]", "lg:ml-[12vw]"] as const;
 
 export default function HomePage() {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: business.name,
-    alternateName: business.legacyName,
-    url: business.website,
-    image: `${business.website}/images/og-cover.jpg`,
-    description: business.description,
-    foundingDate: String(business.foundedIn),
-    telephone: `+${business.phoneE164}`,
-    email: business.email,
-    areaServed: { "@type": "City", name: "São Paulo" },
-    sameAs: [business.instagram, business.linkedin],
-    knowsAbout: [
-      "Paisagismo residencial",
-      "Paisagismo corporativo",
-      "Jardins",
-      "Projeto paisagístico",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${business.website}/#empresa`,
+        name: business.name,
+        alternateName: business.legacyName,
+        url: business.website,
+        image: `${business.website}/images/og-cover.jpg`,
+        description: business.description,
+        foundingDate: String(business.foundedIn),
+        telephone: `+${business.phoneE164}`,
+        email: business.email,
+        areaServed: { "@type": "City", name: "São Paulo" },
+        sameAs: [business.instagram, business.linkedin],
+        knowsAbout: [
+          "Paisagismo residencial",
+          "Paisagismo corporativo",
+          "Jardins",
+          "Projeto paisagístico",
+        ],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Serviços de paisagismo",
+          itemListElement: services.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: service.title,
+              description: service.description,
+            },
+          })),
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${business.website}/#website`,
+        url: business.website,
+        name: business.name,
+        inLanguage: "pt-BR",
+        publisher: { "@id": `${business.website}/#empresa` },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${business.website}/#duvidas`,
+        inLanguage: "pt-BR",
+        mainEntity: faqs.slice(0, 3).map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
     ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Serviços de paisagismo",
-      itemListElement: services.map((service) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name: service.title },
-      })),
-    },
   };
 
   return (
@@ -52,238 +83,234 @@ export default function HomePage() {
       <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-canvas px-5 py-3 text-sm font-semibold text-forest-deep transition-transform focus:translate-y-0">
         Ir para o conteúdo
       </a>
-      <SiteHeader />
+      <SiteHeader tone="dark" />
+
       <main id="conteudo">
-        <section className="relative isolate min-h-[780px] overflow-hidden bg-forest-deep text-canvas sm:min-h-[860px] lg:min-h-[760px]">
-          <Image
-            src="/images/projects/jardim-tropical/tropical-2.avif"
-            alt="Jardim tropical com bromélias, pedras e espelho d’água"
-            fill
-            priority
-            fetchPriority="high"
-            sizes="100vw"
-            className="object-cover object-[58%_center] lg:object-center"
-          />
-          {/* WHY: a camada preserva legibilidade sem pedir uma segunda imagem no mobile, mantendo o LCP concentrado no asset prioritário. */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,28,19,0.72)_0%,rgba(16,28,19,0.28)_35%,rgba(16,28,19,0.76)_100%)] lg:bg-[linear-gradient(90deg,rgba(16,28,19,0.88)_0%,rgba(16,28,19,0.68)_43%,rgba(16,28,19,0.12)_78%)]" />
-          <div className="page-frame relative flex min-h-[780px] flex-col justify-end pb-12 pt-32 sm:min-h-[860px] sm:pb-16 lg:min-h-[760px] lg:justify-center lg:pb-14 lg:pt-32">
-            <div className="max-w-[58rem] lg:max-w-[54rem]">
-              <p className="mb-5 text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-sage-pale sm:mb-7 sm:text-xs">
-                {institutionalCopy.heroEyebrow}
-              </p>
-              <h1 className="text-balance font-editorial text-display-sm font-medium text-canvas sm:max-w-[50rem] lg:text-display">
-                Transformamos espaços em <em className="font-normal text-gold-soft">experiências naturais.</em>
+        <section className="relative isolate overflow-hidden bg-canvas">
+          <div aria-hidden="true" className="absolute inset-x-0 top-[7rem] h-px bg-line/70" />
+          <div aria-hidden="true" className="absolute bottom-0 left-[58%] top-0 hidden w-px bg-line/70 lg:block" />
+          <div className="page-frame relative pb-16 pt-[calc(8.5rem+env(safe-area-inset-top))] sm:pb-20 sm:pt-[calc(10rem+env(safe-area-inset-top))] lg:min-h-[58rem] lg:pb-16 lg:pt-40">
+            <div className="relative z-20 lg:w-[66%]">
+              <div className="flex items-center gap-4">
+                <span className="h-px w-10 bg-gold" />
+                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-moss sm:text-xs">Paisagismo autoral · São Paulo</p>
+              </div>
+              <h1 className="mt-7 font-editorial text-[clamp(3.15rem,15.5vw,5rem)] font-medium leading-[0.84] tracking-[-0.052em] text-forest-deep lg:text-[clamp(5.5rem,7.5vw,7.25rem)]">
+                <span className="block">Transformamos</span>
+                <span className="ml-[7vw] block lg:ml-[5vw]">espaços em</span>
+                <span className="block font-normal text-gold">experiências</span>
+                <em className="ml-[16vw] block font-normal lg:ml-[11vw]">naturais.</em>
               </h1>
-              <p className="mt-6 max-w-xl text-[0.94rem] leading-7 text-canvas/78 sm:mt-8 sm:text-base sm:leading-8">
-                {institutionalCopy.heroDescription}
+            </div>
+
+            <div className="mt-9 grid grid-cols-[1fr_8.5rem] items-end gap-5 sm:grid-cols-[1fr_11rem] lg:mt-10 lg:block">
+              <p className="max-w-[13rem] text-sm leading-7 text-ink-muted sm:max-w-sm sm:text-base sm:leading-8 lg:max-w-md">
+                Paisagismo autoral desde 1996, do conceito ao acompanhamento da implantação.
               </p>
-              <div className="mt-8 flex flex-col gap-3 min-[390px]:flex-row sm:mt-10 sm:gap-4">
-                <ButtonLink href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" variant="light" className="w-full min-[390px]:w-auto">
-                  Iniciar um projeto
-                </ButtonLink>
-                <ButtonLink href="/projetos" variant="outlineInverse" className="w-full min-[390px]:w-auto">
-                  Conhecer projetos
-                </ButtonLink>
+
+              <div className="relative aspect-[2/3] w-full lg:absolute lg:right-0 lg:top-32 lg:h-[42rem] lg:w-[35%]">
+                <div aria-hidden="true" className="absolute -inset-2 bg-gold/65 [clip-path:polygon(14%_0,100%_0,100%_86%,86%_100%,0_100%,0_14%)] sm:-inset-3" />
+                <div className="relative h-full overflow-hidden bg-sage-pale [clip-path:polygon(14%_0,100%_0,100%_86%,86%_100%,0_100%,0_14%)]">
+                  {/* WHY: o recorte vertical usa o enquadramento nativo da foto, reduz bytes no mobile e evita a perda de nitidez causada por um cover horizontal ampliado. */}
+                  <Image src="/images/projects/jardim-tropical/tropical-3.avif" alt="Composição vertical de bromélias e pedras naturais em jardim tropical" fill priority fetchPriority="high" sizes="(min-width: 1024px) 35vw, 11rem" className="object-cover" />
+                </div>
+                <div className="absolute -left-5 -top-5 z-10 flex h-[4.8rem] w-[4.8rem] rotate-[-8deg] flex-col items-center justify-center rounded-full bg-forest-deep text-center text-canvas shadow-lift sm:-left-8 sm:-top-8 sm:h-24 sm:w-24 lg:-left-14 lg:top-16 lg:h-28 lg:w-28">
+                  <span className="font-editorial text-2xl font-medium leading-none sm:text-3xl">350+</span>
+                  <span className="mt-1 text-[0.42rem] font-semibold uppercase tracking-[0.13em] text-sage-pale sm:text-[0.5rem]">projetos</span>
+                </div>
+                <p className="absolute -bottom-7 right-0 text-[0.5rem] font-semibold uppercase tracking-[0.15em] text-ink-muted lg:-bottom-8">Jardim Tropical · 2023</p>
               </div>
             </div>
 
-            <div className="mt-12 grid grid-cols-3 border-t border-canvas/25 pt-6 sm:mt-16 sm:max-w-2xl sm:pt-8 lg:absolute lg:bottom-12 lg:right-12 lg:mt-0 lg:w-[31rem] lg:max-w-none xl:right-16">
-              {trustSignals.map((signal, index) => (
-                <div key={signal.label} className={`min-w-0 ${index > 0 ? "border-l border-canvas/20 pl-4 sm:pl-6" : "pr-3"}`}>
-                  <p className="font-editorial text-2xl font-medium text-canvas sm:text-3xl">{signal.value}</p>
-                  <p className="mt-1 text-[0.52rem] font-semibold uppercase leading-4 tracking-[0.14em] text-canvas/65 sm:text-[0.6rem]">
-                    {signal.label}
-                  </p>
-                </div>
-              ))}
+            <div className="relative z-20 mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6 lg:mt-9">
+              <ButtonLink data-whatsapp-surface href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer">
+                Conversar com a Carla
+              </ButtonLink>
+              <Link href="/projetos" className="inline-flex min-h-12 items-center gap-2 px-1 text-[0.65rem] font-semibold uppercase tracking-[0.17em] text-forest-deep transition-colors hover:text-moss">
+                Ver projetos <ArrowUpRightIcon className="h-4 w-4" />
+              </Link>
             </div>
 
-            <Link href="#sobre" className="absolute bottom-4 right-5 hidden min-h-11 items-center gap-2 text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-canvas/65 sm:flex lg:bottom-12 lg:left-12 lg:right-auto xl:left-16">
-              Descobrir o escritório
-              <ArrowUpRightIcon className="h-4 w-4 rotate-[135deg]" />
-            </Link>
+            <div className="relative z-20 mt-8 flex items-center gap-3 border-t border-line pt-5 text-[0.54rem] font-semibold uppercase tracking-[0.16em] text-moss sm:max-w-md lg:mt-10">
+              <span>Satisfação garantida</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold" />
+              <span>Residencial · Corporativo · Hotelaria</span>
+            </div>
+
+            <div className="absolute bottom-12 right-[29%] z-10 hidden h-44 w-64 border-[0.55rem] border-canvas bg-sage-pale shadow-lift lg:block">
+              <Image src="/images/projects/jardim-frances/frances-3.avif" alt="Espelho d’água em jardim residencial clássico" fill sizes="18rem" className="object-cover" />
+            </div>
+            <p aria-hidden="true" className="absolute bottom-11 left-12 hidden font-editorial text-[10rem] leading-none tracking-[-0.06em] text-sage-pale/55 xl:block">01</p>
           </div>
         </section>
 
-        <section id="projetos-em-destaque" aria-labelledby="titulo-projetos" className="section-space bg-canvas">
-          <div className="page-frame">
-            <div className="reveal flex flex-col gap-7 border-b border-line pb-10 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <p className="eyebrow">Portfólio selecionado</p>
-                <h2 id="titulo-projetos" className="mt-5 max-w-3xl font-editorial text-section-sm font-medium text-forest-deep sm:text-section">
-                  {institutionalCopy.portfolioTitle}
-                </h2>
+        <section aria-labelledby="titulo-intencoes" className="relative isolate overflow-hidden bg-canvas">
+          <p aria-hidden="true" className="absolute -right-4 top-0 hidden font-editorial text-[15rem] leading-none text-forest/[0.035] lg:block">02</p>
+          <div className="page-frame relative z-10 py-16 sm:py-20 lg:py-24">
+            <div className="reveal grid gap-7 border-b border-line pb-9 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-7">
+                <p className="eyebrow">Comece pela sua necessidade</p>
+                <h2 id="titulo-intencoes" className="text-balance mt-4 font-editorial text-4xl font-medium text-forest-deep sm:text-5xl lg:text-6xl">O que você deseja transformar?</h2>
               </div>
-              <div className="max-w-md lg:pb-2">
-                <p className="text-sm leading-7 text-ink-muted sm:text-base sm:leading-8">{institutionalCopy.portfolioDescription}</p>
-                <Link href="/projetos" className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.17em] text-forest-deep underline decoration-gold decoration-1 underline-offset-8 transition-colors hover:text-moss">
-                  Ver todos os projetos
-                  <ArrowUpRightIcon className="h-4 w-4" />
+              <p className="max-w-sm text-sm leading-7 text-ink-muted lg:col-span-4 lg:col-start-9">Escolha o ponto de partida e fale diretamente com a Carla pelo WhatsApp.</p>
+            </div>
+
+            <div data-whatsapp-surface className="divide-y divide-line border-b border-line">
+              {contactIntents.map((intent, index) => (
+                <Link key={intent.number} href={intent.href} target="_blank" rel="noopener noreferrer" className={`group grid min-h-28 grid-cols-[1fr_auto] items-center gap-3 py-6 transition-[background-color,padding] duration-500 ease-organic hover:bg-canvas-warm sm:grid-cols-[3rem_1fr_auto] sm:gap-6 sm:px-3 lg:min-h-32 lg:hover:pl-7 ${intentOffsets[index] ?? ""}`}>
+                  <span className="col-span-2 text-[0.6rem] font-semibold tracking-[0.18em] text-moss sm:col-span-1">{intent.number}</span>
+                  <span>
+                    <span className="block font-editorial text-2xl font-medium leading-tight text-forest-deep sm:text-3xl lg:text-4xl">{intent.title}</span>
+                    <span className="mt-2 block text-xs uppercase tracking-[0.14em] text-ink-muted">{intent.context}</span>
+                  </span>
+                  <span className="inline-flex h-12 w-12 items-center justify-center justify-self-end rounded-full border border-line-strong text-forest-deep transition-[background-color,color,transform] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-forest group-hover:text-canvas">
+                    <ArrowUpRightIcon className="h-5 w-5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="projetos-em-destaque" aria-labelledby="titulo-projetos" className="section-space relative isolate overflow-hidden bg-canvas-warm">
+          <p aria-hidden="true" className="absolute -left-8 top-10 hidden font-editorial text-[16rem] leading-none text-gold/[0.08] lg:block">03</p>
+          <div className="page-frame relative z-10">
+            <div className="reveal grid gap-7 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-8">
+                <p className="eyebrow">Projetos selecionados</p>
+                <h2 id="titulo-projetos" className="mt-5 max-w-4xl font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Menos fórmula. Mais identidade em cada paisagem.</h2>
+              </div>
+              <div className="lg:col-span-4 lg:pb-2">
+                <p className="text-sm leading-7 text-ink-muted">Residências, empresas e hotelaria resolvidas com o mesmo rigor e uma leitura própria de cada espaço.</p>
+                <Link href="/projetos" className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.17em] text-forest-deep underline decoration-gold underline-offset-8">
+                  Explorar o portfólio completo <ArrowUpRightIcon className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="mt-12 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:mt-16 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-24">
-              <ProjectCard project={projects[0]} className="reveal lg:col-span-7" imageClassName="aspect-[5/4]" imageSizes="(min-width: 1024px) 58vw, (min-width: 768px) 50vw, 100vw" />
-              <ProjectCard project={projects[1]} className="reveal lg:col-span-5 lg:mt-28" imageClassName="aspect-[4/5]" imageSizes="(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw" />
-              <ProjectCard project={projects[2]} className="reveal lg:col-span-5" imageClassName="aspect-[4/5]" imageSizes="(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw" />
-              <ProjectCard project={projects[3]} className="reveal lg:col-span-7 lg:mt-28" imageClassName="aspect-[5/4]" imageSizes="(min-width: 1024px) 58vw, (min-width: 768px) 50vw, 100vw" />
+            <div className="mt-12 grid grid-cols-2 items-start gap-x-4 gap-y-14 sm:gap-x-8 md:grid-cols-2 lg:mt-16 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-20">
+              <ProjectCard project={projects[0]} className="reveal col-span-2 lg:col-span-8" imageClassName="aspect-[16/10]" imageSizes="(min-width: 1024px) 66vw, 100vw" />
+              <ProjectCard compact project={projects[1]} className="reveal col-span-1 lg:col-span-4 lg:mt-28" imageClassName="aspect-[4/5] lg:aspect-[3/5]" imageSizes="(min-width: 1024px) 32vw, 50vw" />
+              <ProjectCard compact project={projects[2]} className="reveal col-span-1 lg:col-span-7 lg:col-start-6" imageClassName="aspect-[4/5] lg:aspect-[16/9]" imageSizes="(min-width: 1024px) 58vw, 50vw" />
             </div>
           </div>
         </section>
 
-        <section id="sobre" aria-labelledby="titulo-sobre" className="section-space overflow-hidden bg-canvas-warm">
-          <div className="page-frame grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-12">
-            <div className="reveal relative lg:col-span-6 lg:pr-10">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-organic bg-sage-pale shadow-soft sm:aspect-[5/4] lg:aspect-[4/5]">
-                <Image src="/images/projects/jardim-frances/frances-3.avif" alt="Espelho d’água e jardim residencial projetado por Carla Moraes" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+        <section id="sobre" aria-labelledby="titulo-sobre" className="relative isolate overflow-hidden bg-gold-soft">
+          <p aria-hidden="true" className="absolute -left-8 bottom-0 hidden font-editorial text-[16rem] leading-none text-forest/[0.06] lg:block">04</p>
+          <div className="page-frame relative z-10 grid lg:grid-cols-12">
+            <div className="reveal py-20 sm:py-24 lg:col-span-7 lg:py-32 lg:pr-16">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-forest">Carla Moraes · Desde 1996</p>
+              <h2 id="titulo-sobre" className="text-balance mt-5 font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Jardins únicos, desenhados para combinar com quem vai vivê-los.</h2>
+              <div className="mt-8 max-w-xl space-y-5 text-sm leading-7 text-forest/80 sm:text-base sm:leading-8">
+                {institutionalCopy.aboutParagraphs.slice(0, 2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
-              <div className="absolute -bottom-8 right-0 hidden aspect-[3/4] w-[34%] overflow-hidden border-[0.45rem] border-canvas-warm bg-sage-pale shadow-lift sm:block lg:-right-2">
-                <Image src="/images/projects/jardim-tropical/tropical-5.avif" alt="Detalhe de bromélias e orquídeas em jardim tropical" fill sizes="(min-width: 1024px) 15vw, 30vw" className="object-cover" />
+
+              <div className="mt-10 grid grid-cols-[auto_1fr] items-end gap-5 border-t border-forest/20 pt-8">
+                <p className="font-editorial text-[5.5rem] font-medium leading-[0.7] tracking-[-0.06em] text-forest-deep sm:text-[7rem]">350<span className="text-4xl sm:text-5xl">+</span></p>
+                <p className="max-w-[14rem] text-xs font-semibold uppercase leading-5 tracking-[0.15em] text-forest">Projetos realizados em mais de 20 anos de atuação</p>
               </div>
             </div>
 
-            <div className="reveal lg:col-span-6 lg:pl-8 xl:pl-14">
-              <p className="eyebrow">{institutionalCopy.aboutEyebrow}</p>
-              <h2 id="titulo-sobre" className="mt-5 max-w-xl font-editorial text-section-sm font-medium text-forest-deep sm:text-section">
-                {institutionalCopy.aboutTitle}
-              </h2>
-              <div className="mt-8 max-w-lg space-y-5 text-sm leading-7 text-ink-muted sm:text-base sm:leading-8">
-                {institutionalCopy.aboutParagraphs.slice(0, 2).map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-              <div className="mt-9 flex items-center gap-5 border-t border-line pt-7">
-                <span className="font-editorial text-5xl font-medium leading-none text-gold sm:text-6xl">1996</span>
-                <p className="max-w-[12rem] text-xs font-semibold uppercase leading-5 tracking-[0.15em] text-moss">
-                  O início de uma trajetória dedicada ao paisagismo
-                </p>
+            <div className="relative -mx-5 min-h-[34rem] [clip-path:polygon(12%_0,100%_0,100%_100%,0_100%,0_12%)] sm:-mx-8 lg:col-span-5 lg:-mr-12 lg:ml-0 lg:min-h-full xl:-mr-16">
+              <Image src="/images/projects/hotel-jardins/jardins-05.jpg" alt="Detalhe vertical do paisagismo desenvolvido para hotel nos Jardins" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
+              <div className="absolute inset-x-5 bottom-5 bg-forest-deep p-6 text-canvas shadow-lift [clip-path:polygon(0_0,100%_0,100%_84%,92%_100%,0_100%)] sm:inset-x-8 sm:bottom-8 sm:p-8 lg:left-[-3rem] lg:right-8">
+                <p className="text-[0.58rem] font-semibold uppercase tracking-[0.19em] text-gold-soft">Autoridade reconhecida</p>
+                <p className="mt-3 font-editorial text-2xl font-medium leading-tight sm:text-3xl">Atuação com grandes bandeiras nacionais e internacionais de hotelaria.</p>
+                <div className="mt-5 inline-flex rounded-full border border-canvas/30 px-4 py-2 text-[0.56rem] font-semibold uppercase tracking-[0.15em] text-canvas">Satisfação garantida</div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="servicos" aria-labelledby="titulo-servicos" className="section-space bg-forest-deep text-canvas">
-          <div className="page-frame">
-            <div className="reveal grid gap-8 border-b border-canvas/15 pb-12 lg:grid-cols-12">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-sage lg:col-span-3">Serviços</p>
-              <h2 id="titulo-servicos" className="max-w-4xl font-editorial text-section-sm font-medium text-canvas sm:text-section lg:col-span-9">
-                Do primeiro olhar ao jardim construído com intenção.
-              </h2>
+        <section id="servicos" aria-labelledby="titulo-servicos" className="section-space relative isolate overflow-hidden bg-forest-deep text-canvas">
+          <p aria-hidden="true" className="absolute -right-8 top-8 hidden font-editorial text-[16rem] leading-none text-canvas/[0.035] lg:block">05</p>
+          <div className="page-frame relative z-10">
+            <div className="reveal grid gap-8 border-b border-canvas/15 pb-12 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-8">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-sage">Como a Carla pode ajudar</p>
+                <h2 id="titulo-servicos" className="text-balance mt-5 font-editorial text-section-sm font-medium text-canvas sm:text-section">Uma condução técnica, sem perder a delicadeza do natural.</h2>
+              </div>
+              <ButtonLink href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" variant="outlineInverse" className="lg:col-span-4 lg:justify-self-end">Solicitar uma conversa</ButtonLink>
             </div>
 
-            <div className="divide-y divide-canvas/15">
+            <div className="divide-y divide-canvas/15 border-b border-canvas/15">
               {services.map((service) => (
-                <article key={service.number} className="reveal grid gap-6 py-10 sm:py-12 lg:grid-cols-12 lg:gap-10">
-                  <p className="text-xs font-semibold tracking-[0.18em] text-gold-soft lg:col-span-1">{service.number}</p>
-                  <h3 className="font-editorial text-3xl font-medium leading-none text-canvas sm:text-4xl lg:col-span-4">{service.title}</h3>
-                  <p className="max-w-xl text-sm leading-7 text-canvas/68 sm:text-base sm:leading-8 lg:col-span-4">{service.description}</p>
-                  <ul className="space-y-3 lg:col-span-3">
-                    {service.deliverables.map((deliverable) => (
-                      <li key={deliverable} className="flex gap-3 text-xs leading-5 text-canvas/72 sm:text-sm">
-                        <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold-soft" />
-                        {deliverable}
+                <article key={service.number} className="reveal group grid gap-5 py-9 transition-[background-color,padding] duration-500 ease-organic hover:bg-canvas/[0.035] sm:py-11 lg:grid-cols-12 lg:items-start lg:gap-8 lg:hover:px-6">
+                  <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-gold-soft lg:col-span-1">{service.number}</p>
+                  <h3 className="font-editorial text-3xl font-medium leading-none text-canvas sm:text-4xl lg:col-span-4 lg:text-5xl">{service.title}</h3>
+                  <p className="max-w-2xl text-sm leading-7 text-canvas/68 sm:text-base sm:leading-8 lg:col-span-5">{service.description}</p>
+                  <ul className="space-y-2 lg:col-span-2">
+                    {service.deliverables.slice(0, 2).map((deliverable) => (
+                      <li key={deliverable} className="flex gap-2 text-[0.66rem] uppercase leading-5 tracking-[0.11em] text-sage-pale/75">
+                        <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold-soft" />{deliverable}
                       </li>
                     ))}
                   </ul>
                 </article>
               ))}
             </div>
+
+            <div id="processo" className="reveal pt-10 sm:pt-12">
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-sage">Um processo claro</p>
+              <ol className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                {processSteps.map((step, index) => (
+                  <li key={step.number} className="flex items-center gap-3 text-sm text-canvas/78">
+                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-canvas/25 text-[0.55rem] font-semibold text-gold-soft">{step.number}</span>
+                    <span>{step.title}</span>
+                    {index < processSteps.length - 1 && <span aria-hidden="true" className="ml-auto hidden text-canvas/25 lg:inline">→</span>}
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 
-        <section aria-labelledby="titulo-experiencia" className="relative isolate overflow-hidden bg-forest text-canvas">
-          <Image src="/images/projects/hotel-jardins/jardins-03.jpg" alt="Paisagismo externo desenvolvido para hotel nos Jardins, em São Paulo" fill sizes="100vw" className="object-cover object-center" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,35,25,0.94)_0%,rgba(18,35,25,0.80)_52%,rgba(18,35,25,0.28)_100%)]" />
-          <div className="page-frame relative py-24 sm:py-32 lg:py-40">
-            <div className="reveal max-w-3xl">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-gold-soft">Experiência que inspira confiança</p>
-              <h2 id="titulo-experiencia" className="text-balance mt-6 font-editorial text-section-sm font-medium text-canvas sm:text-section">
-                Visão autoral com precisão para projetos de diferentes escalas.
-              </h2>
-              <p className="mt-7 max-w-2xl text-base leading-8 text-canvas/78 sm:text-lg sm:leading-9">{institutionalCopy.marketStatement}</p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <span className="rounded-full border border-canvas/30 px-5 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-canvas">Residencial</span>
-                <span className="rounded-full border border-canvas/30 px-5 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-canvas">Corporativo</span>
-                <span className="rounded-full border border-canvas/30 px-5 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.15em] text-canvas">Hotelaria</span>
+        <section id="contato" aria-labelledby="titulo-contato" className="section-space relative isolate overflow-hidden bg-canvas-soft">
+          <p aria-hidden="true" className="absolute -bottom-10 -right-6 hidden font-editorial text-[16rem] leading-none text-forest/[0.035] lg:block">06</p>
+          <div className="page-frame relative z-10 grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-16">
+            <div className="reveal lg:col-span-6">
+              <p className="eyebrow">Antes da primeira conversa</p>
+              <h2 className="mt-5 font-editorial text-4xl font-medium text-forest-deep sm:text-5xl">Dúvidas que ajudam a começar.</h2>
+              <div className="mt-8 divide-y divide-line border-y border-line">
+                {faqs.slice(0, 3).map((faq) => (
+                  <details key={faq.question} className="group">
+                    <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 font-editorial text-xl font-medium leading-tight text-forest-deep marker:hidden sm:text-2xl">
+                      {faq.question}
+                      <span aria-hidden="true" className="relative h-10 w-10 shrink-0 rounded-full border border-line-strong transition-colors group-open:bg-forest group-open:text-canvas">
+                        <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" />
+                        <span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:rotate-90" />
+                      </span>
+                    </summary>
+                    <p className="max-w-xl pb-7 pr-10 text-sm leading-7 text-ink-muted">{faq.answer}</p>
+                  </details>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="processo" aria-labelledby="titulo-processo" className="section-space bg-canvas">
-          <div className="page-frame">
-            <div className="reveal grid gap-8 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
-                <p className="eyebrow">Como trabalhamos</p>
-                <h2 id="titulo-processo" className="mt-5 font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Um processo claro, próximo e cuidadoso.</h2>
-              </div>
-              <p className="max-w-md text-sm leading-7 text-ink-muted sm:text-base sm:leading-8 lg:col-span-4 lg:col-start-9">Cada etapa transforma intenção em decisão técnica, mantendo o cliente próximo das escolhas que dão identidade ao jardim.</p>
-            </div>
-            <ol className="mt-14 grid border-t border-line sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
-              {processSteps.map((step, index) => (
-                <li key={step.number} className={`reveal relative border-b border-line py-8 sm:px-7 sm:py-10 lg:border-b-0 lg:px-8 ${index % 2 === 0 ? "sm:border-r" : ""} ${index > 0 ? "lg:border-l" : ""}`}>
-                  <span className="text-xs font-semibold tracking-[0.18em] text-moss">{step.number}</span>
-                  <h3 className="mt-8 font-editorial text-2xl font-medium leading-tight text-forest-deep sm:text-3xl">{step.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-ink-muted">{step.description}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+            <div className="reveal lg:col-span-6 lg:pt-20">
+              <div className="relative bg-forest px-6 py-12 text-canvas shadow-lift [clip-path:polygon(0_0,100%_0,100%_90%,90%_100%,0_100%)] sm:px-10 sm:py-14 lg:px-12 lg:py-16">
+                <span aria-hidden="true" className="absolute right-0 top-0 h-4 w-20 bg-gold-soft" />
+                <p className="text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">Seu projeto começa aqui</p>
+                <h2 id="titulo-contato" className="text-balance mt-5 font-editorial text-4xl font-medium leading-[0.98] sm:text-6xl">Vamos transformar o seu espaço?</h2>
+                <p className="mt-6 max-w-md text-sm leading-7 text-canvas/72 sm:text-base sm:leading-8">Conte para a Carla sobre o espaço e o que você deseja viver nele. O primeiro contato é direto, próximo e sem formulários.</p>
+                <ButtonLink data-whatsapp-surface href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" variant="light" className="mt-8 w-full sm:w-auto">Conversar pelo WhatsApp</ButtonLink>
 
-        <section aria-labelledby="titulo-faq" className="section-space bg-canvas-soft">
-          <div className="page-frame grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="reveal lg:col-span-4">
-              <p className="eyebrow">Dúvidas frequentes</p>
-              <h2 id="titulo-faq" className="mt-5 font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Antes de começarmos.</h2>
-              <p className="mt-6 max-w-sm text-sm leading-7 text-ink-muted sm:text-base sm:leading-8">As respostas essenciais sobre projeto, prazos, implantação e escolhas do jardim.</p>
-            </div>
-            <div className="reveal divide-y divide-line border-y border-line lg:col-span-8">
-              {faqs.map((faq) => (
-                <details key={faq.question} className="group">
-                  <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-6 py-5 text-left font-editorial text-xl font-medium leading-tight text-forest-deep marker:hidden sm:min-h-24 sm:text-2xl">
-                    {faq.question}
-                    <span aria-hidden="true" className="relative h-11 w-11 shrink-0 rounded-full border border-line-strong transition-colors group-open:bg-forest group-open:text-canvas">
-                      <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" />
-                      <span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:rotate-90" />
-                    </span>
-                  </summary>
-                  <p className="max-w-2xl pb-7 pr-14 text-sm leading-7 text-ink-muted sm:pb-9 sm:text-base sm:leading-8">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="contato" aria-labelledby="titulo-contato" className="section-space bg-gold-soft">
-          <div className="page-frame">
-            <div className="reveal rounded-organic bg-canvas px-6 py-14 shadow-soft sm:px-10 sm:py-16 lg:grid lg:grid-cols-12 lg:gap-12 lg:px-16 lg:py-20">
-              <div className="lg:col-span-8">
-                <p className="eyebrow">Seu espaço pode começar aqui</p>
-                <h2 id="titulo-contato" className="text-balance mt-5 max-w-4xl font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Vamos criar um jardim que faça sentido para a sua vida?</h2>
-                <p className="mt-6 max-w-xl text-sm leading-7 text-ink-muted sm:text-base sm:leading-8">Conte para a Carla sobre o espaço, o momento e o que você deseja transformar. A primeira conversa acontece diretamente pelo WhatsApp.</p>
-                <ButtonLink href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="mt-9 w-full min-[390px]:w-auto">Conversar sobre um projeto</ButtonLink>
-              </div>
-              <div className="mt-12 border-t border-line pt-8 lg:col-span-4 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-                <p className="text-[0.61rem] font-semibold uppercase tracking-[0.19em] text-moss">Contato</p>
-                <div className="mt-5 space-y-2">
-                  <Link href={contactLinks.telephone} className="flex min-h-12 items-center gap-3 text-sm text-forest-deep transition-colors hover:text-moss"><PhoneIcon className="h-5 w-5 text-gold" />{business.phoneDisplay}</Link>
-                  <Link href={contactLinks.email} className="flex min-h-12 items-center gap-3 break-all text-sm text-forest-deep transition-colors hover:text-moss"><MailIcon className="h-5 w-5 shrink-0 text-gold" />{business.email}</Link>
+                <div className="mt-9 border-t border-canvas/20 pt-7">
+                  <Link href={contactLinks.telephone} className="flex min-h-12 items-center gap-3 text-sm text-canvas/78 transition-colors hover:text-canvas"><PhoneIcon className="h-5 w-5 text-gold-soft" />{business.phoneDisplay}</Link>
+                  <Link href={contactLinks.email} className="flex min-h-12 items-center gap-3 break-all text-sm text-canvas/78 transition-colors hover:text-canvas"><MailIcon className="h-5 w-5 shrink-0 text-gold-soft" />{business.email}</Link>
                 </div>
-                <p className="mt-6 text-xs uppercase tracking-[0.15em] text-ink-muted">Atendimento em {business.location}</p>
               </div>
             </div>
           </div>
         </section>
       </main>
+
       <SiteFooter />
       <WhatsAppFab />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
     </>
   );

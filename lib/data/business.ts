@@ -108,6 +108,13 @@ export interface TrustSignal {
   readonly detail: string;
 }
 
+export interface ContactIntent {
+  readonly number: string;
+  readonly title: string;
+  readonly context: string;
+  readonly href: string;
+}
+
 export const business = {
   name: "Carla Moraes Arquitetura Floral",
   legacyName: "Carla Moraes Arquitetura Paisagística",
@@ -129,11 +136,42 @@ export const business = {
 const whatsappMessage =
   "Olá! Vim pelo site da Carla Moraes e gostaria de conversar sobre um projeto paisagístico.";
 
+function createWhatsAppLink(message: string): string {
+  return `https://wa.me/${business.phoneE164}?text=${encodeURIComponent(message)}`;
+}
+
 export const contactLinks = {
-  whatsapp: `https://wa.me/${business.phoneE164}?text=${encodeURIComponent(whatsappMessage)}`,
+  whatsapp: createWhatsAppLink(whatsappMessage),
   telephone: `tel:+${business.phoneE164}`,
   email: `mailto:${business.email}`,
 } as const;
+
+export const contactIntents = [
+  {
+    number: "01",
+    title: "Projetar um novo jardim",
+    context: "Residências, varandas e terraços",
+    href: createWhatsAppLink(
+      "Olá! Vim pelo site da Carla Moraes e gostaria de conversar sobre o projeto de um novo jardim.",
+    ),
+  },
+  {
+    number: "02",
+    title: "Transformar um espaço existente",
+    context: "Consultoria e renovação paisagística",
+    href: createWhatsAppLink(
+      "Olá! Vim pelo site da Carla Moraes e gostaria de uma consultoria para transformar um espaço existente.",
+    ),
+  },
+  {
+    number: "03",
+    title: "Desenvolver um projeto corporativo",
+    context: "Empresas e hotelaria",
+    href: createWhatsAppLink(
+      "Olá! Vim pelo site da Carla Moraes e gostaria de conversar sobre um projeto paisagístico corporativo.",
+    ),
+  },
+] as const satisfies readonly ContactIntent[];
 
 export const navigation = [
   { label: "Sobre", href: "/#sobre" },

@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function MotionObserver() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -28,7 +31,7 @@ export function MotionObserver() {
       observer.disconnect();
       document.documentElement.classList.remove("motion-ready");
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
