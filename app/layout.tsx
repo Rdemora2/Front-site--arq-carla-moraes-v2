@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { MotionObserver } from "@/components/motion-observer";
+import { OrganicGrowth } from "@/components/organic-growth";
 import { business } from "@/lib/data/business";
 
 const editorial = Cormorant_Garamond({
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-BR" className={`${editorial.variable} ${sans.variable}`}>
       <body>
         <MotionObserver />
+        <OrganicGrowth />
         {children}
       </body>
     </html>
