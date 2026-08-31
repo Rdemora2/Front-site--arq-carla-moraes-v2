@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brand } from "@/components/brand";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { contactLinks, navigation } from "@/lib/data/business";
@@ -10,6 +10,8 @@ import { contactLinks, navigation } from "@/lib/data/business";
 export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsOpen(false);
@@ -17,15 +19,48 @@ export function SiteHeader() {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+
+    if (!isOpen) return;
+
+    const menu = menuRef.current;
+    const focusable = menu?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])',
+    );
+    focusable?.[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab" || !focusable?.length) return;
+      const first = focusable[0]!;
+      const last = focusable[focusable.length - 1]!;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 text-canvas">
       <div className="page-frame flex h-24 items-center justify-between sm:h-28">
-        <Brand inverse />
+        <div className="relative z-50">
+          <Brand inverse />
+        </div>
 
         <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex xl:gap-9">
           {navigation.map((item) => (
@@ -48,6 +83,7 @@ export function SiteHeader() {
         </nav>
 
         <button
+          ref={toggleRef}
           type="button"
           aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
           aria-expanded={isOpen}
@@ -60,6 +96,7 @@ export function SiteHeader() {
       </div>
 
       <div
+        ref={menuRef}
         id="menu-mobile"
         aria-hidden={!isOpen}
         className={`fixed inset-0 z-40 flex bg-forest-deep px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-32 transition-[opacity,visibility] duration-500 ease-organic lg:hidden ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}

@@ -56,6 +56,19 @@
   .safe-bottom {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .motion-ready .reveal {
+    @apply translate-y-6 opacity-0 transition-[opacity,transform] duration-700 ease-organic;
+  }
+
+  .motion-ready .reveal.is-visible {
+    @apply translate-y-0 opacity-100;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

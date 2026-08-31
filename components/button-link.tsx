@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { ArrowUpRightIcon } from "@/components/icons";
 
 interface ButtonLinkProps extends ComponentProps<typeof Link> {
-  readonly variant?: "primary" | "light" | "outline";
+  readonly variant?: "primary" | "light" | "outline" | "outlineInverse";
   readonly showArrow?: boolean;
 }
 
@@ -18,6 +18,7 @@ export function ButtonLink({
     primary: "bg-forest text-canvas hover:bg-forest-deep",
     light: "bg-canvas text-forest-deep hover:bg-white",
     outline: "border border-line-strong text-forest-deep hover:border-forest hover:bg-forest hover:text-canvas",
+    outlineInverse: "border border-canvas/45 text-canvas hover:border-canvas hover:bg-canvas hover:text-forest-deep",
   } as const;
 
   return (

@@ -34,3 +34,38 @@ export function WhatsAppIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function InstagramIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="17.5" cy="6.8" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function LinkedInIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M6.45 8.3A1.74 1.74 0 1 0 6.44 4.8a1.74 1.74 0 0 0 0 3.49ZM5 9.7h2.9V19H5V9.7Zm4.75 0h2.78v1.27h.04c.38-.74 1.33-1.52 2.74-1.52 2.93 0 3.47 1.93 3.47 4.44V19h-2.9v-4.53c0-1.08-.02-2.47-1.5-2.47-1.51 0-1.74 1.18-1.74 2.39V19h-2.9V9.7Z" />
+    </svg>
+  );
+}
+
+export function MailIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PhoneIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M8.2 4.2 10 8.35 7.9 10a15.5 15.5 0 0 0 6.1 6.1l1.65-2.1 4.15 1.8v3c0 .66-.54 1.2-1.2 1.2C10.54 20 4 13.46 4 5.4c0-.66.54-1.2 1.2-1.2h3Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
