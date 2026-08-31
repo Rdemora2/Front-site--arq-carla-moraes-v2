@@ -11,7 +11,7 @@ export function Brand({ inverse = false, compact = false }: BrandProps) {
     <Link
       href="/"
       aria-label="Carla Moraes Arquitetura Floral — página inicial"
-      className={`group inline-flex min-h-11 items-center gap-3 rounded-sm ${inverse ? "text-canvas" : "text-forest-deep"}`}
+      className={`group inline-flex min-h-11 items-center gap-3 rounded-sm ${inverse ? "text-content-onContrast" : "text-content"}`}
     >
       <Image
         src="/brand/mark.webp"
@@ -19,7 +19,7 @@ export function Brand({ inverse = false, compact = false }: BrandProps) {
         width={294}
         height={668}
         sizes="26px"
-        className={`h-11 w-auto object-contain transition-transform duration-500 ease-organic group-hover:-rotate-3 sm:h-12 ${inverse ? "brightness-0 invert" : ""}`}
+        className={`brand-mark h-11 w-auto object-contain transition-transform duration-500 ease-organic group-hover:-rotate-3 sm:h-12 ${inverse ? "brand-mark-inverse brightness-0 invert" : ""}`}
       />
       <span className="flex flex-col leading-none">
         <span className="font-editorial text-[1.35rem] font-medium tracking-[-0.025em] sm:text-[1.5rem]">

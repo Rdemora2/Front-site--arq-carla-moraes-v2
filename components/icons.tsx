@@ -26,6 +26,23 @@ export function CloseIcon(props: IconProps) {
   );
 }
 
+export function SunIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function MoonIcon(props: IconProps) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M20 15.2A8.2 8.2 0 0 1 8.8 4a8.2 8.2 0 1 0 11.2 11.2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function WhatsAppIcon(props: IconProps) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>

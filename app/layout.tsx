@@ -19,6 +19,21 @@ const sans = Manrope({
   display: "swap",
 });
 
+const themeInitializationScript = `
+  (() => {
+    try {
+      const saved = localStorage.getItem("cm-theme");
+      const theme = saved === "light" || saved === "dark"
+        ? saved
+        : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  })();
+`;
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(business.website),
@@ -96,13 +111,20 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  colorScheme: "light",
-  themeColor: "#F7F4EE",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F7F4EE" },
+    { media: "(prefers-color-scheme: dark)", color: "#111713" },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${editorial.variable} ${sans.variable}`}>
+    <html lang="pt-BR" className={`${editorial.variable} ${sans.variable}`} suppressHydrationWarning>
+      <head>
+        {/* WHY: aplica a preferência antes da pintura inicial, evitando flash de tema e CLS. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
+      </head>
       <body>
         <MotionObserver />
         <OrganicGrowth />

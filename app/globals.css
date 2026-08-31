@@ -5,6 +5,42 @@
 @layer base {
   :root {
     color-scheme: light;
+    --surface: 247 244 238;
+    --surface-soft: 238 233 223;
+    --surface-warm: 249 245 239;
+    --surface-elevated: 255 252 246;
+    --surface-contrast: 28 42 32;
+    --content: 30 38 31;
+    --content-muted: 95 102 95;
+    --content-subtle: 115 122 115;
+    --content-on-contrast: 247 244 238;
+    --content-on-light: 28 42 32;
+    --stroke: 216 209 197;
+    --stroke-strong: 191 182 168;
+    --stroke-on-contrast: 247 244 238;
+    --accent: 160 138 88;
+    --accent-soft: 201 185 144;
+    --accent-text: 117 100 63;
+    --highlight: 201 185 144;
+    --petal: 247 244 238;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --surface: 17 23 19;
+    --surface-soft: 23 30 25;
+    --surface-warm: 27 35 29;
+    --surface-elevated: 32 42 34;
+    --surface-contrast: 35 48 39;
+    --content: 236 233 223;
+    --content-muted: 184 189 181;
+    --content-subtle: 149 157 149;
+    --stroke: 52 65 56;
+    --stroke-strong: 82 97 86;
+    --accent: 201 185 144;
+    --accent-soft: 216 201 159;
+    --accent-text: 216 201 159;
+    --highlight: 42 52 43;
   }
 
   * {
@@ -17,12 +53,12 @@
   }
 
   body {
-    @apply bg-canvas font-sans text-ink antialiased;
+    @apply bg-surface font-sans text-content antialiased;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    @apply bg-sage-pale text-forest-deep;
+    @apply bg-sage-pale text-content-onLight;
   }
 
   a,
@@ -32,7 +68,7 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-gold ring-offset-4 ring-offset-canvas;
+    @apply outline-none ring-2 ring-accent ring-offset-4 ring-offset-surface;
   }
 }
 
@@ -46,7 +82,7 @@
   }
 
   .eyebrow {
-    @apply text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-moss sm:text-xs;
+    @apply text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-accent-text sm:text-xs;
   }
 
   .text-balance {
@@ -69,6 +105,47 @@
   .motion-ready .reveal.is-visible {
     @apply translate-y-0 opacity-100;
   }
+
+  .theme-transition,
+  .theme-transition * {
+    @apply transition-colors duration-300;
+  }
+
+  [data-theme="dark"] .brand-mark:not(.brand-mark-inverse) {
+    filter: brightness(0) invert(1);
+  }
+
+  .legal-copy h2 {
+    @apply mt-14 font-editorial text-3xl font-medium leading-tight text-content first:mt-0 sm:text-4xl;
+  }
+
+  .legal-copy h3 {
+    @apply mt-9 font-editorial text-2xl font-medium text-content;
+  }
+
+  .legal-copy p {
+    @apply mt-5 text-sm leading-7 text-content-muted sm:text-base sm:leading-8;
+  }
+
+  .legal-copy ul {
+    @apply mt-5 space-y-3 border-l border-accent pl-6 text-sm leading-7 text-content-muted sm:text-base;
+  }
+
+  .legal-copy a {
+    @apply text-content underline decoration-accent underline-offset-4 transition-colors hover:text-accent-text;
+  }
+
+  .legal-copy table {
+    @apply mt-7 min-w-[45rem] w-full border-collapse text-left text-sm leading-6;
+  }
+
+  .legal-copy th {
+    @apply border-b border-stroke-strong py-4 pr-5 align-bottom text-[0.58rem] font-semibold uppercase tracking-[0.15em] text-content;
+  }
+
+  .legal-copy td {
+    @apply border-b border-stroke py-5 pr-5 align-top text-content-muted;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,6 +159,11 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .theme-transition,
+  .theme-transition * {
     transition-duration: 0.01ms !important;
   }
 }

@@ -80,59 +80,59 @@ export default function AboutPage() {
         <InteriorHero
           index="02"
           eyebrow="Sobre"
-          title={<>Uma trajetória guiada pela <em className="font-normal text-gold">natureza.</em></>}
+          title={<>Uma trajetória guiada pela <em className="font-normal text-accent">natureza.</em></>}
           description="Desde 1996, Carla Moraes desenvolve projetos paisagísticos personalizados para aproximar pessoas, arquitetura e natureza."
           image={heroImage}
         />
 
-        <section aria-labelledby="historia-titulo" className="section-space bg-canvas-warm">
+        <section aria-labelledby="historia-titulo" className="section-space bg-surface-warm">
           <div className="page-frame grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="reveal lg:col-span-4">
               <p className="eyebrow">A história</p>
-              <p aria-hidden="true" className="mt-7 font-editorial text-[7rem] font-medium leading-none tracking-[-0.06em] text-gold sm:text-[9rem]">1996</p>
+              <p aria-hidden="true" className="mt-7 font-editorial text-[7rem] font-medium leading-none tracking-[-0.06em] text-accent sm:text-[9rem]">1996</p>
             </div>
             <div className="reveal lg:col-span-7 lg:col-start-6">
-              <h2 id="historia-titulo" className="text-balance font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Um jardim precisa pertencer ao lugar — e a quem vai vivê-lo.</h2>
-              <div className="mt-8 space-y-6 text-base leading-8 text-ink-muted">
+              <h2 id="historia-titulo" className="text-balance font-editorial text-section-sm font-medium text-content sm:text-section">Um jardim precisa pertencer ao lugar — e a quem vai vivê-lo.</h2>
+              <div className="mt-8 space-y-6 text-base leading-8 text-content-muted">
                 {institutionalCopy.aboutParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
-              <p className="mt-8 border-l border-gold pl-6 text-sm leading-7 text-forest">A condução segue próxima da primeira conversa ao detalhamento, com acompanhamento da implantação quando contratado e integração a parceiros especializados.</p>
+              <p className="mt-8 border-l border-accent pl-6 text-sm leading-7 text-content">A condução segue próxima da primeira conversa ao detalhamento, com acompanhamento da implantação quando contratado e integração a parceiros especializados.</p>
             </div>
           </div>
         </section>
 
-        <section aria-labelledby="principios-titulo" className="section-space overflow-hidden bg-canvas">
+        <section aria-labelledby="principios-titulo" className="section-space overflow-hidden bg-surface">
           <div className="page-frame">
             <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
               <div className="reveal lg:col-span-7">
                 <p className="eyebrow">Forma de olhar</p>
-                <h2 id="principios-titulo" className="mt-5 font-editorial text-section-sm font-medium text-forest-deep sm:text-section">Delicadeza na composição. Precisão em cada escolha.</h2>
+                <h2 id="principios-titulo" className="mt-5 font-editorial text-section-sm font-medium text-content sm:text-section">Delicadeza na composição. Precisão em cada escolha.</h2>
               </div>
               <div className="reveal relative aspect-[16/10] lg:col-span-4 lg:col-start-9">
                 <Image src={projects[1].images[4]!.src} alt={projects[1].images[4]!.alt} fill sizes="(min-width: 1024px) 32vw, 100vw" className="object-cover [clip-path:polygon(12%_0,100%_0,100%_86%,86%_100%,0_100%,0_12%)]" />
               </div>
             </div>
-            <div className="mt-14 divide-y divide-line border-y border-line lg:mt-20">
+            <div className="mt-14 divide-y divide-stroke border-y border-stroke lg:mt-20">
               {principles.map((principle, index) => (
                 <article key={principle.number} className={`reveal grid gap-4 py-8 sm:py-10 lg:grid-cols-12 lg:items-center lg:gap-8 ${index === 1 ? "lg:ml-[7vw]" : index === 2 ? "lg:ml-[14vw]" : ""}`}>
-                  <p className="text-[0.6rem] font-semibold tracking-[0.18em] text-gold lg:col-span-1">{principle.number}</p>
-                  <h3 className="font-editorial text-3xl font-medium text-forest-deep sm:text-4xl lg:col-span-4">{principle.title}</h3>
-                  <p className="max-w-xl text-sm leading-7 text-ink-muted sm:text-base sm:leading-8 lg:col-span-6">{principle.description}</p>
+                  <p className="text-[0.6rem] font-semibold tracking-[0.18em] text-accent lg:col-span-1">{principle.number}</p>
+                  <h3 className="font-editorial text-3xl font-medium text-content sm:text-4xl lg:col-span-4">{principle.title}</h3>
+                  <p className="max-w-xl text-sm leading-7 text-content-muted sm:text-base sm:leading-8 lg:col-span-6">{principle.description}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section aria-labelledby="autoridade-titulo" className="bg-forest-deep py-20 text-canvas sm:py-24 lg:py-28">
+        <section aria-labelledby="autoridade-titulo" className="bg-surface-contrast py-20 text-content-onContrast sm:py-24 lg:py-28">
           <div className="page-frame reveal grid gap-12 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
-              <p className="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">Experiência comprovada</p>
+              <p className="text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-accent-soft">Experiência comprovada</p>
               <h2 id="autoridade-titulo" className="text-balance mt-5 font-editorial text-section-sm font-medium sm:text-section">Mais de 350 projetos e uma atuação que alcança a hotelaria nacional e internacional.</h2>
             </div>
             <div className="grid grid-cols-2 gap-4 lg:col-span-4 lg:col-start-9">
-              <div className="border-l border-canvas/20 pl-5"><p className="font-editorial text-5xl text-gold-soft">350+</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-canvas/65">Projetos realizados</p></div>
-              <div className="border-l border-canvas/20 pl-5"><p className="font-editorial text-4xl text-gold-soft">Garantia</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-canvas/65">de satisfação</p></div>
+              <div className="border-l border-stroke-onContrast/20 pl-5"><p className="font-editorial text-5xl text-accent-soft">350+</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-content-onContrast/65">Projetos realizados</p></div>
+              <div className="border-l border-stroke-onContrast/20 pl-5"><p className="font-editorial text-4xl text-accent-soft">Garantia</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-content-onContrast/65">de satisfação</p></div>
             </div>
           </div>
         </section>

@@ -64,7 +64,7 @@ export function OrganicGrowth() {
   }, [pathname]);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-y-0 right-0 z-20 w-9 overflow-hidden text-gold opacity-35 sm:w-14 lg:w-24 lg:opacity-45">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-y-0 right-0 z-20 w-9 overflow-hidden text-accent opacity-35 [[data-theme=dark]_&]:opacity-25 sm:w-14 lg:w-24 lg:opacity-45 lg:[[data-theme=dark]_&]:opacity-30">
       <svg ref={svgRef} viewBox="0 0 120 1000" preserveAspectRatio="none" className="h-full w-full overflow-visible">
         <path data-root-path data-start="0" d="M108-20C104 68 112 121 98 194C84 266 102 337 86 408C70 478 90 552 74 626C59 698 77 769 61 839C52 881 54 933 45 1020" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
         <path data-root-path data-start="0.13" d="M99 183C82 161 66 143 43 132C30 126 20 116 14 103" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" vectorEffect="non-scaling-stroke" />

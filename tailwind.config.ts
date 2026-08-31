@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config = {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -49,6 +50,34 @@ const config = {
           DEFAULT: "#1F7A4D",
           hover: "#165F3A",
         },
+        // Papéis semânticos alternados pelo tema. As cores da marca acima
+        // permanecem estáveis; superfícies e conteúdo mudam sem inverter fotos.
+        surface: {
+          DEFAULT: "rgb(var(--surface) / <alpha-value>)",
+          soft: "rgb(var(--surface-soft) / <alpha-value>)",
+          warm: "rgb(var(--surface-warm) / <alpha-value>)",
+          elevated: "rgb(var(--surface-elevated) / <alpha-value>)",
+          contrast: "rgb(var(--surface-contrast) / <alpha-value>)",
+        },
+        content: {
+          DEFAULT: "rgb(var(--content) / <alpha-value>)",
+          muted: "rgb(var(--content-muted) / <alpha-value>)",
+          subtle: "rgb(var(--content-subtle) / <alpha-value>)",
+          onContrast: "rgb(var(--content-on-contrast) / <alpha-value>)",
+          onLight: "rgb(var(--content-on-light) / <alpha-value>)",
+        },
+        stroke: {
+          DEFAULT: "rgb(var(--stroke) / <alpha-value>)",
+          strong: "rgb(var(--stroke-strong) / <alpha-value>)",
+          onContrast: "rgb(var(--stroke-on-contrast) / <alpha-value>)",
+        },
+        accent: {
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          soft: "rgb(var(--accent-soft) / <alpha-value>)",
+          text: "rgb(var(--accent-text) / <alpha-value>)",
+        },
+        highlight: "rgb(var(--highlight) / <alpha-value>)",
+        petal: "rgb(var(--petal) / <alpha-value>)",
       },
       fontFamily: {
         editorial: ["var(--font-editorial)", "Georgia", "serif"],

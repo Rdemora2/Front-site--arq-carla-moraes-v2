@@ -94,15 +94,15 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
         ref={dialogRef}
         onClose={() => setSelectedIndex(null)}
         aria-label={`Visualização ampliada — ${projectTitle}`}
-        className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none bg-forest-deep p-0 text-canvas backdrop:bg-forest-deep/95"
+        className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none bg-surface-contrast p-0 text-content-onContrast backdrop:bg-surface-contrast/95"
       >
         {selectedImage && selectedIndex !== null && (
           <div className="flex h-full flex-col px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1rem,env(safe-area-inset-top))] sm:px-8">
-            <div className="flex min-h-14 items-center justify-between gap-4 border-b border-canvas/15 pb-3">
-              <p aria-live="polite" className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-canvas/65">
+            <div className="flex min-h-14 items-center justify-between gap-4 border-b border-stroke-onContrast/15 pb-3">
+              <p aria-live="polite" className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-content-onContrast/65">
                 {selectedIndex + 1} / {images.length} · {projectTitle}
               </p>
-              <button type="button" onClick={close} autoFocus aria-label="Fechar imagem ampliada" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-canvas/30 text-canvas transition-colors hover:border-canvas hover:bg-canvas hover:text-forest-deep">
+              <button type="button" onClick={close} autoFocus aria-label="Fechar imagem ampliada" className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-stroke-onContrast/30 text-content-onContrast transition-colors hover:border-stroke-onContrast hover:bg-petal hover:text-content-onLight">
                 <CloseIcon className="h-6 w-6" />
               </button>
             </div>
@@ -111,11 +111,11 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
               <Image src={selectedImage.src} alt={selectedImage.alt} fill sizes="100vw" className="object-contain" />
             </div>
 
-            <div className="flex min-h-14 items-center justify-between gap-4 border-t border-canvas/15 pt-3">
-              <button type="button" onClick={() => setSelectedIndex((selectedIndex - 1 + images.length) % images.length)} className="inline-flex min-h-11 items-center px-2 text-[0.62rem] font-semibold uppercase tracking-[0.17em] text-canvas/72 transition-colors hover:text-canvas">
+            <div className="flex min-h-14 items-center justify-between gap-4 border-t border-stroke-onContrast/15 pt-3">
+              <button type="button" onClick={() => setSelectedIndex((selectedIndex - 1 + images.length) % images.length)} className="inline-flex min-h-11 items-center px-2 text-[0.62rem] font-semibold uppercase tracking-[0.17em] text-content-onContrast/72 transition-colors hover:text-content-onContrast">
                 ← Anterior
               </button>
-              <button type="button" onClick={() => setSelectedIndex((selectedIndex + 1) % images.length)} className="inline-flex min-h-11 items-center px-2 text-[0.62rem] font-semibold uppercase tracking-[0.17em] text-canvas/72 transition-colors hover:text-canvas">
+              <button type="button" onClick={() => setSelectedIndex((selectedIndex + 1) % images.length)} className="inline-flex min-h-11 items-center px-2 text-[0.62rem] font-semibold uppercase tracking-[0.17em] text-content-onContrast/72 transition-colors hover:text-content-onContrast">
                 Próxima →
               </button>
             </div>

@@ -15,10 +15,10 @@ export function ButtonLink({
   ...props
 }: ButtonLinkProps) {
   const variants = {
-    primary: "bg-forest text-canvas hover:bg-forest-deep",
-    light: "bg-canvas text-forest-deep hover:bg-white",
-    outline: "border border-line-strong text-forest-deep hover:border-forest hover:bg-forest hover:text-canvas",
-    outlineInverse: "border border-canvas/45 text-canvas hover:border-canvas hover:bg-canvas hover:text-forest-deep",
+    primary: "bg-forest text-content-onContrast hover:bg-surface-contrast",
+    light: "bg-petal text-content-onLight hover:bg-white",
+    outline: "border border-stroke-strong text-content hover:border-forest hover:bg-forest hover:text-content-onContrast",
+    outlineInverse: "border border-stroke-onContrast/45 text-content-onContrast hover:border-stroke-onContrast hover:bg-petal hover:text-content-onLight",
   } as const;
 
   return (
