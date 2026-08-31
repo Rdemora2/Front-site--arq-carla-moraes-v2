@@ -174,11 +174,11 @@ export const contactIntents = [
 ] as const satisfies readonly ContactIntent[];
 
 export const navigation = [
-  { label: "Sobre", href: "/#sobre" },
-  { label: "Serviços", href: "/#servicos" },
+  { label: "Sobre", href: "/sobre" },
+  { label: "Serviços", href: "/servicos" },
   { label: "Projetos", href: "/projetos" },
-  { label: "Processo", href: "/#processo" },
-  { label: "Contato", href: "/#contato" },
+  { label: "Processo", href: "/processo" },
+  { label: "Contato", href: "/contato" },
 ] as const satisfies readonly NavigationItem[];
 
 export const institutionalCopy = {
@@ -191,7 +191,7 @@ export const institutionalCopy = {
   aboutParagraphs: [
     "Começamos em 1996 com a missão de conectar pessoas à natureza através do paisagismo. Desenvolvemos projetos personalizados que respeitam seu estilo de vida e as características do seu espaço.",
     "Acreditamos que cada jardim deve refletir a personalidade do cliente. Por isso, escutamos suas ideias, entendemos seu estilo e criamos um espaço que funciona de verdade para sua rotina.",
-    "Nossa equipe trabalha junto com você desde a primeira conversa até a entrega final, garantindo que cada detalhe reflita seus sonhos e necessidades.",
+    "Carla trabalha junto com você desde a primeira conversa até o detalhamento, integrando parceiros especializados quando necessário para preservar cada escolha do projeto.",
   ],
   portfolioTitle: "Paisagens que permanecem.",
   portfolioDescription:

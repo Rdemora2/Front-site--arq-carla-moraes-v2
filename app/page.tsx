@@ -205,6 +205,7 @@ export default function HomePage() {
               <div className="mt-8 max-w-xl space-y-5 text-sm leading-7 text-forest/80 sm:text-base sm:leading-8">
                 {institutionalCopy.aboutParagraphs.slice(0, 2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
+              <Link href="/sobre" className="mt-7 inline-flex min-h-11 items-center gap-2 text-[0.64rem] font-semibold uppercase tracking-[0.17em] text-forest-deep underline decoration-forest/40 underline-offset-8">Conhecer a trajetória <ArrowUpRightIcon className="h-4 w-4" /></Link>
 
               <div className="mt-10 grid grid-cols-[auto_1fr] items-end gap-5 border-t border-forest/20 pt-8">
                 <p className="font-editorial text-[5.5rem] font-medium leading-[0.7] tracking-[-0.06em] text-forest-deep sm:text-[7rem]">350<span className="text-4xl sm:text-5xl">+</span></p>
@@ -231,7 +232,7 @@ export default function HomePage() {
                 <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-sage">Como a Carla pode ajudar</p>
                 <h2 id="titulo-servicos" className="text-balance mt-5 font-editorial text-section-sm font-medium text-canvas sm:text-section">Uma condução técnica, sem perder a delicadeza do natural.</h2>
               </div>
-              <ButtonLink href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" variant="outlineInverse" className="lg:col-span-4 lg:justify-self-end">Solicitar uma conversa</ButtonLink>
+              <ButtonLink href="/servicos" variant="outlineInverse" className="lg:col-span-4 lg:justify-self-end">Conhecer os serviços</ButtonLink>
             </div>
 
             <div className="divide-y divide-canvas/15 border-b border-canvas/15">
@@ -262,6 +263,7 @@ export default function HomePage() {
                   </li>
                 ))}
               </ol>
+              <Link href="/processo" className="mt-7 inline-flex min-h-11 items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.17em] text-canvas underline decoration-gold-soft/70 underline-offset-8">Ver o processo completo <ArrowUpRightIcon className="h-4 w-4" /></Link>
             </div>
           </div>
         </section>
