@@ -18,6 +18,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/servicos",
   socialDescription:
     "Conheça a atuação de Carla Moraes em projeto paisagístico, consultoria e acompanhamento da implantação.",
+  socialCard: "servicos",
 });
 
 export default function ServicesPage() {

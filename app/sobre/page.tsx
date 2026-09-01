@@ -17,6 +17,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/sobre",
   socialDescription:
     "Uma trajetória dedicada a conectar pessoas e natureza através de projetos paisagísticos personalizados.",
+  socialCard: "sobre",
 });
 
 const principles = [

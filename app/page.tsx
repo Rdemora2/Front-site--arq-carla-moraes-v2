@@ -26,6 +26,7 @@ export const metadata = createPageMetadata({
   path: "/",
   socialTitle: `${business.name} | Paisagismo em São Paulo`,
   absoluteTitle: true,
+  socialCard: "home",
 });
 
 export default function HomePage() {

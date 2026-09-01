@@ -17,6 +17,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/contato",
   socialDescription:
     "Converse diretamente com Carla Moraes sobre o espaço que você deseja transformar.",
+  socialCard: "contato",
 });
 
 export default function ContactPage() {

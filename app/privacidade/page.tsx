@@ -12,6 +12,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/privacidade",
   socialDescription: `Entenda como a ${business.name} trata dados pessoais e respeita suas escolhas.`,
   index: false,
+  socialCard: "privacidade",
 });
 
 export default function PrivacyPage() {

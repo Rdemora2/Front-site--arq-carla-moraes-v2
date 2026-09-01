@@ -15,6 +15,7 @@ import {
   projects,
 } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
+import { getProjectSocialCardKey } from "@/lib/data/social-cards";
 
 interface ProjectPageProps {
   readonly params: Promise<{ slug: string }>;
@@ -36,6 +37,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     description: project.description,
     path: `/projetos/${project.slug}`,
     type: "article",
+    socialCard: getProjectSocialCardKey(project.slug),
   });
 }
 

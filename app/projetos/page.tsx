@@ -18,6 +18,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/projetos",
   socialDescription:
     "Projetos residenciais e corporativos que conectam arquitetura, natureza e a identidade de cada espaço.",
+  socialCard: "projetos",
 });
 
 export default function ProjectsPage() {

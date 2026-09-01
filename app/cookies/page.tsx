@@ -13,6 +13,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/cookies",
   socialDescription: "Entenda e controle as tecnologias necessárias e analíticas deste site.",
   index: false,
+  socialCard: "cookies",
 });
 
 export default function CookiesPage() {

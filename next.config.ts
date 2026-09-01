@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // WHY: cada alteração produz um novo hash no nome do arquivo, então
+        // caches longos não servem uma capa social antiga após uma publicação.
+        source: "/images/social/v1/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },

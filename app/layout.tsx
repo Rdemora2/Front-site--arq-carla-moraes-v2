@@ -5,6 +5,7 @@ import { MotionObserver } from "@/components/motion-observer";
 import { OrganicGrowth } from "@/components/organic-growth";
 import { ConsentManager } from "@/components/privacy/consent-manager";
 import { business } from "@/lib/data/business";
+import { getSocialCard } from "@/lib/data/social-cards";
 
 const editorial = Cormorant_Garamond({
   subsets: ["latin"],
@@ -39,6 +40,8 @@ const themeInitializationScript = `
 `;
 
 export async function generateMetadata(): Promise<Metadata> {
+  const socialImage = getSocialCard("home");
+
   return {
     metadataBase: new URL(business.website),
     title: {
@@ -72,20 +75,13 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: business.name,
       title: `${business.name} | Paisagismo em São Paulo`,
       description: business.description,
-      images: [
-        {
-          url: "/social-card",
-          width: 1200,
-          height: 630,
-          alt: "Paisagismo autoral por Carla Moraes",
-        },
-      ],
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title: `${business.name} | Paisagismo em São Paulo`,
       description: business.description,
-      images: ["/social-card"],
+      images: [socialImage],
     },
     icons: {
       icon: [

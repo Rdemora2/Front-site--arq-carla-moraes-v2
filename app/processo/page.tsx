@@ -18,6 +18,7 @@ export const metadata: Metadata = createPageMetadata({
   path: "/processo",
   socialDescription:
     "Um processo próximo e claro, da leitura inicial do espaço ao acompanhamento da implantação.",
+  socialCard: "processo",
 });
 
 const decisionFactors = [

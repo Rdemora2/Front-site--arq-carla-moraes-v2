@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { business } from "@/lib/data/business";
-
-const socialImage = {
-  url: "/social-card",
-  width: 1200,
-  height: 630,
-  alt: "Paisagismo autoral por Carla Moraes",
-} as const;
+import { getSocialCard, type SocialCardKey } from "@/lib/data/social-cards";
 
 interface PageMetadataOptions {
   readonly title: string;
@@ -17,6 +11,7 @@ interface PageMetadataOptions {
   readonly type?: "website" | "article";
   readonly index?: boolean;
   readonly absoluteTitle?: boolean;
+  readonly socialCard?: SocialCardKey;
 }
 
 export function createPageMetadata({
@@ -28,7 +23,9 @@ export function createPageMetadata({
   type = "website",
   index = true,
   absoluteTitle = false,
+  socialCard = "home",
 }: PageMetadataOptions): Metadata {
+  const socialImage = getSocialCard(socialCard);
   const robots: Metadata["robots"] = index
     ? {
         index: true,
@@ -65,7 +62,7 @@ export function createPageMetadata({
       card: "summary_large_image",
       title: socialTitle,
       description: socialDescription,
-      images: [socialImage.url],
+      images: [socialImage],
     },
   };
 }
