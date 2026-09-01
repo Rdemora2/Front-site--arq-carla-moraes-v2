@@ -44,6 +44,8 @@ O projeto foi desenvolvido como produto de produção, não como demonstração 
 - Integrações opcionais com Google Tag Manager, Google Analytics e Microsoft Clarity.
 - Metadados, canonical, Open Graph, Twitter Cards, sitemap, `llms.txt`, robots, manifest e JSON-LD.
 - Políticas de privacidade e cookies.
+- Quality gate automatizado em GitHub Actions para pushes e pull requests.
+- Testes dos artefatos estáticos, capas sociais e fontes de imagem de produção.
 
 ### Fora do escopo atual
 
@@ -51,7 +53,7 @@ O projeto foi desenvolvido como produto de produção, não como demonstração 
 - Área autenticada ou painel administrativo.
 - Formulário com persistência de dados.
 - E-commerce, pagamentos ou automações de atendimento.
-- Suíte automatizada de testes end-to-end ou pipeline de CI.
+- Suíte end-to-end com navegador e monitoramento contínuo de Web Vitals em produção.
 
 ## Arquitetura
 
@@ -69,7 +71,7 @@ Git + dependências das rotas ──> sitemap-lastmod.json ──> sitemap.xml
 
 social-cards.json ──> gerador determinístico ──> JPEGs versionados por hash
 
-public/images ──> next/image ──> HTML estático otimizado
+assets/source-images ──> JPEG-fonte em public ──> next/image ──> AVIF/WebP responsivo
 
 consentimento local
         ├── Google autorizado ──> GTM ou GA direto
@@ -90,8 +92,7 @@ app/
 ├── llms.txt/                    # Índice curado e estático para agentes
 ├── manifest.ts                 # Web App Manifest
 ├── robots.ts                   # Política de crawling
-├── sitemap.ts                  # Descoberta de rotas e imagens
-└── social-card/                # Fallback para compartilhamentos antigos
+└── sitemap.ts                  # Descoberta de rotas e imagens
 
 components/
 ├── privacy/                    # Consentimento e carregamento de trackers
@@ -107,12 +108,17 @@ lib/
 
 public/
 ├── brand/                      # Marca e Safe Browsing
-├── images/projects/            # Fotografias reais do portfólio
+├── images/projects/            # JPEGs-fonte processáveis pelo next/image
 └── images/social/v1/           # Capas JPEG versionadas por conteúdo
+
+assets/source-images/           # Originais preservados, nunca servidos
 
 scripts/
 ├── generate-social-cards.mjs   # Composição das capas sociais
 └── generate-sitemap-lastmod.mjs # Datas editoriais derivadas do Git
+
+tests/                          # Contratos dos artefatos de produção
+.github/workflows/quality.yml   # CI com histórico Git completo
 ```
 
 ## Stack e decisões técnicas
@@ -123,7 +129,7 @@ scripts/
 | UI | React 19 | Componentização sem dependências de interface externas |
 | Linguagem | TypeScript 5 | `strict`, `noUncheckedIndexedAccess` e `noImplicitOverride` |
 | Estilos | Tailwind CSS 3 | Tokens semânticos e implementação mobile-first |
-| Imagens | `next/image` | Dimensões estáveis, AVIF/WebP, `sizes` e lazy loading |
+| Imagens | `next/image` + Sharp | JPEG-fonte processável, saída AVIF/WebP responsiva, `sizes` e lazy loading |
 | Fontes | `next/font` | Cormorant Garamond + Manrope, hospedadas pelo próprio build |
 | Conteúdo | Objetos TypeScript locais | Sem CMS, banco ou disponibilidade externa em runtime |
 | Motion | SVG + `requestAnimationFrame` | Scroll reativo sem biblioteca de animação |
@@ -179,20 +185,20 @@ IDs prefixados com `NEXT_PUBLIC_` ficam visíveis no bundle do navegador e **nã
 | `npm run start` | Serve localmente o último build de produção |
 | `npm run lint` | Executa as regras ESLint do Next.js |
 | `npm run typecheck` | Valida TypeScript sem emitir arquivos |
+| `npm run test:production` | Valida rotas estáticas, metatags, social cards e fontes de imagem após o build |
+| `npm run check` | Executa lint, tipos, build e testes de produção em sequência |
 
 ### Quality gate mínimo
 
 Antes de abrir PR ou publicar uma versão:
 
 ```bash
-npm run lint
-npm run typecheck
-npm run build
+npm run check
 ```
 
 O build deve manter as páginas institucionais como conteúdo estático (`○`) e os projetos como SSG com `generateStaticParams` (`●`).
 
-> Não há CI nem testes automatizados configurados neste momento. Isso é uma limitação conhecida, não uma cobertura implícita. O release depende dos quality gates acima e de QA manual proporcional à mudança.
+O workflow `quality.yml` executa o mesmo comando em pushes para `main` e pull requests, usando `npm ci` e histórico Git completo. Os testes cobrem contratos objetivos do build; QA visual, fluxos de consentimento e métricas em dispositivos reais continuam necessários.
 
 ## Rotas
 
@@ -208,7 +214,7 @@ O build deve manter as páginas institucionais como conteúdo estático (`○`) 
 | `/privacidade` | Estática | Política de privacidade |
 | `/cookies` | Estática | Política e reabertura das preferências |
 
-Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/manifest.webmanifest` e `/social-card` (fallback legado).
+Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/llms.txt` e `/manifest.webmanifest`.
 
 ## Conteúdo e portfólio
 
@@ -225,15 +231,15 @@ O cabeçalho desse arquivo registra a migração do site anterior, as fontes pre
 
 ### Adicionando um projeto
 
-1. Otimize e copie os assets para `public/images/projects/<slug>/`.
+1. Preserve o original em `assets/source-images/projects/<slug>/` e gere um JPEG-fonte de alta qualidade em `public/images/projects/<slug>/`.
 2. Registre cada imagem com `src`, `width`, `height` e `alt` descritivo.
 3. Adicione um objeto que satisfaça a interface `Project` em `business.ts`.
 4. Use um slug estável e exclusivo.
 5. Registre a capa em `lib/data/social-cards.json`, no tipo `SocialCardKey` e no mapeamento do gerador de datas.
-6. Rode os três quality gates.
+6. Rode `npm run check`.
 7. Verifique a página, o sitemap, o `llms.txt` e o compartilhamento social gerados.
 
-Dimensões declaradas são obrigatórias para evitar CLS. A imagem principal de cada rota deve ser tratada como candidata a LCP; as demais devem permanecer lazy.
+Dimensões declaradas são obrigatórias para evitar CLS. A imagem principal de cada rota deve ser tratada como candidata a LCP; as demais devem permanecer lazy. Não use um AVIF já comprimido como fonte no Next.js 15: o otimizador pode devolvê-lo intacto, sem redimensionamento. O AVIF deve ser a saída negociada pelo `next/image`, não a entrada pública.
 
 ## SEO e AEO
 
@@ -251,7 +257,7 @@ A camada de descoberta inclui:
 
 O domínio canônico é definido em `business.website`. SEO técnico melhora a capacidade de descoberta, mas não representa garantia de indexação ou posicionamento.
 
-O `prebuild` recria as capas e o manifesto de datas. Se o ambiente não expuser histórico Git suficiente, o gerador preserva as últimas datas confiáveis já versionadas; ele nunca usa a hora do deploy como substituto. O endpoint `/social-card` permanece apenas para links antigos, enquanto as metatags atuais apontam para arquivos imutáveis com hash.
+O `prebuild` recria as capas e o manifesto de datas. Se o ambiente não expuser histórico Git suficiente, o gerador preserva as últimas datas confiáveis já versionadas; ele nunca usa a hora do deploy como substituto. As metatags apontam diretamente para arquivos imutáveis com hash, sem endpoint de imagem em runtime.
 
 ## Privacidade, LGPD e analytics
 
@@ -288,7 +294,7 @@ Decisões implementadas para sustentar essas metas:
 - HTML pré-renderizado e ausência de fetch próprio em runtime;
 - uma única imagem priorizada no hero;
 - lazy loading e `sizes` responsivos nas galerias;
-- formatos AVIF e WebP;
+- JPEGs-fonte redimensionados e convertidos para AVIF/WebP pelo `next/image`;
 - fontes self-hosted pelo build do Next.js;
 - dimensões de imagem definidas para estabilidade visual;
 - motion orgânico processado em um único frame por scroll;
@@ -302,7 +308,10 @@ Decisões implementadas para sustentar essas metas:
 - `X-Frame-Options: SAMEORIGIN`;
 - `Referrer-Policy: strict-origin-when-cross-origin`;
 - `Permissions-Policy` sem câmera, microfone ou geolocalização;
+- `Strict-Transport-Security` em produção;
 - remoção do header `X-Powered-By`.
+
+Uma CSP forte não é aplicada de forma estática: o bootstrap de tema, os scripts de hidratação e analytics consentidos exigem nonce ou hashes por resposta. Adicionar `unsafe-inline` apenas para exibir um header reduziria o valor da proteção. A adoção futura deve considerar explicitamente o impacto de renderização dinâmica sobre o SSG atual.
 
 Nunca comite credenciais, arquivos `.env.local`, certificados ou chaves. A aplicação não exige segredos para funcionar.
 
@@ -343,7 +352,7 @@ Fluxo recomendado:
 1. Crie uma branch curta a partir de `main`.
 2. Mantenha cada mudança em escopo claro.
 3. Use Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`).
-4. Rode lint, typecheck e build.
+4. Rode `npm run check`.
 5. Abra PR com contexto, impacto visual e evidência de validação.
 6. Evite misturar alterações de conteúdo, design e infraestrutura no mesmo commit.
 
