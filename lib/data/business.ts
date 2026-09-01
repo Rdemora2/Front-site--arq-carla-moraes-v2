@@ -23,7 +23,9 @@
  * Informação complementar confirmada pelo responsável em 31/08/2026: mais de
  * 350 projetos realizados, satisfação garantida, reconhecimento como referência
  * no mercado e atuação com grandes bandeiras hoteleiras nacionais e
- * internacionais. O selo Safe Browsing de OLD foi mantido a pedido do cliente.
+ * internacionais. Como não há termos documentados para uma garantia comercial,
+ * a copy pública comunica compromisso com cada entrega. O selo Safe Browsing de
+ * OLD foi mantido a pedido do cliente.
  *
  * Inconsistências que não viraram alegações públicas: 310+ versus 500+ projetos,
  * 120 mil m², 98% de satisfação, nota 4,9/127 avaliações, CEP/coordenadas
@@ -182,22 +184,25 @@ export const navigation = [
 ] as const satisfies readonly NavigationItem[];
 
 export const institutionalCopy = {
-  heroEyebrow: "Paisagismo · São Paulo",
-  heroTitle: "Transformamos espaços em experiências naturais.",
+  heroEyebrow: "Paisagismo autoral · São Paulo",
+  heroTitle: {
+    full: "Transformamos espaços em experiências naturais.",
+    lines: ["Transformamos", "espaços em", "experiências", "naturais."],
+  },
   heroDescription:
-    "Desde 1996, criando projetos paisagísticos exclusivos que harmonizam arquitetura e natureza. Do conceito ao acompanhamento da implantação, beleza e propósito para cada ambiente.",
+    "Paisagismo autoral desde 1996, do conceito ao acompanhamento da implantação.",
   aboutEyebrow: "Carla Moraes · Desde 1996",
-  aboutTitle: "Jardins únicos, desenhados para combinar com você.",
+  aboutTitle: "Jardins únicos, desenhados para combinar com quem vai vivê-los.",
   aboutParagraphs: [
-    "Começamos em 1996 com a missão de conectar pessoas à natureza através do paisagismo. Desenvolvemos projetos personalizados que respeitam seu estilo de vida e as características do seu espaço.",
-    "Acreditamos que cada jardim deve refletir a personalidade do cliente. Por isso, escutamos suas ideias, entendemos seu estilo e criamos um espaço que funciona de verdade para sua rotina.",
+    "A trajetória começou em 1996 com a missão de conectar pessoas à natureza através do paisagismo. Cada projeto respeita o estilo de vida do cliente e as características do espaço.",
+    "Cada jardim deve refletir a personalidade de quem vai vivê-lo. A escuta das ideias, do estilo e da rotina orienta um espaço que funciona de verdade.",
     "Carla trabalha junto com você desde a primeira conversa até o detalhamento, integrando parceiros especializados quando necessário para preservar cada escolha do projeto.",
   ],
-  portfolioTitle: "Paisagens que permanecem.",
+  portfolioTitle: "Menos fórmula. Mais identidade em cada paisagem.",
   portfolioDescription:
-    "Projetos residenciais e corporativos que combinam visão artística, conhecimento técnico e uma leitura cuidadosa de cada espaço.",
+    "Residências, empresas e hotelaria resolvidas com o mesmo rigor e uma leitura própria de cada espaço.",
   marketStatement:
-    "Mais de 350 projetos realizados, com satisfação garantida e atuação para grandes bandeiras nacionais e internacionais de hotelaria.",
+    "Mais de 350 projetos realizados e atuação para grandes bandeiras nacionais e internacionais de hotelaria.",
 } as const;
 
 export const trustSignals = [
@@ -217,8 +222,8 @@ export const trustSignals = [
     detail: "Atuação nacional e internacional.",
   },
   {
-    value: "Garantia",
-    label: "de satisfação",
+    value: "Compromisso",
+    label: "com cada entrega",
     detail: "Compromisso com cada escolha e cada entrega.",
   },
 ] as const satisfies readonly TrustSignal[];
@@ -291,32 +296,32 @@ export const processSteps = [
 
 const frenchImages = [
   {
-    src: "/images/projects/jardim-frances/frances-4.avif",
+    src: "/images/projects/jardim-frances/frances-4.jpg",
     width: 1920,
     height: 1457,
     alt: "Jardim francês com espelho d’água, gramado e vasos ornamentais",
     position: "center 58%",
   },
   {
-    src: "/images/projects/jardim-frances/frances-3.avif",
+    src: "/images/projects/jardim-frances/frances-3.jpg",
     width: 1024,
     height: 683,
     alt: "Espelho d’água ladeado por gramado e vasos em jardim residencial",
   },
   {
-    src: "/images/projects/jardim-frances/frances-1.avif",
+    src: "/images/projects/jardim-frances/frances-1.jpg",
     width: 1920,
     height: 1478,
     alt: "Fachada residencial integrada ao paisagismo francês ao entardecer",
   },
   {
-    src: "/images/projects/jardim-frances/frances-2.avif",
+    src: "/images/projects/jardim-frances/frances-2.jpg",
     width: 1920,
     height: 1472,
     alt: "Topiarias e volumes geométricos do Jardim Francês Clássico",
   },
   {
-    src: "/images/projects/jardim-frances/frances-5.avif",
+    src: "/images/projects/jardim-frances/frances-5.jpg",
     width: 1920,
     height: 1467,
     alt: "Iluminação noturna refletida no espelho d’água do jardim",
@@ -325,38 +330,38 @@ const frenchImages = [
 
 const tropicalImages = [
   {
-    src: "/images/projects/jardim-tropical/tropical-2.avif",
+    src: "/images/projects/jardim-tropical/tropical-2.jpg",
     width: 1920,
     height: 1474,
     alt: "Jardim tropical com bromélias, pedras roladas e espelho d’água",
     position: "center 62%",
   },
   {
-    src: "/images/projects/jardim-tropical/tropical-1.avif",
+    src: "/images/projects/jardim-tropical/tropical-1.jpg",
     width: 1920,
     height: 1490,
     alt: "Caminho entre folhagens tropicais conduzindo ao espelho d’água",
   },
   {
-    src: "/images/projects/jardim-tropical/tropical-3.avif",
+    src: "/images/projects/jardim-tropical/tropical-3.jpg",
     width: 1920,
     height: 2524,
     alt: "Detalhe vertical da composição de bromélias e pedras naturais",
   },
   {
-    src: "/images/projects/jardim-tropical/tropical-4.avif",
+    src: "/images/projects/jardim-tropical/tropical-4.jpg",
     width: 1920,
     height: 2522,
     alt: "Folhagens tropicais refletidas na água em acesso residencial",
   },
   {
-    src: "/images/projects/jardim-tropical/tropical-5.avif",
+    src: "/images/projects/jardim-tropical/tropical-5.jpg",
     width: 1920,
     height: 2541,
     alt: "Bromélias e orquídeas compondo o jardim tropical moderno",
   },
   {
-    src: "/images/projects/jardim-tropical/tropical-6.avif",
+    src: "/images/projects/jardim-tropical/tropical-6.jpg",
     width: 1920,
     height: 2531,
     alt: "Bromélia entre pedras e água no jardim tropical",
@@ -440,6 +445,27 @@ const sicoobDimensions = [
   [1080, 1284],
 ] as const;
 
+const sicoobAlts = [
+  "Árvore ornamental em vaso de cimento junto ao guarda-corpo da varanda do SICOOB Metalcred",
+  "Árvore ornamental em vaso cinza diante da parede verde na área externa do SICOOB Metalcred",
+  "Árvore jovem em vaso de cimento com a fachada do SICOOB Metalcred ao fundo",
+  "Vasos com árvores ornamentais alinhados ao longo da varanda do SICOOB Metalcred",
+  "Folhagens altas em jardineira retangular e vaso de cimento na área externa do SICOOB Metalcred",
+  "Composição de iúcas e folhagens vinho em vasos de cimento no SICOOB Metalcred",
+  "Folhagens esculturais em jardineira e vasos sobre pedriscos no SICOOB Metalcred",
+  "Cica, agave e arbusto podado compondo o jardim em vasos do SICOOB Metalcred",
+  "Detalhe de agave em vaso redondo com cobertura de casca de pinus no SICOOB Metalcred",
+  "Jardineira com arbustos e vaso de flores vermelhas na área externa do SICOOB Metalcred",
+  "Cica, arbusto topiado, agave e flores compondo o terraço do SICOOB Metalcred",
+  "Agave em primeiro plano entre cica, arbusto podado e jardineira no SICOOB Metalcred",
+  "Pata-de-elefante em vaso branco junto à janela de uma sala do SICOOB Metalcred",
+  "Planta de folhas estreitas em vaso branco no ambiente de trabalho do SICOOB Metalcred",
+  "Lanças-de-são-jorge em vaso branco diante da divisória de vidro do SICOOB Metalcred",
+  "Pata-de-elefante em vaso branco no corredor interno do SICOOB Metalcred",
+] as const satisfies readonly string[] & {
+  length: typeof sicoobDimensions["length"];
+};
+
 const sicoobImages = sicoobDimensions.map(([width, height], index) => {
   const number = String(index + 1).padStart(2, "0");
 
@@ -447,7 +473,7 @@ const sicoobImages = sicoobDimensions.map(([width, height], index) => {
     src: `/images/projects/sicoob-metalcred/sicoob-${number}.jpg`,
     width,
     height,
-    alt: `SICOOB Metalcred — registro paisagístico ${index + 1}`,
+    alt: sicoobAlts[index]!,
   };
 }) satisfies readonly ProjectImage[];
 
@@ -514,7 +540,7 @@ export const faqs = [
   {
     question: "Como funciona o desenvolvimento de um projeto paisagístico?",
     answer:
-      "O processo começa com visita técnica e conversa para compreender necessidades e desejos. Em seguida, desenvolvemos estudo preliminar, anteprojeto e projeto executivo, com especificações de materiais e espécies. O acompanhamento da implantação pode ser contratado para preservar a fidelidade ao projeto.",
+      "O processo começa com visita técnica e conversa para compreender necessidades e desejos. Em seguida, são desenvolvidos estudo preliminar, anteprojeto e projeto executivo, com especificações de materiais e espécies. O acompanhamento da implantação pode ser contratado para preservar a fidelidade ao projeto.",
   },
   {
     question: "Quanto tempo leva para desenvolver um projeto completo?",
@@ -524,12 +550,12 @@ export const faqs = [
   {
     question: "Vocês trabalham apenas com projeto ou também com a execução?",
     answer:
-      "O foco é o desenvolvimento de projetos paisagísticos. Também oferecemos acompanhamento de obra e trabalhamos com parceiros de confiança para a implantação, formando uma equipe integrada.",
+      "O foco é o desenvolvimento de projetos paisagísticos. O acompanhamento de obra também pode ser contratado, e Carla trabalha com parceiros de confiança para formar uma equipe integrada durante a implantação.",
   },
   {
     question: "Como as espécies vegetais são escolhidas?",
     answer:
-      "A seleção considera clima, exposição solar, solo, disponibilidade de água, estilo do projeto, manutenção e preferências do cliente. Priorizamos espécies adaptadas ao local para favorecer longevidade e equilíbrio.",
+      "A seleção considera clima, exposição solar, solo, disponibilidade de água, estilo do projeto, manutenção e preferências do cliente. Espécies adaptadas ao local são priorizadas para favorecer longevidade e equilíbrio.",
   },
   {
     question: "Vocês desenvolvem projetos para pequenos espaços?",
