@@ -172,7 +172,7 @@ export default function HomePage() {
 
               <dl className="reveal grid grid-cols-2 border-l border-t border-stroke-onContrast/20 lg:col-span-5">
                 {trustSignals.map((signal) => (
-                  <div key={signal.value} className="min-h-40 border-b border-r border-stroke-onContrast/20 p-4 sm:min-h-44 sm:p-6">
+                  <div key={signal.value} className="min-h-36 border-b border-r border-stroke-onContrast/20 p-4 sm:min-h-44 sm:p-6">
                     <dt className="font-editorial text-[1.85rem] font-medium leading-none tracking-[-0.035em] text-accent-soft sm:text-4xl">{signal.value}</dt>
                     <dd className="mt-3 text-[0.55rem] font-semibold uppercase leading-4 tracking-[0.15em] text-content-onContrast">{signal.label}</dd>
                     <dd className="mt-3 text-[0.68rem] leading-5 text-content-onContrast/58 sm:text-xs">{signal.detail}</dd>
@@ -183,9 +183,9 @@ export default function HomePage() {
 
             <div className="reveal mt-12 border-t border-stroke-onContrast/20 pt-6 lg:mt-14">
               <p className="text-[0.56rem] font-semibold uppercase tracking-[0.17em] text-sage">Quatro recortes de uma trajetória consistente</p>
-              <nav aria-label="Projetos que comprovam a trajetória" className="mt-3 grid sm:grid-cols-2 lg:grid-cols-4">
+              <nav aria-label="Projetos que comprovam a trajetória" className="mt-3 grid grid-cols-2 lg:grid-cols-4">
                 {projects.map((project) => (
-                  <Link key={project.slug} href={`/projetos/${project.slug}`} className="group flex min-h-14 items-center justify-between gap-3 border-b border-stroke-onContrast/15 py-3 text-xs text-content-onContrast/70 transition-colors hover:text-content-onContrast sm:pr-5 lg:border-b-0 lg:border-r lg:px-5 lg:first:pl-0">
+                  <Link key={project.slug} href={`/projetos/${project.slug}`} className="group flex min-h-16 items-center justify-between gap-2 border-b border-r border-stroke-onContrast/15 px-2 py-3 text-[0.68rem] text-content-onContrast/70 transition-colors even:border-r-0 hover:text-content-onContrast sm:px-4 sm:text-xs lg:min-h-14 lg:border-b-0 lg:border-r lg:px-5 lg:even:border-r lg:first:pl-0 lg:last:border-r-0">
                     <span className="line-clamp-1">{project.title}</span>
                     <ArrowUpRightIcon className="h-3.5 w-3.5 shrink-0 text-accent-soft transition-transform duration-500 ease-organic group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Link>
@@ -260,7 +260,7 @@ export default function HomePage() {
 
             <div className="divide-y divide-stroke-onContrast/15 border-b border-stroke-onContrast/15">
               {services.map((service) => (
-                <article key={service.number} className="reveal group grid gap-5 py-9 transition-[background-color,padding] duration-500 ease-organic hover:bg-content-onContrast/[0.035] sm:py-11 lg:grid-cols-12 lg:items-start lg:gap-8 lg:hover:px-6">
+                <article key={service.number} className="reveal group -mx-4 grid gap-5 px-4 py-9 transition-colors duration-500 ease-organic hover:bg-content-onContrast/[0.035] sm:py-11 lg:-mx-6 lg:grid-cols-12 lg:items-start lg:gap-8 lg:px-6">
                   <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-accent-soft lg:col-span-1">{service.number}</p>
                   <h3 className="font-editorial text-3xl font-medium leading-none text-content-onContrast sm:text-4xl lg:col-span-4 lg:text-5xl">{service.title}</h3>
                   <p className="max-w-2xl text-sm leading-7 text-content-onContrast/68 sm:text-base sm:leading-8 lg:col-span-5">{service.description}</p>

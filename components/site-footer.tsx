@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Brand } from "@/components/brand";
-import { InstagramIcon, LinkedInIcon } from "@/components/icons";
+import { ArrowUpRightIcon, InstagramIcon, LinkedInIcon } from "@/components/icons";
 import { CookieSettingsButton } from "@/components/privacy/cookie-settings-button";
 import { business, contactLinks, navigation } from "@/lib/data/business";
 
@@ -67,10 +67,12 @@ export function SiteFooter() {
           <Link href="/cookies" className="inline-flex min-h-11 items-center transition-colors hover:text-content-onContrast">Cookies</Link>
           <CookieSettingsButton className="inline-flex min-h-11 items-center text-left uppercase tracking-[0.13em] transition-colors hover:text-content-onContrast" />
         </nav>
-        <p className="sm:col-span-2 lg:col-span-1 lg:text-right">
-          Desenvolvido por{" "}
-          <Link href="https://portifolio-roberto-moraes-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline decoration-accent-soft/60 underline-offset-4 transition-colors hover:text-content-onContrast">
+        <p className="flex flex-wrap items-center gap-x-2 sm:col-span-2 lg:col-span-1 lg:justify-end">
+          <span>Desenvolvido por</span>
+          <Link href="https://portifolio-roberto-moraes-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="group/developer relative inline-flex min-h-11 items-center gap-1.5 font-editorial text-base normal-case tracking-normal text-content-onContrast/88 transition-colors hover:text-content-onContrast focus-visible:ring-offset-surface-contrast">
             Roberto Moraes
+            <ArrowUpRightIcon className="h-3.5 w-3.5 transition-transform duration-500 ease-organic group-hover/developer:-translate-y-0.5 group-hover/developer:translate-x-0.5 group-focus-visible/developer:-translate-y-0.5 group-focus-visible/developer:translate-x-0.5" />
+            <span aria-hidden="true" className="absolute bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent-soft transition-transform duration-500 ease-organic group-hover/developer:scale-x-100 group-focus-visible/developer:scale-x-100" />
           </Link>
         </p>
       </div>
