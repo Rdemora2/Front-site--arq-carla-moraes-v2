@@ -70,6 +70,7 @@ const growthNodes: readonly GrowthNode[] = [
 ] as const;
 
 type OrganicTone = "light" | "gold" | "dark";
+const TONE_SAMPLE_INTERVAL_MS = 125;
 
 function getBackgroundTone(): OrganicTone {
   const sampleX = Math.max(1, window.innerWidth - 12);
@@ -118,6 +119,10 @@ export function OrganicGrowth() {
     const desktopQuery = window.matchMedia("(min-width: 1024px)");
     let reducedMotion = reducedMotionQuery.matches;
     let frame = 0;
+    let trailingToneTimer = 0;
+    let lastToneSample = Number.NEGATIVE_INFINITY;
+    let previousProgress = Number.NaN;
+    let scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
 
     paths.forEach((path) => {
       const length = path.getTotalLength();
@@ -126,69 +131,118 @@ export function OrganicGrowth() {
       path.style.strokeDashoffset = reducedMotion ? "0" : String(length);
     });
 
-    const render = () => {
+    const render = (timestamp = performance.now()) => {
       frame = 0;
-      const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const rawProgress = window.scrollY / scrollable;
       const progress = reducedMotion ? 1 : Math.min(1, Math.max(0.025, rawProgress));
 
-      // WHY: uma única leitura do fundo alterna tokens de alto contraste sem
-      // observers por seção nem uma segunda animação, preservando INP no mobile.
-      const tone = getBackgroundTone();
-      if (container.dataset.tone !== tone) container.dataset.tone = tone;
+      // WHY: elementFromPoint/getComputedStyle podem forçar cálculo de estilo.
+      // Amostrar no máximo 8 vezes/s mantém a troca de contraste perceptualmente
+      // contínua sem colocar essa leitura síncrona em todo frame de scroll.
+      if (timestamp - lastToneSample >= TONE_SAMPLE_INTERVAL_MS) {
+        if (trailingToneTimer) {
+          window.clearTimeout(trailingToneTimer);
+          trailingToneTimer = 0;
+        }
+        lastToneSample = timestamp;
+        const tone = getBackgroundTone();
+        if (container.dataset.tone !== tone) container.dataset.tone = tone;
+      } else if (!trailingToneTimer) {
+        // WHY: preserva uma amostra final depois que o scroll para; sem este
+        // trailing call, a raiz poderia manter o contraste da seção anterior.
+        const remaining = TONE_SAMPLE_INTERVAL_MS - (timestamp - lastToneSample);
+        trailingToneTimer = window.setTimeout(() => {
+          trailingToneTimer = 0;
+          lastToneSample = Number.NEGATIVE_INFINITY;
+          requestRender();
+        }, remaining);
+      }
 
       // WHY: todos os estilos são escritos no mesmo frame; o scroll não provoca
       // re-render React e o bundle continua sem uma biblioteca de motion.
-      paths.forEach((path) => {
-        const length = Number(path.dataset.length ?? 0);
-        const start = Number(path.dataset.start ?? 0);
-        const end = Number(path.dataset.end ?? 1);
-        const localProgress = Math.min(1, Math.max(0, (progress - start) / Math.max(0.01, end - start)));
-        path.style.strokeDashoffset = String(length * (1 - localProgress));
-      });
+      if (progress !== previousProgress) {
+        previousProgress = progress;
+        paths.forEach((path) => {
+          const length = Number(path.dataset.length ?? 0);
+          const start = Number(path.dataset.start ?? 0);
+          const end = Number(path.dataset.end ?? 1);
+          const localProgress = Math.min(1, Math.max(0, (progress - start) / Math.max(0.01, end - start)));
+          path.style.strokeDashoffset = String(length * (1 - localProgress));
+        });
 
-      leaves.forEach((leaf) => {
-        const start = Number(leaf.dataset.start ?? 0);
-        const end = Number(leaf.dataset.end ?? start + 0.05);
-        const localProgress = Math.min(1, Math.max(0, (progress - start) / Math.max(0.01, end - start)));
-        leaf.style.opacity = String(localProgress);
-        leaf.style.transform = `scale(${0.55 + localProgress * 0.45})`;
-      });
+        leaves.forEach((leaf) => {
+          const start = Number(leaf.dataset.start ?? 0);
+          const end = Number(leaf.dataset.end ?? start + 0.05);
+          const localProgress = Math.min(1, Math.max(0, (progress - start) / Math.max(0.01, end - start)));
+          leaf.style.opacity = String(localProgress);
+          leaf.style.transform = `scale(${0.55 + localProgress * 0.45})`;
+        });
 
-      nodes.forEach((node) => {
-        const start = Number(node.dataset.start ?? 0);
-        const localProgress = Math.min(1, Math.max(0, (progress - start) / 0.035));
-        node.style.opacity = String(localProgress);
-        node.style.transform = `scale(${0.6 + localProgress * 0.4})`;
-      });
+        nodes.forEach((node) => {
+          const start = Number(node.dataset.start ?? 0);
+          const localProgress = Math.min(1, Math.max(0, (progress - start) / 0.035));
+          node.style.opacity = String(localProgress);
+          node.style.transform = `scale(${0.6 + localProgress * 0.4})`;
+        });
 
-      const drift = desktopQuery.matches && !reducedMotion ? (progress - 0.5) * 8 : 0;
-      svg.style.setProperty("--organic-drift", `${drift.toFixed(2)}px`);
+        const drift = desktopQuery.matches && !reducedMotion ? (progress - 0.5) * 8 : 0;
+        svg.style.setProperty("--organic-drift", `${drift.toFixed(2)}px`);
+      }
     };
 
     const requestRender = () => {
       if (frame) return;
+
+      const elapsedSinceToneSample = performance.now() - lastToneSample;
+      if (reducedMotion && elapsedSinceToneSample < TONE_SAMPLE_INTERVAL_MS) {
+        if (!trailingToneTimer) {
+          trailingToneTimer = window.setTimeout(() => {
+            trailingToneTimer = 0;
+            lastToneSample = Number.NEGATIVE_INFINITY;
+            requestRender();
+          }, TONE_SAMPLE_INTERVAL_MS - elapsedSinceToneSample);
+        }
+        return;
+      }
+
       frame = window.requestAnimationFrame(render);
     };
 
     const handleReducedMotion = (event: MediaQueryListEvent) => {
       reducedMotion = event.matches;
+      previousProgress = Number.NaN;
+      lastToneSample = Number.NEGATIVE_INFINITY;
       requestRender();
     };
 
-    const themeObserver = new MutationObserver(requestRender);
+    const handleResize = () => {
+      scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      lastToneSample = Number.NEGATIVE_INFINITY;
+      requestRender();
+    };
+
+    const handleThemeChange = () => {
+      lastToneSample = Number.NEGATIVE_INFINITY;
+      requestRender();
+    };
+
+    const themeObserver = new MutationObserver(handleThemeChange);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    const sizeObserver = new ResizeObserver(handleResize);
+    sizeObserver.observe(document.documentElement);
 
     render();
     window.addEventListener("scroll", requestRender, { passive: true });
-    window.addEventListener("resize", requestRender, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
     reducedMotionQuery.addEventListener("change", handleReducedMotion);
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
+      if (trailingToneTimer) window.clearTimeout(trailingToneTimer);
       themeObserver.disconnect();
+      sizeObserver.disconnect();
       window.removeEventListener("scroll", requestRender);
-      window.removeEventListener("resize", requestRender);
+      window.removeEventListener("resize", handleResize);
       reducedMotionQuery.removeEventListener("change", handleReducedMotion);
     };
   }, [pathname]);
