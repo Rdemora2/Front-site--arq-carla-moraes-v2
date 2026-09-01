@@ -309,9 +309,16 @@ Decisões implementadas para sustentar essas metas:
 - `Referrer-Policy: strict-origin-when-cross-origin`;
 - `Permissions-Policy` sem câmera, microfone ou geolocalização;
 - `Strict-Transport-Security` em produção;
+- `Content-Security-Policy` nos builds de produção, com origens limitadas aos
+  provedores opcionais de analytics;
 - remoção do header `X-Powered-By`.
 
-Uma CSP forte não é aplicada de forma estática: o bootstrap de tema, os scripts de hidratação e analytics consentidos exigem nonce ou hashes por resposta. Adicionar `unsafe-inline` apenas para exibir um header reduziria o valor da proteção. A adoção futura deve considerar explicitamente o impacto de renderização dinâmica sobre o SSG atual.
+A CSP bloqueia objetos, iframes e handlers inline, restringe conexões e permite
+scripts externos apenas de GTM/GA e Clarity. O `unsafe-inline` permanece limitado
+ao `script-src` porque o App Router injeta bootstrap e hidratação inline no HTML
+estático, além do bootstrap de tema e dos scripts consentidos. Um nonce por
+resposta exigiria renderização dinâmica; essa troca foi evitada para preservar o
+SSG. A política não habilita `unsafe-eval`.
 
 Nunca comite credenciais, arquivos `.env.local`, certificados ou chaves. A aplicação não exige segredos para funcionar.
 

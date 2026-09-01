@@ -4,6 +4,24 @@ const isVercelProduction = process.env.VERCEL_ENV === "production";
 const isSelfHostedProduction =
   process.env.VERCEL_ENV === undefined && process.env.NODE_ENV === "production";
 const shouldSendHsts = isVercelProduction || isSelfHostedProduction;
+const shouldSendCsp = process.env.NODE_ENV === "production";
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "object-src 'none'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms",
+  "script-src-attr 'none'",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
+  "img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com https://*.clarity.ms https://c.bing.com",
+  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com",
+  "frame-src 'none'",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+].join("; ");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -38,6 +56,17 @@ const nextConfig: NextConfig = {
                 },
               ]
             : []),
+          ...(shouldSendCsp
+            ? [
+                {
+                  // WHY: o App Router estático injeta bootstrap/hidratação inline;
+                  // a política mantém somente essa exceção, bloqueia handlers e
+                  // limita scripts externos aos provedores opcionais consentidos.
+                  key: "Content-Security-Policy",
+                  value: contentSecurityPolicy,
+                },
+              ]
+            : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -45,9 +74,6 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
-          // CSP requer nonce/hash por resposta para o bootstrap de tema inline e
-          // para os scripts de analytics após consentimento. Uma política estática
-          // com unsafe-inline reduziria a proteção; implementar junto desse fluxo.
         ],
       },
     ];
