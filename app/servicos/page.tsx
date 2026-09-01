@@ -4,11 +4,7 @@ import { ArrowUpRightIcon } from "@/components/icons";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { InstitutionalCta } from "@/components/institutional-cta";
 import { InteriorHero } from "@/components/interior-hero";
-import { JsonLd } from "@/components/json-ld";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { PageShell } from "@/components/page-shell";
 import { business, faqs, processSteps, projects, services } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -66,10 +62,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader tone="dark" />
-      <main id="conteudo">
+    <PageShell headerTone="dark" structuredData={structuredData}>
         <InteriorHero
           index="03"
           eyebrow="Serviços"
@@ -143,10 +136,6 @@ export default function ServicesPage() {
         </section>
 
         <InstitutionalCta title="Qual é o melhor caminho para o seu espaço?" description="Uma primeira conversa ajuda a entender se a necessidade é um projeto completo, uma consultoria ou o acompanhamento da implantação." />
-      </main>
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }

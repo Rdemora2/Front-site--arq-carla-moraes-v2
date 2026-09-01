@@ -3,11 +3,7 @@ import Link from "next/link";
 import { ArrowUpRightIcon, InstagramIcon, LinkedInIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { InteriorHero } from "@/components/interior-hero";
-import { JsonLd } from "@/components/json-ld";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { PageShell } from "@/components/page-shell";
 import { business, contactIntents, contactLinks, faqs, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -49,10 +45,7 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader tone="dark" />
-      <main id="conteudo">
+    <PageShell headerTone="dark" structuredData={structuredData}>
         <InteriorHero
           index="06"
           eyebrow="Contato"
@@ -113,10 +106,6 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
-      </main>
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }

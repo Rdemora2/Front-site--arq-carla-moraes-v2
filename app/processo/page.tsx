@@ -3,11 +3,7 @@ import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { InstitutionalCta } from "@/components/institutional-cta";
 import { InteriorHero } from "@/components/interior-hero";
-import { JsonLd } from "@/components/json-ld";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { PageShell } from "@/components/page-shell";
 import { business, processSteps, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -68,10 +64,7 @@ export default function ProcessPage() {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader tone="dark" />
-      <main id="conteudo">
+    <PageShell headerTone="dark" structuredData={structuredData}>
         <InteriorHero
           index="05"
           eyebrow="Processo"
@@ -127,10 +120,6 @@ export default function ProcessPage() {
         </section>
 
         <InstitutionalCta title="Um bom projeto começa por uma boa leitura do espaço." description="Converse com a Carla sobre o local, a rotina e o que você deseja transformar. A partir disso, o caminho do trabalho fica mais claro." />
-      </main>
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }

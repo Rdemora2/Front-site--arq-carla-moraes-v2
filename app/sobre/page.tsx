@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { InstitutionalCta } from "@/components/institutional-cta";
 import { InteriorHero } from "@/components/interior-hero";
-import { JsonLd } from "@/components/json-ld";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
+import { PageShell } from "@/components/page-shell";
 import { business, institutionalCopy, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -73,10 +69,7 @@ export default function AboutPage() {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader tone="dark" />
-      <main id="conteudo">
+    <PageShell headerTone="dark" structuredData={structuredData}>
         <InteriorHero
           index="02"
           eyebrow="Sobre"
@@ -138,10 +131,6 @@ export default function AboutPage() {
         </section>
 
         <InstitutionalCta title="Seu espaço também pode contar uma história com a natureza." description="Compartilhe com a Carla o que você deseja transformar e entenda qual é o melhor ponto de partida para o projeto." />
-      </main>
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }

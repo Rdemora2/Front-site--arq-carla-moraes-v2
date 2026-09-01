@@ -3,12 +3,8 @@ import Link from "next/link";
 import { ButtonLink } from "@/components/button-link";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ArrowUpRightIcon, MailIcon, PhoneIcon } from "@/components/icons";
-import { JsonLd } from "@/components/json-ld";
+import { PageShell } from "@/components/page-shell";
 import { ProjectCard } from "@/components/project-card";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
 import {
   business,
   contactLinks,
@@ -80,11 +76,7 @@ export default function HomePage() {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader tone="dark" />
-
-      <main id="conteudo">
+    <PageShell headerTone="dark" structuredData={structuredData}>
         <section data-site-hero className="relative isolate overflow-hidden bg-surface">
           <div aria-hidden="true" className="absolute inset-x-0 top-[7rem] h-px bg-stroke/70" />
           <div aria-hidden="true" className="absolute bottom-0 left-[58%] top-0 hidden w-px bg-stroke/70 lg:block" />
@@ -312,11 +304,6 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-      </main>
-
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }

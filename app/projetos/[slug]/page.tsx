@@ -3,12 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRightIcon } from "@/components/icons";
-import { JsonLd } from "@/components/json-ld";
+import { PageShell } from "@/components/page-shell";
 import { ProjectGallery } from "@/components/project-gallery";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { SkipLink } from "@/components/skip-link";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
 import {
   business,
   contactLinks,
@@ -87,10 +83,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   };
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader />
-      <main id="conteudo">
+    <PageShell structuredData={structuredData}>
         <section data-site-hero className="relative isolate flex h-[84svh] min-h-[42rem] max-h-[58rem] items-end overflow-hidden bg-surface-contrast pb-12 pt-32 text-content-onContrast sm:pb-16">
           {/* WHY: cada detalhe possui uma única capa prioritária; as demais fotos são carregadas apenas ao se aproximarem do viewport. */}
           <Image src={project.cover.src} alt={project.cover.alt} fill priority fetchPriority="high" sizes="100vw" style={{ objectPosition: project.cover.position }} className="object-cover" />
@@ -138,10 +131,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         </section>
-      </main>
-      <SiteFooter />
-      <WhatsAppFab />
-      <JsonLd data={structuredData} />
-    </>
+    </PageShell>
   );
 }
