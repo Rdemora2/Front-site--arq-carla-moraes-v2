@@ -1,6 +1,7 @@
 export const CONSENT_VERSION = 1;
 export const CONSENT_STORAGE_KEY = "cm:privacy-consent:v1";
 export const OPEN_CONSENT_EVENT = "cm:open-consent-settings";
+export const ANALYTICS_COOKIE_ROOT_DOMAIN = ".arqcarlamoraes.com.br";
 
 const CONSENT_DURATION_MS = 180 * 24 * 60 * 60 * 1000;
 
@@ -41,12 +42,14 @@ export function readStoredConsent(): StoredConsent | null {
     if (!value) return null;
 
     const parsed = JSON.parse(value) as Partial<StoredConsent>;
+    const expiresAt = Date.parse(parsed.expiresAt ?? "");
     if (
       parsed.version !== CONSENT_VERSION ||
       !isConsentChoices(parsed.choices) ||
       typeof parsed.decidedAt !== "string" ||
       typeof parsed.expiresAt !== "string" ||
-      Date.parse(parsed.expiresAt) <= Date.now()
+      Number.isNaN(expiresAt) ||
+      expiresAt <= Date.now()
     ) {
       localStorage.removeItem(CONSENT_STORAGE_KEY);
       return null;
