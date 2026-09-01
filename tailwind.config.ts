@@ -78,6 +78,13 @@ const config = {
         },
         highlight: "rgb(var(--highlight) / <alpha-value>)",
         petal: "rgb(var(--petal) / <alpha-value>)",
+        // Assinatura orgânica adaptativa: os valores mudam conforme a
+        // luminância da seção sob o trilho, sem perder a paleta da marca.
+        organic: {
+          line: "rgb(var(--organic-line) / <alpha-value>)",
+          halo: "rgb(var(--organic-halo) / <alpha-value>)",
+          leaf: "rgb(var(--organic-leaf) / <alpha-value>)",
+        },
       },
       fontFamily: {
         editorial: ["var(--font-editorial)", "Georgia", "serif"],
