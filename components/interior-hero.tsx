@@ -33,7 +33,7 @@ export function InteriorHero({
               <li aria-current="page">{eyebrow}</li>
             </ol>
           </nav>
-          <p className="mt-8 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-accent">{eyebrow}</p>
+          <p className="mt-8 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-accent-text">{eyebrow}</p>
           <h1 className="text-balance mt-5 max-w-5xl font-editorial text-display-sm font-medium text-content lg:text-display">{title}</h1>
           <p className="mt-7 max-w-2xl text-sm leading-7 text-content-muted sm:text-base sm:leading-8">{description}</p>
           {children && <div className="mt-9">{children}</div>}

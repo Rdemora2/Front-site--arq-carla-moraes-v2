@@ -76,7 +76,7 @@ export default function ContactPage() {
             <div data-whatsapp-surface className="mt-12 divide-y divide-stroke border-y border-stroke lg:mt-16">
               {contactIntents.map((intent, index) => (
                 <Link key={intent.number} href={intent.href} target="_blank" rel="noopener noreferrer" className={`group grid min-h-32 gap-4 py-7 transition-[background-color,padding] duration-500 hover:bg-surface sm:grid-cols-[3rem_1fr_auto] sm:items-center sm:gap-6 ${index === 1 ? "lg:ml-[6vw]" : index === 2 ? "lg:ml-[12vw]" : ""}`}>
-                  <span className="text-[0.6rem] font-semibold tracking-[0.18em] text-accent">{intent.number}</span>
+                  <span className="text-[0.6rem] font-semibold tracking-[0.18em] text-accent-text">{intent.number}</span>
                   <span><span className="block font-editorial text-3xl font-medium text-content sm:text-4xl">{intent.title}</span><span className="mt-2 block text-xs uppercase tracking-[0.14em] text-content-muted">{intent.context}</span></span>
                   <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-stroke-strong text-content transition-[transform,background-color,color] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-forest group-hover:text-content-onContrast"><ArrowUpRightIcon className="h-5 w-5" /></span>
                 </Link>

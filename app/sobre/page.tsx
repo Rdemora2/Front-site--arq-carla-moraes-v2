@@ -115,7 +115,7 @@ export default function AboutPage() {
             <div className="mt-14 divide-y divide-stroke border-y border-stroke lg:mt-20">
               {principles.map((principle, index) => (
                 <article key={principle.number} className={`reveal grid gap-4 py-8 sm:py-10 lg:grid-cols-12 lg:items-center lg:gap-8 ${index === 1 ? "lg:ml-[7vw]" : index === 2 ? "lg:ml-[14vw]" : ""}`}>
-                  <p className="text-[0.6rem] font-semibold tracking-[0.18em] text-accent lg:col-span-1">{principle.number}</p>
+                  <p className="text-[0.6rem] font-semibold tracking-[0.18em] text-accent-text lg:col-span-1">{principle.number}</p>
                   <h3 className="font-editorial text-3xl font-medium text-content sm:text-4xl lg:col-span-4">{principle.title}</h3>
                   <p className="max-w-xl text-sm leading-7 text-content-muted sm:text-base sm:leading-8 lg:col-span-6">{principle.description}</p>
                 </article>

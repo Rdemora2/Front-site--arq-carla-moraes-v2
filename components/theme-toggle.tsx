@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MoonIcon, SunIcon } from "@/components/icons";
 
 const STORAGE_KEY = "cm-theme";
@@ -36,11 +36,7 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ inverse = false }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme>("light");
-
   useEffect(() => {
-    setTheme(getActiveTheme());
-
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const handleSystemChange = (event: MediaQueryListEvent) => {
       try {
@@ -50,13 +46,11 @@ export function ThemeToggle({ inverse = false }: ThemeToggleProps) {
       }
       const nextTheme = event.matches ? "dark" : "light";
       applyTheme(nextTheme, false);
-      setTheme(nextTheme);
     };
     const handleStorage = (event: StorageEvent) => {
       if (event.key !== STORAGE_KEY) return;
       const nextTheme = event.newValue === "dark" ? "dark" : "light";
       applyTheme(nextTheme, false);
-      setTheme(nextTheme);
     };
 
     media.addEventListener("change", handleSystemChange);
@@ -67,17 +61,12 @@ export function ThemeToggle({ inverse = false }: ThemeToggleProps) {
     };
   }, []);
 
-  const isDark = theme === "dark";
-
   return (
     <button
       type="button"
-      aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
-      aria-pressed={isDark}
       onClick={() => {
         const nextTheme = getActiveTheme() === "dark" ? "light" : "dark";
         applyTheme(nextTheme, true);
-        setTheme(nextTheme);
       }}
       className={`relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors ${
         inverse
@@ -85,8 +74,10 @@ export function ThemeToggle({ inverse = false }: ThemeToggleProps) {
           : "border-stroke-strong text-content hover:border-accent hover:text-accent"
       }`}
     >
-      <SunIcon className="hidden h-[1.15rem] w-[1.15rem] [[data-theme=dark]_&]:block" />
-      <MoonIcon className="h-[1.05rem] w-[1.05rem] [[data-theme=dark]_&]:hidden" />
+      <SunIcon aria-hidden="true" className="hidden h-[1.15rem] w-[1.15rem] [[data-theme=dark]_&]:block" />
+      <MoonIcon aria-hidden="true" className="h-[1.05rem] w-[1.05rem] [[data-theme=dark]_&]:hidden" />
+      <span className="sr-only [[data-theme=dark]_&]:hidden">Ativar modo escuro</span>
+      <span className="sr-only hidden [[data-theme=dark]_&]:inline">Ativar modo claro</span>
     </button>
   );
 }
