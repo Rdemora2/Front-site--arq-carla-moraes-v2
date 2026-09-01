@@ -197,7 +197,7 @@ export const institutionalCopy = {
   portfolioDescription:
     "Projetos residenciais e corporativos que combinam visão artística, conhecimento técnico e uma leitura cuidadosa de cada espaço.",
   marketStatement:
-    "Referência no mercado, com atuação para grandes bandeiras nacionais e internacionais de hotelaria e mais de 350 projetos realizados.",
+    "Mais de 350 projetos realizados, com satisfação garantida e atuação para grandes bandeiras nacionais e internacionais de hotelaria.",
 } as const;
 
 export const trustSignals = [
@@ -210,6 +210,11 @@ export const trustSignals = [
     value: "350+",
     label: "Projetos realizados",
     detail: "Entre jardins residenciais e espaços corporativos.",
+  },
+  {
+    value: "Hotelaria",
+    label: "Grandes bandeiras",
+    detail: "Atuação nacional e internacional.",
   },
   {
     value: "Garantia",

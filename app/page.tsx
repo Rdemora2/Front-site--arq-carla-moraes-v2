@@ -8,13 +8,13 @@ import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import {
   business,
-  contactIntents,
   contactLinks,
   faqs,
   institutionalCopy,
   processSteps,
   projects,
   services,
+  trustSignals,
 } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -27,8 +27,6 @@ export const metadata = createPageMetadata({
   socialTitle: `${business.name} | Paisagismo em São Paulo`,
   absoluteTitle: true,
 });
-
-const intentOffsets = ["", "lg:ml-[6vw]", "lg:ml-[12vw]"] as const;
 
 export default function HomePage() {
   const structuredData = {
@@ -123,9 +121,10 @@ export default function HomePage() {
                   {/* WHY: o recorte vertical usa o enquadramento nativo da foto, reduz bytes no mobile e evita a perda de nitidez causada por um cover horizontal ampliado. */}
                   <Image src="/images/projects/jardim-tropical/tropical-3.avif" alt="Composição vertical de bromélias e pedras naturais em jardim tropical" fill priority fetchPriority="high" sizes="(min-width: 1024px) 35vw, 11rem" className="object-cover" />
                 </div>
-                <div className="absolute -left-5 -top-5 z-10 flex h-[4.8rem] w-[4.8rem] rotate-[-8deg] flex-col items-center justify-center rounded-full bg-surface-contrast text-center text-content-onContrast shadow-lift sm:-left-8 sm:-top-8 sm:h-24 sm:w-24 lg:-left-14 lg:top-16 lg:h-28 lg:w-28">
-                  <span className="font-editorial text-2xl font-medium leading-none sm:text-3xl">350+</span>
-                  <span className="mt-1 text-[0.42rem] font-semibold uppercase tracking-[0.13em] text-sage-pale sm:text-[0.5rem]">projetos</span>
+                <div className="absolute -left-4 -top-4 z-10 w-[5.7rem] bg-surface-contrast px-3 py-3.5 text-content-onContrast shadow-lift [clip-path:polygon(0_0,100%_0,100%_calc(100%-0.7rem),calc(100%-0.7rem)_100%,0_100%)] sm:-left-7 sm:-top-7 sm:w-28 sm:px-4 sm:py-5 lg:-left-12 lg:top-14 lg:w-36 lg:px-5 lg:py-6">
+                  <span className="block font-editorial text-[1.8rem] font-medium leading-[0.75] tracking-[-0.04em] sm:text-4xl lg:text-5xl">350<span className="text-base sm:text-xl lg:text-2xl">+</span></span>
+                  <span className="mt-2 block text-[0.43rem] font-semibold uppercase leading-[1.45] tracking-[0.13em] text-sage-pale sm:text-[0.5rem]">projetos realizados</span>
+                  <span className="mt-2 block border-t border-stroke-onContrast/20 pt-2 text-[0.42rem] font-semibold uppercase tracking-[0.13em] text-accent-soft sm:text-[0.48rem]">desde 1996</span>
                 </div>
                 <p className="absolute -bottom-7 right-0 text-[0.5rem] font-semibold uppercase tracking-[0.15em] text-content-muted lg:-bottom-8">Jardim Tropical · 2023</p>
               </div>
@@ -140,10 +139,12 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="relative z-20 mt-8 flex items-center gap-3 border-t border-stroke pt-5 text-[0.54rem] font-semibold uppercase tracking-[0.16em] text-accent-text sm:max-w-md lg:mt-10">
-              <span>Satisfação garantida</span>
+            <div className="relative z-20 mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-stroke pt-5 text-[0.54rem] font-semibold uppercase tracking-[0.16em] text-accent-text sm:max-w-md lg:mt-10">
+              <span>Desde 1996</span>
               <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
-              <span>Residencial · Corporativo · Hotelaria</span>
+              <span>350+ projetos</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
+              <span>São Paulo</span>
             </div>
 
             <div className="absolute bottom-12 right-[29%] z-10 hidden h-44 w-64 border-[0.55rem] border-surface bg-sage-pale shadow-lift lg:block">
@@ -153,30 +154,43 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section aria-labelledby="titulo-intencoes" className="relative isolate overflow-hidden bg-surface">
-          <p aria-hidden="true" className="absolute -right-4 top-0 hidden font-editorial text-[15rem] leading-none text-content/[0.035] lg:block">02</p>
+        <section aria-labelledby="titulo-autoridade" className="relative isolate overflow-hidden bg-surface-contrast text-content-onContrast">
+          <p aria-hidden="true" className="absolute -right-4 top-0 hidden font-editorial text-[15rem] leading-none text-content-onContrast/[0.035] lg:block">02</p>
           <div className="page-frame relative z-10 py-16 sm:py-20 lg:py-24">
-            <div className="reveal grid gap-7 border-b border-stroke pb-9 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-7">
-                <p className="eyebrow">Comece pela sua necessidade</p>
-                <h2 id="titulo-intencoes" className="text-balance mt-4 font-editorial text-4xl font-medium text-content sm:text-5xl lg:text-6xl">O que você deseja transformar?</h2>
+            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              <div className="reveal lg:col-span-7 lg:pr-6">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-accent-soft sm:text-xs">Trajetória comprovada</p>
+                <h2 id="titulo-autoridade" className="text-balance mt-5 max-w-3xl font-editorial text-[clamp(3rem,12vw,4.8rem)] font-medium leading-[0.9] tracking-[-0.04em] sm:text-section">Referência no mercado desde 1996.</h2>
+                <p className="mt-7 max-w-xl text-sm leading-7 text-content-onContrast/72 sm:text-base sm:leading-8">{institutionalCopy.marketStatement}</p>
+                <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+                  <ButtonLink data-whatsapp-surface href={contactLinks.whatsapp} target="_blank" rel="noopener noreferrer" variant="light">Conversar sobre um projeto</ButtonLink>
+                  <Link href="/sobre" className="inline-flex min-h-12 items-center gap-2 px-1 text-[0.64rem] font-semibold uppercase tracking-[0.17em] text-content-onContrast transition-colors hover:text-accent-soft">
+                    Conhecer a trajetória <ArrowUpRightIcon className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-              <p className="max-w-sm text-sm leading-7 text-content-muted lg:col-span-4 lg:col-start-9">Escolha o ponto de partida e fale diretamente com a Carla pelo WhatsApp.</p>
+
+              <dl className="reveal grid grid-cols-2 border-l border-t border-stroke-onContrast/20 lg:col-span-5">
+                {trustSignals.map((signal) => (
+                  <div key={signal.value} className="min-h-40 border-b border-r border-stroke-onContrast/20 p-4 sm:min-h-44 sm:p-6">
+                    <dt className="font-editorial text-[1.85rem] font-medium leading-none tracking-[-0.035em] text-accent-soft sm:text-4xl">{signal.value}</dt>
+                    <dd className="mt-3 text-[0.55rem] font-semibold uppercase leading-4 tracking-[0.15em] text-content-onContrast">{signal.label}</dd>
+                    <dd className="mt-3 text-[0.68rem] leading-5 text-content-onContrast/58 sm:text-xs">{signal.detail}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
 
-            <div data-whatsapp-surface className="divide-y divide-stroke border-b border-stroke">
-              {contactIntents.map((intent, index) => (
-                <Link key={intent.number} href={intent.href} target="_blank" rel="noopener noreferrer" className={`group grid min-h-28 grid-cols-[1fr_auto] items-center gap-3 py-6 transition-[background-color,padding] duration-500 ease-organic hover:bg-surface-warm sm:grid-cols-[3rem_1fr_auto] sm:gap-6 sm:px-3 lg:min-h-32 lg:hover:pl-7 ${intentOffsets[index] ?? ""}`}>
-                  <span className="col-span-2 text-[0.6rem] font-semibold tracking-[0.18em] text-accent-text sm:col-span-1">{intent.number}</span>
-                  <span>
-                    <span className="block font-editorial text-2xl font-medium leading-tight text-content sm:text-3xl lg:text-4xl">{intent.title}</span>
-                    <span className="mt-2 block text-xs uppercase tracking-[0.14em] text-content-muted">{intent.context}</span>
-                  </span>
-                  <span className="inline-flex h-12 w-12 items-center justify-center justify-self-end rounded-full border border-stroke-strong text-content transition-[background-color,color,transform] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-forest group-hover:text-content-onContrast">
-                    <ArrowUpRightIcon className="h-5 w-5" />
-                  </span>
-                </Link>
-              ))}
+            <div className="reveal mt-12 border-t border-stroke-onContrast/20 pt-6 lg:mt-14">
+              <p className="text-[0.56rem] font-semibold uppercase tracking-[0.17em] text-sage">Quatro recortes de uma trajetória consistente</p>
+              <nav aria-label="Projetos que comprovam a trajetória" className="mt-3 grid sm:grid-cols-2 lg:grid-cols-4">
+                {projects.map((project) => (
+                  <Link key={project.slug} href={`/projetos/${project.slug}`} className="group flex min-h-14 items-center justify-between gap-3 border-b border-stroke-onContrast/15 py-3 text-xs text-content-onContrast/70 transition-colors hover:text-content-onContrast sm:pr-5 lg:border-b-0 lg:border-r lg:px-5 lg:first:pl-0">
+                    <span className="line-clamp-1">{project.title}</span>
+                    <ArrowUpRightIcon className="h-3.5 w-3.5 shrink-0 text-accent-soft transition-transform duration-500 ease-organic group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                ))}
+              </nav>
             </div>
           </div>
         </section>
@@ -218,14 +232,14 @@ export default function HomePage() {
 
               <div className="mt-10 grid grid-cols-[auto_1fr] items-end gap-5 border-t border-stroke pt-8">
                 <p className="font-editorial text-[5.5rem] font-medium leading-[0.7] tracking-[-0.06em] text-content sm:text-[7rem]">350<span className="text-4xl sm:text-5xl">+</span></p>
-                <p className="max-w-[14rem] text-xs font-semibold uppercase leading-5 tracking-[0.15em] text-content">Projetos realizados em mais de 20 anos de atuação</p>
+                <p className="max-w-[14rem] text-xs font-semibold uppercase leading-5 tracking-[0.15em] text-content">Projetos realizados desde o início da trajetória, em 1996</p>
               </div>
             </div>
 
             <div className="relative -mx-5 min-h-[34rem] [clip-path:polygon(12%_0,100%_0,100%_100%,0_100%,0_12%)] sm:-mx-8 lg:col-span-5 lg:-mr-12 lg:ml-0 lg:min-h-full xl:-mr-16">
               <Image src="/images/projects/hotel-jardins/jardins-05.jpg" alt="Detalhe vertical do paisagismo desenvolvido para hotel nos Jardins" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
               <div className="absolute inset-x-5 bottom-5 bg-surface-contrast p-6 text-content-onContrast shadow-lift [clip-path:polygon(0_0,100%_0,100%_84%,92%_100%,0_100%)] sm:inset-x-8 sm:bottom-8 sm:p-8 lg:left-[-3rem] lg:right-8">
-                <p className="text-[0.58rem] font-semibold uppercase tracking-[0.19em] text-accent-soft">Autoridade reconhecida</p>
+                <p className="text-[0.58rem] font-semibold uppercase tracking-[0.19em] text-accent-soft">Referência no mercado</p>
                 <p className="mt-3 font-editorial text-2xl font-medium leading-tight sm:text-3xl">Atuação com grandes bandeiras nacionais e internacionais de hotelaria.</p>
                 <div className="mt-5 inline-flex rounded-full border border-stroke-onContrast/30 px-4 py-2 text-[0.56rem] font-semibold uppercase tracking-[0.15em] text-content-onContrast">Satisfação garantida</div>
               </div>
