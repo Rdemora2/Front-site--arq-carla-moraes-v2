@@ -17,8 +17,9 @@ function applyTheme(theme: Theme, persist: boolean) {
   root.dataset.theme = theme;
   root.style.colorScheme = theme;
 
-  const themeMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-  themeMeta?.setAttribute("content", theme === "dark" ? "#111713" : "#F7F4EE");
+  document
+    .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
+    .forEach((themeMeta) => themeMeta.setAttribute("content", theme === "dark" ? "#111713" : "#F7F4EE"));
 
   if (persist) {
     try {

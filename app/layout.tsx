@@ -29,6 +29,9 @@ const themeInitializationScript = `
         : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       document.documentElement.dataset.theme = theme;
       document.documentElement.style.colorScheme = theme;
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute("content", theme === "dark" ? "#111713" : "#F7F4EE");
+      });
     } catch (_) {
       document.documentElement.dataset.theme = "light";
     }
@@ -59,35 +62,22 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     manifest: "/manifest.webmanifest",
     formatDetection: { telephone: false, email: false, address: false },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
     other: {
       "geo.region": "BR-SP",
       "geo.placename": "São Paulo",
     },
-    alternates: { canonical: "/" },
     openGraph: {
       type: "website",
       locale: "pt_BR",
-      url: "/",
       siteName: business.name,
       title: `${business.name} | Paisagismo em São Paulo`,
       description: business.description,
       images: [
         {
-          url: "/images/og-cover.jpg",
-          width: 1024,
-          height: 786,
-          alt: "Jardim tropical projetado por Carla Moraes",
+          url: "/social-card",
+          width: 1200,
+          height: 630,
+          alt: "Paisagismo autoral por Carla Moraes",
         },
       ],
     },
@@ -95,7 +85,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: `${business.name} | Paisagismo em São Paulo`,
       description: business.description,
-      images: ["/images/og-cover.jpg"],
+      images: ["/social-card"],
     },
     icons: {
       icon: [
@@ -113,16 +103,13 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F7F4EE" },
-    { media: "(prefers-color-scheme: dark)", color: "#111713" },
-  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className={`${editorial.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#F7F4EE" />
         {/* WHY: aplica a preferência antes da pintura inicial, evitando flash de tema e CLS. */}
         <script dangerouslySetInnerHTML={{ __html: themeInitializationScript }} />
       </head>

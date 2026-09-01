@@ -15,8 +15,8 @@ interface SiteHeaderProps {
 export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const useDarkInk = tone === "dark" && !isOpen;
 
   useEffect(() => {
@@ -36,11 +36,10 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
 
     if (!isOpen) return;
 
-    const menu = menuRef.current;
-    const focusable = menu?.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled])',
-    );
-    focusable?.[0]?.focus();
+    const focusable = Array.from(
+      headerRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
+    ).filter((element) => element.getClientRects().length > 0);
+    toggleRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -49,7 +48,7 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
         return;
       }
 
-      if (event.key !== "Tab" || !focusable?.length) return;
+      if (event.key !== "Tab" || !focusable.length) return;
       const first = focusable[0]!;
       const last = focusable[focusable.length - 1]!;
 
@@ -74,7 +73,7 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
   }, [isOpen]);
 
   return (
-    <header className={`absolute inset-x-0 top-0 z-[80] pt-[env(safe-area-inset-top)] ${useDarkInk ? "text-content" : "text-content-onContrast"}`}>
+    <header ref={headerRef} className={`absolute inset-x-0 top-0 z-[80] pt-[env(safe-area-inset-top)] ${useDarkInk ? "text-content" : "text-content-onContrast"}`}>
       <div className="page-frame flex h-24 items-center justify-between sm:h-28">
         <div className="relative z-[80]">
           <Brand inverse={!useDarkInk} />
@@ -119,7 +118,6 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
       </div>
 
       <div
-        ref={menuRef}
         id="menu-mobile"
         role="dialog"
         aria-modal="true"
