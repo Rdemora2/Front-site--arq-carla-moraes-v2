@@ -4,6 +4,7 @@
   "private": true,
   "description": "Site institucional da Carla Moraes Arquitetura Floral.",
   "scripts": {
+    "generate:social": "node scripts/generate-social-cards.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

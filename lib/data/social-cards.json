@@ -1,0 +1,134 @@
+[
+  {
+    "key": "home",
+    "number": "00",
+    "eyebrow": "Paisagismo autoral · São Paulo",
+    "title": "Paisagens que permanecem.",
+    "summary": "Projetos paisagísticos personalizados desde 1996.",
+    "detail": "Início",
+    "source": "public/images/og-cover.jpg",
+    "imagePosition": "center 52%",
+    "alt": "Carla Moraes Arquitetura Floral — paisagismo autoral em São Paulo"
+  },
+  {
+    "key": "sobre",
+    "number": "01",
+    "eyebrow": "Carla Moraes · Desde 1996",
+    "title": "Sobre Carla Moraes",
+    "summary": "Uma trajetória dedicada a conectar pessoas e natureza.",
+    "detail": "Trajetória e princípios",
+    "source": "public/images/projects/jardim-frances/frances-1.avif",
+    "imagePosition": "center 54%",
+    "alt": "Sobre Carla Moraes — trajetória dedicada ao paisagismo desde 1996"
+  },
+  {
+    "key": "servicos",
+    "number": "02",
+    "eyebrow": "Projeto · Consultoria · Acompanhamento",
+    "title": "Serviços de paisagismo",
+    "summary": "Soluções personalizadas para espaços residenciais e corporativos.",
+    "detail": "Escopo e entregáveis",
+    "source": "public/images/projects/jardim-tropical/tropical-2.avif",
+    "imagePosition": "center 62%",
+    "alt": "Serviços de paisagismo de Carla Moraes para residências e empresas"
+  },
+  {
+    "key": "projetos",
+    "number": "03",
+    "eyebrow": "Portfólio selecionado",
+    "title": "Projetos de paisagismo",
+    "summary": "Paisagens residenciais e corporativas com identidade própria.",
+    "detail": "Residencial · Corporativo",
+    "source": "public/images/projects/hotel-jardins/jardins-03.jpg",
+    "imagePosition": "center 55%",
+    "alt": "Projetos de paisagismo residenciais e corporativos de Carla Moraes"
+  },
+  {
+    "key": "processo",
+    "number": "04",
+    "eyebrow": "Método claro · Escuta próxima",
+    "title": "Processo de projeto paisagístico",
+    "summary": "Da leitura inicial do espaço à implantação acompanhada.",
+    "detail": "Quatro etapas",
+    "source": "public/images/projects/jardim-frances/frances-2.avif",
+    "imagePosition": "center 58%",
+    "alt": "Processo de projeto paisagístico de Carla Moraes em quatro etapas"
+  },
+  {
+    "key": "contato",
+    "number": "05",
+    "eyebrow": "Contato direto",
+    "title": "Vamos conversar sobre o seu espaço?",
+    "summary": "Projetos paisagísticos, consultoria e paisagismo corporativo.",
+    "detail": "WhatsApp · E-mail · Telefone",
+    "source": "public/images/projects/jardim-tropical/tropical-1.avif",
+    "imagePosition": "center 58%",
+    "alt": "Contato com Carla Moraes para conversar sobre um projeto paisagístico"
+  },
+  {
+    "key": "privacidade",
+    "number": "P",
+    "eyebrow": "Privacidade · LGPD",
+    "title": "Seus dados tratados com clareza.",
+    "summary": "Informações diretas sobre dados pessoais, cookies e direitos.",
+    "detail": "Política de Privacidade",
+    "source": "public/images/projects/hotel-jardins/jardins-02.jpg",
+    "imagePosition": "center 52%",
+    "alt": "Política de Privacidade da Carla Moraes Arquitetura Floral"
+  },
+  {
+    "key": "cookies",
+    "number": "C",
+    "eyebrow": "Cookies · Escolhas",
+    "title": "Medição somente com a sua permissão.",
+    "summary": "Controle transparente das tecnologias necessárias e analíticas.",
+    "detail": "Política de Cookies",
+    "source": "public/images/projects/hotel-jardins/jardins-04.jpg",
+    "imagePosition": "center 55%",
+    "alt": "Política de Cookies da Carla Moraes Arquitetura Floral"
+  },
+  {
+    "key": "projeto-jardim-frances-classico",
+    "number": "01",
+    "eyebrow": "Residencial · Morumbi, SP",
+    "title": "Jardim Francês Clássico",
+    "summary": "Simetria, formas geométricas e topiarias artesanais.",
+    "detail": "Projeto · 2023",
+    "source": "public/images/projects/jardim-frances/frances-4.avif",
+    "imagePosition": "center 58%",
+    "alt": "Jardim Francês Clássico — projeto residencial de Carla Moraes no Morumbi"
+  },
+  {
+    "key": "projeto-jardim-tropical-moderno",
+    "number": "02",
+    "eyebrow": "Residencial · São Paulo, SP",
+    "title": "Jardim Tropical Moderno",
+    "summary": "Folhagens, pedras, bromélias, orquídeas e espelho d’água.",
+    "detail": "Projeto · 2023",
+    "source": "public/images/projects/jardim-tropical/tropical-2.avif",
+    "imagePosition": "center 62%",
+    "alt": "Jardim Tropical Moderno — projeto residencial de Carla Moraes em São Paulo"
+  },
+  {
+    "key": "projeto-hotel-nos-jardins",
+    "number": "03",
+    "eyebrow": "Corporativo · Jardins, SP",
+    "title": "Paisagismo Hotel nos Jardins",
+    "summary": "Palmeiras preservadas e novos volumes para os canteiros.",
+    "detail": "Projeto · 2022",
+    "source": "public/images/projects/hotel-jardins/jardins-03.jpg",
+    "imagePosition": "center 55%",
+    "alt": "Paisagismo Hotel nos Jardins — projeto corporativo de Carla Moraes"
+  },
+  {
+    "key": "projeto-sicoob-metalcred",
+    "number": "04",
+    "eyebrow": "Corporativo · Liberdade, SP",
+    "title": "SICOOB Metalcred",
+    "summary": "Paisagismo para a sede corporativa, em áreas internas e externas.",
+    "detail": "Projeto · 2020",
+    "source": "public/images/projects/sicoob-metalcred/sicoob-04.jpg",
+    "imagePosition": "center 48%",
+    "alt": "SICOOB Metalcred — projeto de paisagismo corporativo de Carla Moraes"
+  }
+]

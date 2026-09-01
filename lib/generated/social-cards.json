@@ -1,0 +1,89 @@
+{
+  "version": "v1",
+  "cards": {
+    "home": {
+      "url": "/images/social/v1/home.307825867d94.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Carla Moraes Arquitetura Floral — paisagismo autoral em São Paulo"
+    },
+    "sobre": {
+      "url": "/images/social/v1/sobre.f427be9469f4.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Sobre Carla Moraes — trajetória dedicada ao paisagismo desde 1996"
+    },
+    "servicos": {
+      "url": "/images/social/v1/servicos.e7a9470ae163.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Serviços de paisagismo de Carla Moraes para residências e empresas"
+    },
+    "projetos": {
+      "url": "/images/social/v1/projetos.e99b04776e9b.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Projetos de paisagismo residenciais e corporativos de Carla Moraes"
+    },
+    "processo": {
+      "url": "/images/social/v1/processo.bc58f6e0613c.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Processo de projeto paisagístico de Carla Moraes em quatro etapas"
+    },
+    "contato": {
+      "url": "/images/social/v1/contato.4c780770d694.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Contato com Carla Moraes para conversar sobre um projeto paisagístico"
+    },
+    "privacidade": {
+      "url": "/images/social/v1/privacidade.6b6994aef729.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Política de Privacidade da Carla Moraes Arquitetura Floral"
+    },
+    "cookies": {
+      "url": "/images/social/v1/cookies.1cbc2ce8e627.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Política de Cookies da Carla Moraes Arquitetura Floral"
+    },
+    "projeto-jardim-frances-classico": {
+      "url": "/images/social/v1/projeto-jardim-frances-classico.018fe21bfd45.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Jardim Francês Clássico — projeto residencial de Carla Moraes no Morumbi"
+    },
+    "projeto-jardim-tropical-moderno": {
+      "url": "/images/social/v1/projeto-jardim-tropical-moderno.91668059311f.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Jardim Tropical Moderno — projeto residencial de Carla Moraes em São Paulo"
+    },
+    "projeto-hotel-nos-jardins": {
+      "url": "/images/social/v1/projeto-hotel-nos-jardins.0a13224ae09b.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Paisagismo Hotel nos Jardins — projeto corporativo de Carla Moraes"
+    },
+    "projeto-sicoob-metalcred": {
+      "url": "/images/social/v1/projeto-sicoob-metalcred.38ba234c7a2c.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "SICOOB Metalcred — projeto de paisagismo corporativo de Carla Moraes"
+    }
+  }
+}
