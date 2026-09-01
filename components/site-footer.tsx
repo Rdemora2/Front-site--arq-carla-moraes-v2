@@ -60,7 +60,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="page-frame grid gap-5 py-7 text-[0.6rem] uppercase tracking-[0.13em] text-content-onContrast/60 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+      <div className="page-frame grid gap-5 pb-24 pt-7 text-[0.6rem] uppercase tracking-[0.13em] text-content-onContrast/60 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
         <p>© {new Date().getFullYear()} {business.name}</p>
         <nav aria-label="Privacidade" className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:justify-center">
           <Link href="/privacidade" className="inline-flex min-h-11 items-center transition-colors hover:text-content-onContrast">Privacidade</Link>
