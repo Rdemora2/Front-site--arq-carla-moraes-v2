@@ -5,6 +5,9 @@
   "description": "Site institucional da Carla Moraes Arquitetura Floral.",
   "scripts": {
     "generate:social": "node scripts/generate-social-cards.mjs",
+    "generate:sitemap": "node scripts/generate-sitemap-lastmod.mjs",
+    "generate:seo": "npm run generate:social && npm run generate:sitemap",
+    "prebuild": "npm run generate:seo",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
