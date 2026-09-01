@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { JsonLd } from "@/components/json-ld";
 import { ProjectCard } from "@/components/project-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, contactLinks, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
@@ -63,7 +65,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
+      <SkipLink />
       <SiteHeader />
       <main id="conteudo">
         <section data-site-hero className="relative isolate flex min-h-[34rem] items-end overflow-hidden bg-surface-contrast pb-16 pt-32 text-content-onContrast sm:min-h-[39rem] sm:pb-20 lg:min-h-[42rem]">
@@ -118,7 +120,7 @@ export default function ProjectsPage() {
       </main>
       <SiteFooter />
       <WhatsAppFab />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }

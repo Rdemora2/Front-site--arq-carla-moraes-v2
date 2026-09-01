@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/button-link";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { ArrowUpRightIcon, MailIcon, PhoneIcon } from "@/components/icons";
+import { JsonLd } from "@/components/json-ld";
 import { ProjectCard } from "@/components/project-card";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import {
   business,
@@ -73,24 +76,12 @@ export default function HomePage() {
         inLanguage: "pt-BR",
         publisher: { "@id": `${business.website}/#empresa` },
       },
-      {
-        "@type": "FAQPage",
-        "@id": `${business.website}/#duvidas`,
-        inLanguage: "pt-BR",
-        mainEntity: faqs.slice(0, 3).map((faq) => ({
-          "@type": "Question",
-          name: faq.question,
-          acceptedAnswer: { "@type": "Answer", text: faq.answer },
-        })),
-      },
     ],
   };
 
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">
-        Ir para o conteúdo
-      </a>
+      <SkipLink />
       <SiteHeader tone="dark" />
 
       <main id="conteudo">
@@ -301,18 +292,7 @@ export default function HomePage() {
               <p className="eyebrow">Antes da primeira conversa</p>
               <h2 className="mt-5 font-editorial text-4xl font-medium text-content sm:text-5xl">Dúvidas que ajudam a começar.</h2>
               <div className="mt-8 divide-y divide-stroke border-y border-stroke">
-                {faqs.slice(0, 3).map((faq) => (
-                  <details key={faq.question} className="group">
-                    <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 font-editorial text-xl font-medium leading-tight text-content marker:hidden sm:text-2xl">
-                      {faq.question}
-                      <span aria-hidden="true" className="relative h-10 w-10 shrink-0 rounded-full border border-stroke-strong transition-colors group-open:bg-forest group-open:text-content-onContrast">
-                        <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" />
-                        <span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:rotate-90" />
-                      </span>
-                    </summary>
-                    <p className="max-w-xl pb-7 pr-10 text-sm leading-7 text-content-muted">{faq.answer}</p>
-                  </details>
-                ))}
+                <FaqAccordion items={faqs.slice(0, 3)} variant="compact" />
               </div>
             </div>
 
@@ -336,10 +316,7 @@ export default function HomePage() {
 
       <SiteFooter />
       <WhatsAppFab />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
-      />
+      <JsonLd data={structuredData} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { LegalPage } from "@/components/legal-page";
 import { business } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
@@ -70,7 +71,7 @@ export default function PrivacyPage() {
         <h2>10. Alterações</h2>
         <p>Esta política poderá ser atualizada para refletir mudanças no site, nas ferramentas utilizadas ou na legislação. A versão vigente e sua data de atualização permanecerão disponíveis nesta página. Para informações sobre tecnologias locais e como alterar sua decisão, consulte a <Link href="/cookies">Política de Cookies</Link>.</p>
       </LegalPage>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }

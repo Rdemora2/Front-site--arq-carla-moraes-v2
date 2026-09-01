@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon, InstagramIcon, LinkedInIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { InteriorHero } from "@/components/interior-hero";
+import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, contactIntents, contactLinks, faqs, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
@@ -47,7 +50,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
+      <SkipLink />
       <SiteHeader tone="dark" />
       <main id="conteudo">
         <InteriorHero
@@ -106,16 +109,14 @@ export default function ContactPage() {
           <div className="page-frame grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="reveal lg:col-span-4"><p className="eyebrow">Antes de escrever</p><h2 id="contato-faq" className="mt-5 font-editorial text-section-sm font-medium text-content sm:text-section">Três respostas úteis.</h2></div>
             <div className="reveal divide-y divide-stroke border-y border-stroke lg:col-span-8">
-              {contactFaqs.map((faq) => (
-                <details key={faq.question} className="group"><summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 font-editorial text-xl font-medium text-content marker:hidden sm:min-h-24 sm:text-2xl">{faq.question}<span aria-hidden="true" className="relative h-10 w-10 shrink-0 rounded-full border border-stroke-strong group-open:bg-forest group-open:text-content-onContrast"><span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" /><span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:rotate-90" /></span></summary><p className="max-w-2xl pb-8 pr-12 text-sm leading-7 text-content-muted">{faq.answer}</p></details>
-              ))}
+              <FaqAccordion items={contactFaqs} variant="contact" />
             </div>
           </div>
         </section>
       </main>
       <SiteFooter />
       <WhatsAppFab />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }

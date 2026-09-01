@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/json-ld";
 import { LegalPage } from "@/components/legal-page";
 import { CookieSettingsButton } from "@/components/privacy/cookie-settings-button";
 import { business } from "@/lib/data/business";
@@ -83,7 +84,7 @@ export default function CookiesPage() {
         <h2>7. Mais informações</h2>
         <p>Consulte a <Link href="/privacidade">Política de Privacidade</Link> ou envie sua dúvida para <Link href={`mailto:${business.email}`}>{business.email}</Link>.</p>
       </LegalPage>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }

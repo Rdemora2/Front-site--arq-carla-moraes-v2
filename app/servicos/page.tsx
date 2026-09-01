@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { InstitutionalCta } from "@/components/institutional-cta";
 import { InteriorHero } from "@/components/interior-hero";
+import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, faqs, processSteps, projects, services } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
@@ -64,7 +67,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
+      <SkipLink />
       <SiteHeader tone="dark" />
       <main id="conteudo">
         <InteriorHero
@@ -134,15 +137,7 @@ export default function ServicesPage() {
               <h2 id="faq-servicos" className="mt-5 font-editorial text-section-sm font-medium text-content sm:text-section">Respostas diretas antes de começar.</h2>
             </div>
             <div className="reveal divide-y divide-stroke border-y border-stroke lg:col-span-8">
-              {faqs.map((faq) => (
-                <details key={faq.question} className="group">
-                  <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-5 py-5 font-editorial text-xl font-medium leading-tight text-content marker:hidden sm:min-h-24 sm:text-2xl">
-                    {faq.question}
-                    <span aria-hidden="true" className="relative h-10 w-10 shrink-0 rounded-full border border-stroke-strong group-open:bg-forest group-open:text-content-onContrast"><span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" /><span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:rotate-90" /></span>
-                  </summary>
-                  <p className="max-w-2xl pb-8 pr-12 text-sm leading-7 text-content-muted sm:text-base sm:leading-8">{faq.answer}</p>
-                </details>
-              ))}
+              <FaqAccordion items={faqs} />
             </div>
           </div>
         </section>
@@ -151,7 +146,7 @@ export default function ServicesPage() {
       </main>
       <SiteFooter />
       <WhatsAppFab />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }

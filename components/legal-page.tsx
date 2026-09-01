@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SkipLink } from "@/components/skip-link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
@@ -14,7 +15,7 @@ interface LegalPageProps {
 export function LegalPage({ eyebrow, title, description, updatedAt, children }: LegalPageProps) {
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
+      <SkipLink />
       <SiteHeader tone="dark" />
       <main id="conteudo">
         <header data-site-hero className="relative overflow-hidden border-b border-stroke bg-surface pb-16 pt-[calc(9rem+env(safe-area-inset-top))] sm:pb-20 sm:pt-[calc(11rem+env(safe-area-inset-top))] lg:pb-24">

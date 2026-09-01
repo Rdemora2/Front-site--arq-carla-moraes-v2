@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 
 export default function NotFound() {
   return (
     <>
+      <SkipLink />
       <SiteHeader tone="dark" />
-      <main className="page-frame flex min-h-screen items-center bg-surface pb-16 pt-36">
+      <main id="conteudo" className="page-frame flex min-h-screen items-center bg-surface pb-16 pt-36">
         <div className="max-w-3xl">
           <p className="eyebrow">Erro 404</p>
           <h1 className="mt-5 font-editorial text-display-sm font-medium text-content lg:text-display">Este caminho ainda não floresceu.</h1>
@@ -17,6 +20,7 @@ export default function NotFound() {
           </Link>
         </div>
       </main>
+      <SiteFooter />
     </>
   );
 }

@@ -3,8 +3,10 @@ import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { InstitutionalCta } from "@/components/institutional-cta";
 import { InteriorHero } from "@/components/interior-hero";
+import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkipLink } from "@/components/skip-link";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, processSteps, projects } from "@/lib/data/business";
 import { createPageMetadata } from "@/lib/seo";
@@ -67,7 +69,7 @@ export default function ProcessPage() {
 
   return (
     <>
-      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
+      <SkipLink />
       <SiteHeader tone="dark" />
       <main id="conteudo">
         <InteriorHero
@@ -128,7 +130,7 @@ export default function ProcessPage() {
       </main>
       <SiteFooter />
       <WhatsAppFab />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
+      <JsonLd data={structuredData} />
     </>
   );
 }
