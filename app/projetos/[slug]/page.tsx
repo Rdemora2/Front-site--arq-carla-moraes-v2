@@ -14,6 +14,7 @@ import {
   getProjectBySlug,
   projects,
 } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 interface ProjectPageProps {
   readonly params: Promise<{ slug: string }>;
@@ -30,25 +31,12 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const project = getProjectBySlug(slug);
   if (!project) return {};
 
-  return {
+  return createPageMetadata({
     title: project.title,
-    description: project.fullDescription,
-    alternates: { canonical: `/projetos/${project.slug}` },
-    openGraph: {
-      type: "article",
-      title: `${project.title} | ${business.name}`,
-      description: project.description,
-      url: `/projetos/${project.slug}`,
-      images: [
-        {
-          url: project.cover.src,
-          width: project.cover.width,
-          height: project.cover.height,
-          alt: project.cover.alt,
-        },
-      ],
-    },
-  };
+    description: project.description,
+    path: `/projetos/${project.slug}`,
+    type: "article",
+  });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

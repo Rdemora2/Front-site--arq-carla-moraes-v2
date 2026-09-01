@@ -16,8 +16,17 @@ import {
   projects,
   services,
 } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
+
+export const metadata = createPageMetadata({
+  title: `${business.name} | Paisagismo em São Paulo`,
+  description: business.description,
+  path: "/",
+  socialTitle: `${business.name} | Paisagismo em São Paulo`,
+  absoluteTitle: true,
+});
 
 const intentOffsets = ["", "lg:ml-[6vw]", "lg:ml-[12vw]"] as const;
 

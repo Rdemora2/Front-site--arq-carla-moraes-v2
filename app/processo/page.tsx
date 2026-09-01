@@ -7,21 +7,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, processSteps, projects } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Processo de projeto paisagístico",
   description:
     "Entenda as etapas do trabalho de Carla Moraes: escuta e visita técnica, conceito, projeto executivo e acompanhamento da implantação.",
-  alternates: { canonical: "/processo" },
-  openGraph: {
-    title: `Processo de projeto paisagístico | ${business.name}`,
-    description: "Um processo próximo e claro, da leitura inicial do espaço ao acompanhamento da implantação.",
-    url: "/processo",
-    images: [{ url: projects[0].images[3]!.src, width: projects[0].images[3]!.width, height: projects[0].images[3]!.height, alt: projects[0].images[3]!.alt }],
-  },
-};
+  path: "/processo",
+  socialDescription:
+    "Um processo próximo e claro, da leitura inicial do espaço ao acompanhamento da implantação.",
+});
 
 const decisionFactors = [
   "Arquitetura existente",
@@ -69,8 +66,9 @@ export default function ProcessPage() {
 
   return (
     <>
+      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader tone="dark" />
-      <main>
+      <main id="conteudo">
         <InteriorHero
           index="05"
           eyebrow="Processo"

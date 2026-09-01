@@ -6,22 +6,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, institutionalCopy, projects } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Sobre Carla Moraes",
   description:
     "Conheça a trajetória de Carla Moraes no paisagismo desde 1996, sua forma de criar jardins personalizados e a experiência em mais de 350 projetos.",
-  alternates: { canonical: "/sobre" },
-  openGraph: {
-    title: `Sobre Carla Moraes | ${business.name}`,
-    description:
-      "Uma trajetória dedicada a conectar pessoas e natureza através de projetos paisagísticos personalizados.",
-    url: "/sobre",
-    images: [{ url: projects[0].cover.src, width: projects[0].cover.width, height: projects[0].cover.height, alt: projects[0].cover.alt }],
-  },
-};
+  path: "/sobre",
+  socialDescription:
+    "Uma trajetória dedicada a conectar pessoas e natureza através de projetos paisagísticos personalizados.",
+});
 
 const principles = [
   {
@@ -75,8 +71,9 @@ export default function AboutPage() {
 
   return (
     <>
+      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader tone="dark" />
-      <main>
+      <main id="conteudo">
         <InteriorHero
           index="02"
           eyebrow="Sobre"

@@ -2,19 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 import { business } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Política de Privacidade",
   description: `Entenda como a ${business.name} trata dados pessoais, cookies e solicitações de titulares.`,
-  alternates: { canonical: "/privacidade" },
-  openGraph: {
-    title: `Política de Privacidade | ${business.name}`,
-    description: `Entenda como a ${business.name} trata dados pessoais e respeita suas escolhas.`,
-    url: "/privacidade",
-  },
-};
+  path: "/privacidade",
+  socialDescription: `Entenda como a ${business.name} trata dados pessoais e respeita suas escolhas.`,
+  index: false,
+});
 
 export default function PrivacyPage() {
   const structuredData = {
@@ -55,9 +53,9 @@ export default function PrivacyPage() {
           <li>Dados enviados voluntariamente por canais de contato: responder à solicitação e, quando aplicável, adotar medidas relacionadas a uma possível contratação.</li>
         </ul>
 
-        <h2>6. Ferramentas opcionais e compartilhamento</h2>
+        <h2>6. Ferramentas, hospedagem e compartilhamento</h2>
         <p>Se configurados e autorizados por você, poderão ser utilizados Google Tag Manager, Google Analytics e Microsoft Clarity. Esses fornecedores atuam como prestadores de tecnologia e podem tratar dados fora do Brasil, conforme seus contratos, medidas de segurança e políticas de privacidade. Nenhuma dessas ferramentas é carregada antes do consentimento.</p>
-        <p>Consulte a <Link href="https://policies.google.com/privacy?hl=pt-BR" target="_blank" rel="noopener noreferrer">Política de Privacidade do Google</Link> e a <Link href="https://privacy.microsoft.com/pt-br/privacystatement" target="_blank" rel="noopener noreferrer">Política de Privacidade da Microsoft</Link>.</p>
+        <p>Quando publicado na infraestrutura de produção prevista, o site será hospedado pela Vercel, que poderá processar registros técnicos necessários para entregar e proteger o serviço. Consulte as políticas de privacidade da <Link href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel</Link>, do <Link href="https://policies.google.com/privacy?hl=pt-BR" target="_blank" rel="noopener noreferrer">Google</Link> e da <Link href="https://privacy.microsoft.com/pt-br/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft</Link>.</p>
 
         <h2>7. Retenção</h2>
         <p>Dados são mantidos apenas pelo período necessário às finalidades informadas, às configurações das ferramentas utilizadas e ao cumprimento de obrigações aplicáveis. A escolha de consentimento permanece neste dispositivo por 180 dias e pode ser alterada a qualquer momento.</p>

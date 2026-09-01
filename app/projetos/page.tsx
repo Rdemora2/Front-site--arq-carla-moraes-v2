@@ -7,22 +7,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, contactLinks, projects } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Projetos de paisagismo",
   description:
     "Conheça projetos residenciais e corporativos de Carla Moraes, com jardins clássicos, tropicais e paisagismo para hotelaria.",
-  alternates: { canonical: "/projetos" },
-  openGraph: {
-    title: `Projetos de paisagismo | ${business.name}`,
-    description:
-      "Projetos residenciais e corporativos que conectam arquitetura, natureza e a identidade de cada espaço.",
-    url: "/projetos",
-    images: [{ url: "/images/og-cover.jpg", width: 1024, height: 786 }],
-  },
-};
+  path: "/projetos",
+  socialDescription:
+    "Projetos residenciais e corporativos que conectam arquitetura, natureza e a identidade de cada espaço.",
+});
 
 export default function ProjectsPage() {
   const structuredData = {

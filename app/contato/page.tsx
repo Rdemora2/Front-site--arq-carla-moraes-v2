@@ -6,21 +6,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, contactIntents, contactLinks, faqs, projects } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contato",
   description:
     "Fale com Carla Moraes sobre projetos paisagísticos, consultoria ou paisagismo corporativo em São Paulo. WhatsApp, telefone, e-mail e redes sociais.",
-  alternates: { canonical: "/contato" },
-  openGraph: {
-    title: `Contato | ${business.name}`,
-    description: "Converse diretamente com Carla Moraes sobre o espaço que você deseja transformar.",
-    url: "/contato",
-    images: [{ url: projects[1].images[5]!.src, width: projects[1].images[5]!.width, height: projects[1].images[5]!.height, alt: projects[1].images[5]!.alt }],
-  },
-};
+  path: "/contato",
+  socialDescription:
+    "Converse diretamente com Carla Moraes sobre o espaço que você deseja transformar.",
+});
 
 export default function ContactPage() {
   const heroImage = projects[1].images[5]!;
@@ -49,8 +46,9 @@ export default function ContactPage() {
 
   return (
     <>
+      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader tone="dark" />
-      <main>
+      <main id="conteudo">
         <InteriorHero
           index="06"
           eyebrow="Contato"

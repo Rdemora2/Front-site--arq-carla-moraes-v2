@@ -3,19 +3,17 @@ import Link from "next/link";
 import { LegalPage } from "@/components/legal-page";
 import { CookieSettingsButton } from "@/components/privacy/cookie-settings-button";
 import { business } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Política de Cookies",
   description: `Saiba quais tecnologias a ${business.name} utiliza e gerencie suas preferências de medição.`,
-  alternates: { canonical: "/cookies" },
-  openGraph: {
-    title: `Política de Cookies | ${business.name}`,
-    description: "Entenda e controle as tecnologias necessárias e analíticas deste site.",
-    url: "/cookies",
-  },
-};
+  path: "/cookies",
+  socialDescription: "Entenda e controle as tecnologias necessárias e analíticas deste site.",
+  index: false,
+});
 
 export default function CookiesPage() {
   const structuredData = {

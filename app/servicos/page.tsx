@@ -7,22 +7,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFab } from "@/components/whatsapp-fab";
 import { business, faqs, processSteps, projects, services } from "@/lib/data/business";
+import { createPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Serviços de paisagismo",
   description:
     "Projeto paisagístico, consultoria especializada e acompanhamento de obra para residências, empresas, jardins, varandas e terraços.",
-  alternates: { canonical: "/servicos" },
-  openGraph: {
-    title: `Serviços de paisagismo | ${business.name}`,
-    description:
-      "Conheça a atuação de Carla Moraes em projeto paisagístico, consultoria e acompanhamento da implantação.",
-    url: "/servicos",
-    images: [{ url: projects[1].cover.src, width: projects[1].cover.width, height: projects[1].cover.height, alt: projects[1].cover.alt }],
-  },
-};
+  path: "/servicos",
+  socialDescription:
+    "Conheça a atuação de Carla Moraes em projeto paisagístico, consultoria e acompanhamento da implantação.",
+});
 
 export default function ServicesPage() {
   const heroImage = projects[1].images[4]!;
@@ -67,8 +63,9 @@ export default function ServicesPage() {
 
   return (
     <>
+      <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader tone="dark" />
-      <main>
+      <main id="conteudo">
         <InteriorHero
           index="03"
           eyebrow="Serviços"

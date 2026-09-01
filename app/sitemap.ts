@@ -47,18 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
       images: [`${business.website}${projects[1].images[5]!.src}`],
     },
-    {
-      url: `${business.website}/privacidade`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${business.website}/cookies`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
     ...projects.map((project) => ({
       url: `${business.website}/projetos/${project.slug}`,
       lastModified,
