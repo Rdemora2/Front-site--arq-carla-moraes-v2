@@ -42,7 +42,7 @@ O projeto foi desenvolvido como produto de produção, não como demonstração 
 - Movimento orgânico reativo ao scroll e adaptativo ao contraste do fundo.
 - Banner e central de preferências de cookies.
 - Integrações opcionais com Google Tag Manager, Google Analytics e Microsoft Clarity.
-- Metadados, canonical, Open Graph, Twitter Cards, sitemap, robots, manifest e JSON-LD.
+- Metadados, canonical, Open Graph, Twitter Cards, sitemap, `llms.txt`, robots, manifest e JSON-LD.
 - Políticas de privacidade e cookies.
 
 ### Fora do escopo atual
@@ -62,8 +62,12 @@ lib/data/business.ts
         │
         ├── páginas institucionais e projetos
         ├── metadata, canonical e JSON-LD
-        ├── sitemap e dados de navegação
+        ├── llms.txt e dados de navegação
         └── CTAs e links de contato
+
+Git + dependências das rotas ──> sitemap-lastmod.json ──> sitemap.xml
+
+social-cards.json ──> gerador determinístico ──> JPEGs versionados por hash
 
 public/images ──> next/image ──> HTML estático otimizado
 
@@ -83,10 +87,11 @@ app/
 ├── projetos/                   # Índice e páginas estáticas por slug
 ├── contato/                    # Contatos e CTA direto
 ├── privacidade/ e cookies/     # Transparência e preferências
+├── llms.txt/                    # Índice curado e estático para agentes
 ├── manifest.ts                 # Web App Manifest
 ├── robots.ts                   # Política de crawling
 ├── sitemap.ts                  # Descoberta de rotas e imagens
-└── social-card/                # Imagem social estática
+└── social-card/                # Fallback para compartilhamentos antigos
 
 components/
 ├── privacy/                    # Consentimento e carregamento de trackers
@@ -95,12 +100,19 @@ components/
 
 lib/
 ├── data/business.ts            # Fonte de verdade tipada do conteúdo
+├── data/social-cards.*         # Definições e registro tipado das capas
+├── generated/                  # Manifestos determinísticos de build
 ├── privacy/consent.ts          # Contrato e persistência do consentimento
 └── seo.ts                      # Factory de metadata por rota
 
 public/
 ├── brand/                      # Marca e Safe Browsing
-└── images/projects/            # Fotografias reais do portfólio
+├── images/projects/            # Fotografias reais do portfólio
+└── images/social/v1/           # Capas JPEG versionadas por conteúdo
+
+scripts/
+├── generate-social-cards.mjs   # Composição das capas sociais
+└── generate-sitemap-lastmod.mjs # Datas editoriais derivadas do Git
 ```
 
 ## Stack e decisões técnicas
@@ -160,7 +172,10 @@ IDs prefixados com `NEXT_PUBLIC_` ficam visíveis no bundle do navegador e **nã
 | Comando | Função |
 | --- | --- |
 | `npm run dev` | Inicia o servidor de desenvolvimento |
-| `npm run build` | Gera e valida o build de produção |
+| `npm run generate:social` | Recria as capas sociais determinísticas |
+| `npm run generate:sitemap` | Atualiza datas confiáveis do sitemap pelo histórico Git |
+| `npm run generate:seo` | Executa os dois geradores de SEO |
+| `npm run build` | Executa os geradores e valida o build de produção |
 | `npm run start` | Serve localmente o último build de produção |
 | `npm run lint` | Executa as regras ESLint do Next.js |
 | `npm run typecheck` | Valida TypeScript sem emitir arquivos |
@@ -193,7 +208,7 @@ O build deve manter as páginas institucionais como conteúdo estático (`○`) 
 | `/privacidade` | Estática | Política de privacidade |
 | `/cookies` | Estática | Política e reabertura das preferências |
 
-Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/manifest.webmanifest` e `/social-card`.
+Rotas técnicas: `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/manifest.webmanifest` e `/social-card` (fallback legado).
 
 ## Conteúdo e portfólio
 
@@ -214,8 +229,9 @@ O cabeçalho desse arquivo registra a migração do site anterior, as fontes pre
 2. Registre cada imagem com `src`, `width`, `height` e `alt` descritivo.
 3. Adicione um objeto que satisfaça a interface `Project` em `business.ts`.
 4. Use um slug estável e exclusivo.
-5. Rode os três quality gates.
-6. Verifique a página, o sitemap e o compartilhamento social gerados.
+5. Registre a capa em `lib/data/social-cards.json`, no tipo `SocialCardKey` e no mapeamento do gerador de datas.
+6. Rode os três quality gates.
+7. Verifique a página, o sitemap, o `llms.txt` e o compartilhamento social gerados.
 
 Dimensões declaradas são obrigatórias para evitar CLS. A imagem principal de cada rota deve ser tratada como candidata a LCP; as demais devem permanecer lazy.
 
@@ -224,15 +240,18 @@ Dimensões declaradas são obrigatórias para evitar CLS. A imagem principal de 
 A camada de descoberta inclui:
 
 - metadata e canonical por rota;
-- Open Graph e Twitter Cards;
-- social card em `1200 × 630`;
-- sitemap com imagens do portfólio;
+- Open Graph e Twitter Cards específicos por rota e projeto;
+- 12 capas JPEG em `1200 × 630`, menores que 160 KB e versionadas por hash de conteúdo;
+- sitemap com imagens do portfólio e `lastModified` derivado do histórico das dependências reais;
+- `llms.txt` curado, estático e gerado da mesma fonte tipada das páginas;
 - `robots.txt` e host canônico;
 - Web App Manifest e favicons próprios;
 - headings e conteúdo semântico renderizados no HTML estático;
 - JSON-LD para `ProfessionalService`, `WebSite`, `Person`, `Service`, `CreativeWork`, `FAQPage`, `ItemList`, `CollectionPage` e breadcrumbs, conforme a rota.
 
 O domínio canônico é definido em `business.website`. SEO técnico melhora a capacidade de descoberta, mas não representa garantia de indexação ou posicionamento.
+
+O `prebuild` recria as capas e o manifesto de datas. Se o ambiente não expuser histórico Git suficiente, o gerador preserva as últimas datas confiáveis já versionadas; ele nunca usa a hora do deploy como substituto. O endpoint `/social-card` permanece apenas para links antigos, enquanto as metatags atuais apontam para arquivos imutáveis com hash.
 
 ## Privacidade, LGPD e analytics
 
@@ -298,8 +317,8 @@ Nunca comite credenciais, arquivos `.env.local`, certificados ou chaves. A aplic
 
 ### Checklist pós-deploy
 
-- Confirmar canonical, Open Graph e social card.
-- Abrir `/sitemap.xml`, `/robots.txt` e `/manifest.webmanifest`.
+- Confirmar canonical, Open Graph e a capa específica de cada tipo de página.
+- Abrir `/sitemap.xml`, `/robots.txt`, `/llms.txt` e `/manifest.webmanifest`.
 - Validar os quatro projetos e imagens em viewport mobile.
 - Testar WhatsApp, telefone, e-mail e links externos.
 - Testar aceitar, recusar, personalizar e revogar analytics.
