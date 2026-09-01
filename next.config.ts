@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
 
+const isVercelProduction = process.env.VERCEL_ENV === "production";
+const isSelfHostedProduction =
+  process.env.VERCEL_ENV === undefined && process.env.NODE_ENV === "production";
+const shouldSendHsts = isVercelProduction || isSelfHostedProduction;
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -23,6 +28,16 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
+          ...(shouldSendHsts
+            ? [
+                {
+                  // WHY: previews da Vercel não recebem HSTS. Em produção, preload
+                  // e includeSubDomains ainda exigem auditoria de todos os domínios.
+                  key: "Strict-Transport-Security",
+                  value: "max-age=31536000",
+                },
+              ]
+            : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -30,6 +45,9 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          // CSP requer nonce/hash por resposta para o bootstrap de tema inline e
+          // para os scripts de analytics após consentimento. Uma política estática
+          // com unsafe-inline reduziria a proteção; implementar junto desse fluxo.
         ],
       },
     ];
