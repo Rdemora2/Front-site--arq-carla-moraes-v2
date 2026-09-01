@@ -75,8 +75,17 @@ export function ConsentManager() {
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-    if (isPreferencesOpen && !dialog.open) dialog.showModal();
-    if (!isPreferencesOpen && dialog.open) dialog.close();
+    if (!isPreferencesOpen) {
+      if (dialog.open) dialog.close();
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    if (!dialog.open) dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isPreferencesOpen]);
 
   const save = (choices: ConsentChoices) => {
@@ -105,6 +114,8 @@ export function ConsentManager() {
       {storedConsent === null && (
         <aside
           data-cookie-consent
+          role="region"
+          aria-live="polite"
           aria-labelledby="consent-title"
           className="fixed inset-x-2 bottom-[max(0.5rem,env(safe-area-inset-bottom))] z-[60] mx-auto max-w-[84rem] border border-stroke bg-surface-elevated p-4 shadow-lift sm:inset-x-6 sm:bottom-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-6 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10 lg:p-7"
         >

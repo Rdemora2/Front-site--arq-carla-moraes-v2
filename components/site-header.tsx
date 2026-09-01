@@ -76,7 +76,7 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
   return (
     <header className={`absolute inset-x-0 top-0 z-[80] pt-[env(safe-area-inset-top)] ${useDarkInk ? "text-content" : "text-content-onContrast"}`}>
       <div className="page-frame flex h-24 items-center justify-between sm:h-28">
-        <div className="relative z-50">
+        <div className="relative z-[80]">
           <Brand inverse={!useDarkInk} />
         </div>
 
@@ -85,7 +85,8 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
             <Link
               key={item.label}
               href={item.href}
-              className={`relative flex min-h-11 items-center text-[0.66rem] font-semibold uppercase tracking-[0.18em] transition-colors after:absolute after:bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all hover:after:w-full ${useDarkInk ? "text-content/75 hover:text-content" : "text-content-onContrast/80 hover:text-content-onContrast"}`}
+              aria-current={pathname === item.href || pathname.startsWith(`${item.href}/`) ? "page" : undefined}
+              className={`relative flex min-h-11 items-center text-[0.66rem] font-semibold uppercase tracking-[0.18em] transition-colors after:absolute after:bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all hover:after:w-full aria-[current=page]:after:w-full ${useDarkInk ? "text-content/75 hover:text-content" : "text-content-onContrast/80 hover:text-content-onContrast"}`}
             >
               {item.label}
             </Link>
@@ -101,7 +102,7 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
           </Link>
         </nav>
 
-        <div className="relative z-50 flex items-center gap-2 lg:hidden">
+        <div className="relative z-[80] flex items-center gap-2 lg:hidden">
           <ThemeToggle inverse={!useDarkInk} />
           <button
             ref={toggleRef}
@@ -132,8 +133,9 @@ export function SiteHeader({ tone = "light" }: SiteHeaderProps) {
               <Link
                 key={item.label}
                 href={item.href}
+                aria-current={pathname === item.href || pathname.startsWith(`${item.href}/`) ? "page" : undefined}
                 onClick={() => setIsOpen(false)}
-                className="flex min-h-16 items-center justify-between py-3 font-editorial text-3xl text-content-onContrast"
+                className="flex min-h-16 items-center justify-between py-3 font-editorial text-3xl text-content-onContrast aria-[current=page]:text-accent-soft"
               >
                 {item.label}
                 <span className="font-sans text-[0.6rem] uppercase tracking-[0.2em] text-sage">0{index + 1}</span>
