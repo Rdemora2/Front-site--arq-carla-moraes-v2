@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { createServer } from "node:net";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
+import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
@@ -24,6 +28,35 @@ async function listFiles(directory) {
     }),
   );
   return nested.flat();
+}
+
+async function reservePort() {
+  const probe = createServer();
+  await new Promise((resolve, reject) => {
+    probe.once("error", reject);
+    probe.listen(0, "127.0.0.1", resolve);
+  });
+  const address = probe.address();
+  assert.ok(address && typeof address === "object");
+  await new Promise((resolve, reject) => probe.close((error) => (error ? reject(error) : resolve())));
+  return address.port;
+}
+
+async function waitForServer(url, childProcess, diagnostics) {
+  const deadline = Date.now() + 15_000;
+  while (Date.now() < deadline) {
+    if (childProcess.exitCode !== null) {
+      throw new Error(`next start encerrou antes de responder:\n${diagnostics()}`);
+    }
+    try {
+      const response = await fetch(url);
+      if (response.ok) return response;
+    } catch {
+      // O socket ainda não foi aberto; a próxima tentativa ocorre em 100 ms.
+    }
+    await delay(100);
+  }
+  throw new Error(`next start não respondeu em 15 s:\n${diagnostics()}`);
 }
 
 const routeArtifacts = {
@@ -90,4 +123,37 @@ test("fontes do portfólio deixam a transformação responsiva para next/image",
   const files = await listFiles(join(root, "public/images/projects"));
   const avifSources = files.filter((file) => file.endsWith(".avif"));
   assert.deepEqual(avifSources, []);
+});
+
+test("servidor de produção aplica os headers de segurança", async (context) => {
+  const port = await reservePort();
+  const nextBinary = join(root, "node_modules/next/dist/bin/next");
+  const server = spawn(process.execPath, [nextBinary, "start", "-H", "127.0.0.1", "-p", String(port)], {
+    cwd: root,
+    env: { ...process.env, NODE_ENV: "production" },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  let output = "";
+  const recordOutput = (chunk) => { output = `${output}${chunk.toString()}`.slice(-2_000); };
+  server.stdout.on("data", recordOutput);
+  server.stderr.on("data", recordOutput);
+  context.after(async () => {
+    if (server.exitCode !== null) return;
+    const exited = once(server, "exit");
+    server.kill("SIGTERM");
+    await Promise.race([exited, delay(2_000)]);
+    if (server.exitCode === null) server.kill("SIGKILL");
+  });
+
+  const response = await waitForServer(`http://127.0.0.1:${port}/`, server, () => output);
+  const csp = response.headers.get("content-security-policy") ?? "";
+
+  assert.equal(response.headers.get("strict-transport-security"), "max-age=31536000");
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN");
+  assert.equal(response.headers.get("x-powered-by"), null);
+  assert.match(csp, /default-src 'self'/);
+  assert.match(csp, /script-src-attr 'none'/);
+  assert.match(csp, /object-src 'none'/);
+  assert.doesNotMatch(csp, /unsafe-eval/);
 });
