@@ -132,7 +132,7 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-4 lg:col-span-4 lg:col-start-9">
               <div className="border-l border-stroke-onContrast/20 pl-5"><p className="font-editorial text-5xl text-accent-soft">350+</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-content-onContrast/65">Projetos realizados</p></div>
-              <div className="border-l border-stroke-onContrast/20 pl-5"><p className="font-editorial text-4xl text-accent-soft">Garantia</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-content-onContrast/65">de satisfação</p></div>
+              <div className="border-l border-stroke-onContrast/20 pl-5"><p className="font-editorial text-4xl text-accent-soft">Compromisso</p><p className="mt-2 text-[0.56rem] uppercase tracking-[0.16em] text-content-onContrast/65">com cada entrega</p></div>
             </div>
           </div>
         </section>
