@@ -101,26 +101,26 @@ export default function HomePage() {
             <div className="relative z-20 lg:w-[66%]">
               <div className="flex items-center gap-4">
                 <span className="h-px w-10 bg-accent" />
-                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-accent-text sm:text-xs">Paisagismo autoral · São Paulo</p>
+                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-accent-text sm:text-xs">{institutionalCopy.heroEyebrow}</p>
               </div>
-              <h1 className="mt-7 font-editorial text-[clamp(3.15rem,15.5vw,5rem)] font-medium leading-[0.84] tracking-[-0.052em] text-content lg:text-[clamp(5.5rem,7.5vw,7.25rem)]">
-                <span className="block">Transformamos</span>
-                <span className="ml-[7vw] block lg:ml-[5vw]">espaços em</span>
-                <span className="block font-normal text-accent">experiências</span>
-                <em className="ml-[16vw] block font-normal lg:ml-[11vw]">naturais.</em>
+              <h1 aria-label={institutionalCopy.heroTitle.full} className="mt-7 font-editorial text-[clamp(3.15rem,15.5vw,5rem)] font-medium leading-[0.92] tracking-[-0.052em] text-content lg:text-[clamp(5.5rem,7.5vw,7.25rem)] lg:leading-[0.88]">
+                <span aria-hidden="true" className="block">{institutionalCopy.heroTitle.lines[0]}</span>
+                <span aria-hidden="true" className="ml-[7vw] block lg:ml-[5vw]">{institutionalCopy.heroTitle.lines[1]}</span>
+                <span aria-hidden="true" className="block font-normal text-accent">{institutionalCopy.heroTitle.lines[2]}</span>
+                <em aria-hidden="true" className="ml-[16vw] block font-normal lg:ml-[11vw]">{institutionalCopy.heroTitle.lines[3]}</em>
               </h1>
             </div>
 
             <div className="mt-9 grid grid-cols-[1fr_8.5rem] items-end gap-5 sm:grid-cols-[1fr_11rem] lg:mt-10 lg:block">
               <p className="max-w-[13rem] text-sm leading-7 text-content-muted sm:max-w-sm sm:text-base sm:leading-8 lg:max-w-md">
-                Paisagismo autoral desde 1996, do conceito ao acompanhamento da implantação.
+                {institutionalCopy.heroDescription}
               </p>
 
               <div className="relative aspect-[2/3] w-full lg:absolute lg:right-0 lg:top-32 lg:h-[42rem] lg:w-[35%]">
                 <div aria-hidden="true" className="absolute -inset-2 bg-accent/65 [clip-path:polygon(14%_0,100%_0,100%_86%,86%_100%,0_100%,0_14%)] sm:-inset-3" />
                 <div className="relative h-full overflow-hidden bg-sage-pale [clip-path:polygon(14%_0,100%_0,100%_86%,86%_100%,0_100%,0_14%)]">
                   {/* WHY: o recorte vertical usa o enquadramento nativo da foto, reduz bytes no mobile e evita a perda de nitidez causada por um cover horizontal ampliado. */}
-                  <Image src="/images/projects/jardim-tropical/tropical-3.avif" alt="Composição vertical de bromélias e pedras naturais em jardim tropical" fill priority fetchPriority="high" sizes="(min-width: 1024px) 35vw, 11rem" className="object-cover" />
+                  <Image src="/images/projects/jardim-tropical/tropical-3.jpg" alt="Composição vertical de bromélias e pedras naturais em jardim tropical" fill priority fetchPriority="high" sizes="(min-width: 1024px) 35vw, 11rem" className="object-cover" />
                 </div>
                 <div className="absolute -left-4 -top-4 z-10 w-[5.7rem] bg-surface-contrast px-3 py-3.5 text-content-onContrast shadow-lift [clip-path:polygon(0_0,100%_0,100%_calc(100%-0.7rem),calc(100%-0.7rem)_100%,0_100%)] sm:-left-7 sm:-top-7 sm:w-28 sm:px-4 sm:py-5 lg:-left-12 lg:top-14 lg:w-36 lg:px-5 lg:py-6">
                   <span className="block font-editorial text-[1.8rem] font-medium leading-[0.75] tracking-[-0.04em] sm:text-4xl lg:text-5xl">350<span className="text-base sm:text-xl lg:text-2xl">+</span></span>
@@ -149,7 +149,7 @@ export default function HomePage() {
             </div>
 
             <div className="absolute bottom-12 right-[29%] z-10 hidden h-44 w-64 border-[0.55rem] border-surface bg-sage-pale shadow-lift lg:block">
-              <Image src="/images/projects/jardim-frances/frances-3.avif" alt="Espelho d’água em jardim residencial clássico" fill sizes="18rem" className="object-cover" />
+              <Image src="/images/projects/jardim-frances/frances-3.jpg" alt="Espelho d’água em jardim residencial clássico" fill sizes="18rem" className="object-cover" />
             </div>
             <p aria-hidden="true" className="absolute bottom-11 left-12 hidden font-editorial text-[10rem] leading-none tracking-[-0.06em] text-sage-pale/55 xl:block">01</p>
           </div>
@@ -202,10 +202,10 @@ export default function HomePage() {
             <div className="reveal grid gap-7 lg:grid-cols-12 lg:items-end">
               <div className="lg:col-span-8">
                 <p className="eyebrow">Projetos selecionados</p>
-                <h2 id="titulo-projetos" className="mt-5 max-w-4xl font-editorial text-section-sm font-medium text-content sm:text-section">Menos fórmula. Mais identidade em cada paisagem.</h2>
+                <h2 id="titulo-projetos" className="mt-5 max-w-4xl font-editorial text-section-sm font-medium text-content sm:text-section">{institutionalCopy.portfolioTitle}</h2>
               </div>
               <div className="lg:col-span-4 lg:pb-2">
-                <p className="text-sm leading-7 text-content-muted">Residências, empresas e hotelaria resolvidas com o mesmo rigor e uma leitura própria de cada espaço.</p>
+                <p className="text-sm leading-7 text-content-muted">{institutionalCopy.portfolioDescription}</p>
                 <Link href="/projetos" className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-[0.17em] text-content underline decoration-accent underline-offset-8">
                   Explorar o portfólio completo <ArrowUpRightIcon className="h-4 w-4" />
                 </Link>
@@ -224,8 +224,8 @@ export default function HomePage() {
           <p aria-hidden="true" className="absolute -left-8 bottom-0 hidden font-editorial text-[16rem] leading-none text-content/[0.06] lg:block">04</p>
           <div className="page-frame relative z-10 grid lg:grid-cols-12">
             <div className="reveal py-20 sm:py-24 lg:col-span-7 lg:py-32 lg:pr-16">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-content">Carla Moraes · Desde 1996</p>
-              <h2 id="titulo-sobre" className="text-balance mt-5 font-editorial text-section-sm font-medium text-content sm:text-section">Jardins únicos, desenhados para combinar com quem vai vivê-los.</h2>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-content">{institutionalCopy.aboutEyebrow}</p>
+              <h2 id="titulo-sobre" className="text-balance mt-5 font-editorial text-section-sm font-medium text-content sm:text-section">{institutionalCopy.aboutTitle}</h2>
               <div className="mt-8 max-w-xl space-y-5 text-sm leading-7 text-content/80 sm:text-base sm:leading-8">
                 {institutionalCopy.aboutParagraphs.slice(0, 2).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
@@ -244,7 +244,7 @@ export default function HomePage() {
               <div className="absolute inset-x-5 bottom-5 bg-surface-contrast p-6 text-content-onContrast shadow-lift [clip-path:polygon(0_0,100%_0,100%_84%,92%_100%,0_100%)] sm:inset-x-8 sm:bottom-8 sm:p-8 lg:left-[-3rem] lg:right-8">
                 <p className="text-[0.58rem] font-semibold uppercase tracking-[0.19em] text-accent-soft">Referência no mercado</p>
                 <p className="mt-3 font-editorial text-2xl font-medium leading-tight sm:text-3xl">Atuação com grandes bandeiras nacionais e internacionais de hotelaria.</p>
-                <div className="mt-5 inline-flex rounded-full border border-stroke-onContrast/30 px-4 py-2 text-[0.56rem] font-semibold uppercase tracking-[0.15em] text-content-onContrast">Satisfação garantida</div>
+                <div className="mt-5 inline-flex rounded-full border border-stroke-onContrast/30 px-4 py-2 text-[0.56rem] font-semibold uppercase tracking-[0.15em] text-content-onContrast">Compromisso com cada entrega</div>
               </div>
             </div>
           </div>
