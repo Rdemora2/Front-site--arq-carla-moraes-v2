@@ -21,7 +21,7 @@ export function InteriorHero({
   children,
 }: InteriorHeroProps) {
   return (
-    <section className="relative isolate overflow-hidden bg-surface">
+    <section data-site-hero className="relative isolate overflow-hidden bg-surface">
       <div aria-hidden="true" className="absolute inset-x-0 top-[7rem] h-px bg-stroke/70" />
       <p aria-hidden="true" className="absolute -bottom-8 -left-5 hidden font-editorial text-[17rem] leading-none text-content/[0.035] lg:block">{index}</p>
       <div className="page-frame relative grid gap-12 pb-16 pt-[calc(9rem+env(safe-area-inset-top))] sm:gap-14 sm:pb-20 sm:pt-[calc(10rem+env(safe-area-inset-top))] lg:min-h-[48rem] lg:grid-cols-12 lg:items-center lg:gap-14 lg:pb-24 lg:pt-40">

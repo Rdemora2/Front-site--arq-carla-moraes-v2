@@ -17,7 +17,7 @@ export function LegalPage({ eyebrow, title, description, updatedAt, children }: 
       <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader tone="dark" />
       <main id="conteudo">
-        <header className="relative overflow-hidden border-b border-stroke bg-surface pb-16 pt-[calc(9rem+env(safe-area-inset-top))] sm:pb-20 sm:pt-[calc(11rem+env(safe-area-inset-top))] lg:pb-24">
+        <header data-site-hero className="relative overflow-hidden border-b border-stroke bg-surface pb-16 pt-[calc(9rem+env(safe-area-inset-top))] sm:pb-20 sm:pt-[calc(11rem+env(safe-area-inset-top))] lg:pb-24">
           <p aria-hidden="true" className="absolute -bottom-10 right-0 hidden font-editorial text-[15rem] leading-none text-content/[0.035] lg:block">LGPD</p>
           <div className="page-frame relative z-10 grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">

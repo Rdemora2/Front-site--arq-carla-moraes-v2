@@ -66,7 +66,7 @@ export default function ProjectsPage() {
       <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader />
       <main id="conteudo">
-        <section className="relative isolate flex min-h-[34rem] items-end overflow-hidden bg-surface-contrast pb-16 pt-32 text-content-onContrast sm:min-h-[39rem] sm:pb-20 lg:min-h-[42rem]">
+        <section data-site-hero className="relative isolate flex min-h-[34rem] items-end overflow-hidden bg-surface-contrast pb-16 pt-32 text-content-onContrast sm:min-h-[39rem] sm:pb-20 lg:min-h-[42rem]">
           <Image src={projects[0].cover.src} alt={projects[0].cover.alt} fill priority fetchPriority="high" sizes="100vw" className="object-cover object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,35,25,0.94)_0%,rgba(18,35,25,0.72)_55%,rgba(18,35,25,0.25)_100%)]" />
           <div className="page-frame relative">

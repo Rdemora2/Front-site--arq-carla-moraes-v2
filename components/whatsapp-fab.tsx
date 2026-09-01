@@ -11,26 +11,25 @@ export function WhatsAppFab() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const contactSurfaces = document.querySelectorAll<HTMLElement>(
-      "[data-whatsapp-surface]",
-    );
-    if (!contactSurfaces.length) {
+    const hero = document.querySelector<HTMLElement>("[data-site-hero]");
+
+    if (!hero) {
       setIsVisible(true);
       return;
     }
 
-    const visibleSurfaces = new Set<Element>();
+    setIsVisible(false);
+    // WHY: o fim geométrico do hero é estável em qualquer viewport; a altura total
+    // da página e os CTAs intermediários não devem atrasar o contato flutuante.
     const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) visibleSurfaces.add(entry.target);
-          else visibleSurfaces.delete(entry.target);
-        }
-        setIsVisible(visibleSurfaces.size === 0);
+      ([entry]) => {
+        if (!entry) return;
+        setIsVisible(!entry.isIntersecting);
       },
-      { threshold: 0.2 },
+      { threshold: 0 },
     );
-    contactSurfaces.forEach((surface) => observer.observe(surface));
+
+    observer.observe(hero);
     return () => observer.disconnect();
   }, [pathname]);
 

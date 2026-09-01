@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <a href="#conteudo" className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-surface px-5 py-3 text-sm font-semibold text-content transition-transform focus:translate-y-0">Ir para o conteúdo</a>
       <SiteHeader />
       <main id="conteudo">
-        <section className="relative isolate flex h-[84svh] min-h-[42rem] max-h-[58rem] items-end overflow-hidden bg-surface-contrast pb-12 pt-32 text-content-onContrast sm:pb-16">
+        <section data-site-hero className="relative isolate flex h-[84svh] min-h-[42rem] max-h-[58rem] items-end overflow-hidden bg-surface-contrast pb-12 pt-32 text-content-onContrast sm:pb-16">
           {/* WHY: cada detalhe possui uma única capa prioritária; as demais fotos são carregadas apenas ao se aproximarem do viewport. */}
           <Image src={project.cover.src} alt={project.cover.alt} fill priority fetchPriority="high" sizes="100vw" style={{ objectPosition: project.cover.position }} className="object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,35,25,0.62)_0%,rgba(18,35,25,0.12)_40%,rgba(18,35,25,0.86)_100%)]" />

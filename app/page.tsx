@@ -94,7 +94,7 @@ export default function HomePage() {
       <SiteHeader tone="dark" />
 
       <main id="conteudo">
-        <section className="relative isolate overflow-hidden bg-surface">
+        <section data-site-hero className="relative isolate overflow-hidden bg-surface">
           <div aria-hidden="true" className="absolute inset-x-0 top-[7rem] h-px bg-stroke/70" />
           <div aria-hidden="true" className="absolute bottom-0 left-[58%] top-0 hidden w-px bg-stroke/70 lg:block" />
           <div className="page-frame relative pb-16 pt-[calc(8.5rem+env(safe-area-inset-top))] sm:pb-20 sm:pt-[calc(10rem+env(safe-area-inset-top))] lg:min-h-[58rem] lg:pb-16 lg:pt-40">
@@ -237,8 +237,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative -mx-5 min-h-[34rem] [clip-path:polygon(12%_0,100%_0,100%_100%,0_100%,0_12%)] sm:-mx-8 lg:col-span-5 lg:-mr-12 lg:ml-0 lg:min-h-full xl:-mr-16">
-              <Image src="/images/projects/hotel-jardins/jardins-05.jpg" alt="Detalhe vertical do paisagismo desenvolvido para hotel nos Jardins" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
+            <div className="relative -mx-5 min-h-[34rem] sm:-mx-8 lg:col-span-5 lg:-mr-12 lg:ml-0 lg:min-h-full xl:-mr-16">
+              <div className="absolute inset-0 overflow-hidden [clip-path:polygon(12%_0,100%_0,100%_100%,0_100%,0_12%)]">
+                <Image src="/images/projects/hotel-jardins/jardins-05.jpg" alt="Detalhe vertical do paisagismo desenvolvido para hotel nos Jardins" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
+              </div>
               <div className="absolute inset-x-5 bottom-5 bg-surface-contrast p-6 text-content-onContrast shadow-lift [clip-path:polygon(0_0,100%_0,100%_84%,92%_100%,0_100%)] sm:inset-x-8 sm:bottom-8 sm:p-8 lg:left-[-3rem] lg:right-8">
                 <p className="text-[0.58rem] font-semibold uppercase tracking-[0.19em] text-accent-soft">Referência no mercado</p>
                 <p className="mt-3 font-editorial text-2xl font-medium leading-tight sm:text-3xl">Atuação com grandes bandeiras nacionais e internacionais de hotelaria.</p>
